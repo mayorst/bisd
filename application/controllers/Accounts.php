@@ -18,11 +18,12 @@ class Accounts extends CI_Controller
         if (!$this->session->userdata('logged_in')) {
             // Allow some methods?
             $allowed = array(
-                'login',
+                'login', 'verify', 'forgotPassword',
             );
             if (!in_array($this->router->fetch_method(), $allowed)) {
                 redirect('login');
             }
+
         }
 
         $this->load->library('form_validation');
@@ -123,14 +124,17 @@ class Accounts extends CI_Controller
  */
     public function check_username($username)
     {
-        $usernameHolder = (testVar($this->user_to_update)) ? $this->user_to_update : $_SESSION['user']['member_id'];
+        if ($this->isLoggedIn()) {
+            $usernameHolder = (testVar($this->user_to_update)) ? $this->user_to_update : $_SESSION['user']['member_id'];
 
-        if ($this->Account_model->isUsernameUnique($username, $usernameHolder)) {
-            return true;
-        } else {
-            $this->form_validation->set_message('check_username', 'The Username was already taken.');
-            return false;
+            if ($this->Account_model->isUsernameUnique($username, $usernameHolder)) {
+                return true;
+            } else {
+                $this->form_validation->set_message('check_username', 'The Username was already taken.');
+                return false;
+            }
         }
+
     }
 
     public function create()
@@ -147,17 +151,35 @@ class Accounts extends CI_Controller
                                 $newMember['create_account']);
                         }
 
-                        $newMember['member_id'] = $this->Account_model->getNextUserID();
                         if ($newMember['_password']) {
                             $newMember['_password'] = password_hash($newMember['_password'], PASSWORD_DEFAULT);
                         }
-                        $newMember['_status'] = pv::ACCOUNT_STATUS['active'];
 
                         $newMember = str_start_case($newMember, array('email', 'username', '_password', 'prof_pic'));
-                        $result = $this->Account_model->addMember($newMember);
-                        // $this->Account_model->addTempMember($newMember); // adds a tempory member needs email verification to make the account permanent.
-                        // send verification on the email to make the new user permanent
-                        redirect(base_url('accounts/manage'), 'refresh');
+
+                        // $newMember['member_id'] = $this->Account_model->getNextUserID();
+                        // $newMember['_status'] = pv::ACCOUNT_STATUS['active'];
+                        // $result = $this->Account_model->addMember($newMember); // if isesave naagad sa db
+
+                        $verificationKey = md5(uniqid());
+                        $newMember['acc_verification'] = $verificationKey;
+                        $newMember['_status'] = 'unregistered';
+
+                        if ($id = $this->Account_model->addTempMember($newMember)) {
+                            if ($id) {
+                                $subject = "Account Verification";
+                                $message = 'This is to verify your account at Benitez Institute for Sustainable Development Website. Please click the link or copy and paste it to the url to verify your account. \n\n\n ' .
+                                base_url("accounts/verify/$id/" . $verificationKey);
+
+                                sendEmail($newMember['email'], $subject, $message);
+                            }
+
+                            prompt::success('The Account was created. Please check ' . $newMember['email'] . ' to verify the account.');
+                            redirect(base_url('accounts/manage'), 'refresh');
+                        } else {
+                            prompt::error('Unable to create acount.Please Try again.');
+                        }
+
                     }
                 } else {
                     Template::accounts('create_account');
@@ -169,6 +191,23 @@ class Accounts extends CI_Controller
 
         } else {
             Template::accounts('login');
+        }
+    }
+
+    public function verify($id, $key)
+    {
+        if (!empty($id) && !empty($key)) {
+            if ($user = $this->Account_model->getTempUser('', 'temp_member_id = ' . $id . ' AND acc_verification = \'' . $key . '\'')) {
+                unset($user['temp_member_id'], $user['acc_verification']);
+
+                $user['member_id'] = $this->Account_model->getNextUserID();
+                $user['_status'] = 'Active';
+
+                if ($this->Account_model->addMember($user)) {
+                    $this->Account_model->deleteTempMember($id);
+                    redirect('login', 'refresh');
+                }
+            }
         }
     }
 
@@ -190,8 +229,19 @@ class Accounts extends CI_Controller
                     $runUpdate = false;
                     if (isset($_POST['credentials_form'])) {
                         if ($this->form_validation->run('credentials')) {
-                            unset($updatedInfo['credentials_form']);
-                            $runUpdate = true;
+
+                            $oldPass = $updatedInfo['old_password'];
+                            $oldUser = $this->Account_model->getUser($user_id);
+
+                            $pass = password_verify($oldPass, testVar($oldUser['_password']));
+
+                            if ($pass) {
+                                unset($updatedInfo['credentials_form'], $updatedInfo['old_password']);
+                                $runUpdate = true;
+                            } else {
+                                prompt::error('Invalid old password.');
+                            }
+
                         }
                     } else {
                         if ($this->form_validation->run('memberInfo')) {
@@ -231,6 +281,43 @@ class Accounts extends CI_Controller
         } else {
             Template::accounts('login');
         }
+    }
+
+    public function forgotPassword()
+    {
+
+        if ($_POST) {
+            // if ($this->form_validation->run('credentials')) {
+            $usern = $_POST['username'];
+
+            if ($acc = $this->Account_model->getMember('', "username = '" . $usern . "' ")) {
+                $id = $acc['member_id'];
+                $pass = generateRandomStr(6);
+                $acc['_password'] = password_hash($pass, PASSWORD_DEFAULT);
+
+                $subject = "Change Password";
+                $mess = "Your account at BISD website was change. Your new password is : " . $pass;
+
+                if (sendEmail($acc['email'], $subject, $mess)) {
+
+                    if ($this->Account_model->updateMember($id, $acc)) {
+                        prompt::success('Your account password was change. Your new Password is sent to ' . $acc['email'] . '.');
+                        redirect('login');
+                    } else {
+                        prompt::error("Unable to change your password.");
+                    }
+
+                } else {
+                    prompt::error("Unable to send new password to your email.");
+                }
+
+            } else {
+                prompt::error("Username doesn't match to any account.");
+            }
+            // }
+        }
+
+        Template::accounts('forgot_password');
     }
 
 }

@@ -43,6 +43,11 @@ $config = array(
                 'max_length' => '%s must not be greater than 10 characters.'),
         ),
         array(
+            'field' => 'old_password',
+            'label' => 'Old Password',
+            'rules' => 'trim|required',
+        ),
+        array(
             'field' => '_password',
             'label' => 'Password',
             'rules' => 'trim|required',

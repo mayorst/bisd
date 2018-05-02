@@ -50,7 +50,8 @@ class Template
 
         self::$load->view('templates/header', $data);
 
-        if (preg_match("/^(login)$/", $page)) {
+        $defNavPage = array('login', 'forgot_password');
+        if (in_array($page, $defNavPage)) {
             self::$load->view('templates/navbar', $data);
         } else {
             self::$load->view('templates/mngmnt_navbar', $data);

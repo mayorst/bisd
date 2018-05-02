@@ -1,0 +1,1 @@
+dito ilagay lahat ng resources na gagamitin for landing page.

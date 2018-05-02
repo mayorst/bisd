@@ -1,0 +1,337 @@
+:root {
+
+	--blue: #1F88DFFF;
+	--blue-1: #2D90E1FF;
+	--blue-2: #1D7BC3FF;
+	--blue1: #3694E2FF;
+	--blue2: #5EAAE8FF;
+	--blue3: #7EBCEBFF;
+}
+
+
+
+.align-center {
+	text-align: center;
+}
+
+.align-right {
+	text-align: right;
+}
+
+.no-padding {
+	padding: initial;
+}
+
+.right-button {
+	/*float: right;*/
+	margin-left: 5px;
+}
+
+.bg-color-blue {
+	background-color: #1F88DFFF;
+	color: white;
+}
+
+.hidden {
+	display: none;
+}
+
+form {
+	position: relative;
+	background-color: white;
+	display: inline-block;
+	text-align: left;
+	padding: 1rem;
+	margin: 20px;
+	width: 80%;
+	min-width: 270px;
+	-webkit-filter: drop-shadow(0px 0px 5px #555);
+	filter: drop-shadow(0px 0px 5px #555);
+}
+
+form label {
+	color: #7F7F7FFF;
+}
+
+form input:not([type="submit"]) {
+	height: 2rem;
+}
+
+
+
+/* ============= TABLE ============= */
+
+.table-hover {
+	width: 100%;
+}
+
+.table-hover tbody {
+	max-height: 100px;
+	overflow-y: auto;
+	width: 100%;
+}
+
+.table-hover .table-secondary,
+.table-hover .table-secondary>th,
+.table-hover .table-secondary>td {
+	background-color: #F4F4F4;
+}
+
+
+
+
+
+
+
+/*================== Side bar =================== */
+
+.wrapper {
+	display: flex;
+	align-items: stretch;
+	perspective: 1500px;
+	/* Define how many pixels the sidebar is placed from the view. */
+	min-height: 550px;
+}
+
+#sidebar {
+	min-width: 250px;
+	max-width: 250px;
+	background: var(--blue);
+	color: #fff;
+	transition: all 0.6s cubic-bezier(0.945, 0.020, 0.270, 0.665);
+	transform-origin: center left;
+	/* Set the transformed position of sidebar to center left side. */
+}
+
+#sidebar.active {
+	margin-left: -250px;
+	transform: rotateY(100deg);
+	/* Rotate sidebar vertically by 100 degrees. */
+}
+
+a[data-toggle="collapse"] {
+	position: relative;
+}
+
+#sidebar a[aria-expanded="false"]::before,
+#sidebar a[aria-expanded="true"]::before {
+	content: ">";
+	display: block;
+	position: absolute;
+	right: 20px;
+	font-size: 0.6em;
+}
+
+#sidebar a[aria-expanded="true"]::before {
+	content: "...";
+}
+
+
+#sidebarCollapse {
+	width: 40px;
+	height: 40px;
+	background: #f5f5f5;
+	float: left;
+	border-radius: 0.25rem;
+	padding: initial;
+}
+
+#sidebarCollapse span {
+	width: 80%;
+	height: 2px;
+	margin: 0 auto;
+	display: block;
+	background: #555;
+	transition: all 0.8s cubic-bezier(0.810, -0.330, 0.345, 1.375);
+}
+
+#sidebarCollapse span:first-of-type {
+	/* rotate first one */
+	transform: rotate(45deg) translate(2px, 2px);
+}
+
+#sidebarCollapse span:nth-of-type(2) {
+	/* second one is not visible */
+	opacity: 0;
+}
+
+#sidebarCollapse span:last-of-type {
+	/* rotate third one */
+	transform: rotate(-45deg) translate(1px, -1px);
+}
+
+#sidebarCollapse.active span {
+	/* no rotation */
+	transform: none;
+	/* all bars are visible */
+	opacity: 1;
+	margin: 5px auto;
+}
+
+
+
+@media (max-width: 768px) {
+	/* Reversing the behavior of the sidebar:
+       it'll be rotated vertically and off canvas by default,
+       collapsing in on toggle button click with removal of
+       the vertical rotation.   */
+	#sidebar {
+		margin-left: -250px;
+		transform: rotateY(100deg);
+	}
+	#sidebar.active {
+		margin-left: 0;
+		transform: none;
+	}
+
+	/* Reversing the behavior of the bars:
+       Removing the rotation from the first,
+       last bars and reappear the second bar on default state,
+       and giving them a vertical margin */
+	#sidebarCollapse span:first-of-type,
+	#sidebarCollapse span:nth-of-type(2),
+	#sidebarCollapse span:last-of-type {
+		transform: none;
+		opacity: 1;
+		margin: 5px auto;
+	}
+
+	/* Removing the vertical margin and make the first and last bars rotate again when the sidebar is open, hiding the second bar */
+	#sidebarCollapse.active span {
+		margin: 0 auto;
+	}
+	#sidebarCollapse.active span:first-of-type {
+		transform: rotate(45deg) translate(2px, 2px);
+	}
+	#sidebarCollapse.active span:nth-of-type(2) {
+		opacity: 0;
+	}
+	#sidebarCollapse.active span:last-of-type {
+		transform: rotate(-45deg) translate(1px, -1px);
+	}
+}
+
+
+
+
+
+
+
+
+/* Side Bar Style*/
+
+a,
+a:hover,
+a:focus {
+	color: inherit;
+	text-decoration: none;
+	transition: all 0.3s;
+}
+
+
+#sidebar {
+	/* don't forget to add all the previously mentioned styles here too */
+	background: var(--blue-2);
+	color: #fff;
+	transition: all 0.3s;
+}
+
+#sidebar .sidebar-header {
+	padding: 20px;
+	background: var(--blue1);
+}
+
+#sidebar ul.components {
+	padding: 20px 0;
+	border-bottom: 1px solid #47748b;
+}
+
+#sidebar ul p {
+	color: #fff;
+	padding: 10px;
+}
+
+#sidebar ul li a {
+	padding: 10px;
+	font-size: 1.1em;
+	display: block;
+}
+
+#sidebar ul li a:hover {
+	color: var(--blue3);
+	background: #fff;
+}
+
+#sidebar ul li.active>a,
+a[aria-expanded="true"] {
+	color: #fff;
+	background: var(--blue-1);
+}
+
+ul ul a {
+	font-size: 0.9em !important;
+	padding-left: 30px !important;
+	background: var(--blue-1);
+}
+
+
+/*============= =============== =========== */
+
+/*- Browser Scrollbar -*/
+
+/* width */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #DBDBDB; 
+    border-radius: 5px; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+    border-radius: 3px; 
+}
+
+
+
+
+/*=========== ========== ==========*/
+
+.home .jumbotron {
+	background-color: #D8EDE5FF;
+}
+
+.navbar-collapse .nav-item .nav-link {
+	padding: 0.5rem;
+}
+
+.navbar-collapse {
+	background-color: #fff;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+	color: white;
+	background-color: #64BE7CFF;
+}
+
+.navbar {
+	position: fixed;
+	width: 100%;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	height: 4rem;
+	z-index: 99;
+	/*filter and -webkit-filter are the same, it is need to to include for cross browser compatibility*/
+	-webkit-filter: drop-shadow(0px 0px 2px #555);
+	filter: drop-shadow(0px 0px 2px #555);
+}

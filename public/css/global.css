@@ -1,0 +1,287 @@
+/*========== COURSE LANDING PAGE ==========*/
+
+.course-category {
+	text-align: center;
+	color: white;
+	background-color: #4AA7B4FF;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+}
+
+.course-desc {
+	text-indent: 4rem;
+	text-align: justify;
+}
+
+
+
+/*========== COURSE MANAGEMENT==========*/
+
+div.select-course {
+	text-align: left;
+	width: 80%;
+	font-size: 0.9rem;
+}
+
+div.courses form .form-check label {
+	font-size: 0.9rem;
+	color: #262626FF;
+	min-height: 30px;
+}
+
+div.select-course label input[type="radio"],
+div.select-course label input[type="checkbox"] {
+	transform: scale(1.2);
+	height: initial;
+}
+
+div.select-course .row {
+	max-height: 360px;
+	overflow-y: auto;
+	margin-bottom: 20px;
+	padding: 10px;
+}
+
+#id_prereq.select-course {
+	width: 95%;
+}
+
+.courses form .align-right {
+	margin-top: 10px;
+}
+
+
+.courses .card .card-text {
+	position: relative;
+	height: 10em;
+	max-height: 10em;
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+
+.courses .card .card-text:hover {
+	overflow-y: auto;
+}
+
+.courses .card-deck .card-footer {
+	position: relative;
+	margin-top: 1rem;
+	bottom: 0px;
+	width: 100%;
+	background-color: initial;
+}
+
+.card-deck .card-header{
+	margin-bottom: 15px;
+	text-align: left;
+	padding: 0.5rem 0.5rem;
+}
+
+
+
+/*================ MEMBERSHIP FORM ==========*/
+
+.membership-form {
+	text-align: center;
+}
+
+.membership-form .row div {
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.userCredential {
+	max-width: 500px;
+}
+
+
+
+/* =================== MANAGEMENT ============*/
+
+.manage-account h4 {
+	margin-top: 20px;
+	margin-bottom: 15px;
+	text-align: center;
+}
+
+.manage-account .tbl-member {
+	height: 400px;
+	max-height: 400px;
+	overflow-y: auto;
+	width: 100%;
+}
+
+.manage-account .tbl-member .table-hover td {
+	font-size: 0.8rem;
+	vertical-align: middle;
+}
+
+.manage-account .tbl-member .table-hover .btn {
+	padding: 0.6rem
+}
+
+
+.img-profile-pic {
+	height: inherit;
+	width: 100px;
+}
+
+
+
+/*================= LOGIN ======================*/
+
+.login-input {
+	text-align: center;
+}
+
+.login-input form {
+	position: relative;
+	top: 80px;
+	background-color: white;
+	display: inline-block;
+	text-align: left;
+	padding: 1rem;
+	margin: 20px;
+	width: 50%;
+	min-width: 270px;
+	-webkit-filter: drop-shadow(0px 0px 5px #555);
+	filter: drop-shadow(0px 0px 5px #555);
+}
+
+
+
+/*================= HOME =================*/
+
+.home section h3 {
+	text-align: center;
+	background-color: #4AA7B4FF;
+	padding: 0.5rem 0;
+	color: white;
+}
+
+.home section {
+	margin-top: 3rem;
+	margin-bottom: : 2rem;
+}
+
+ul.whats-bisd {
+	display: inline-block;
+}
+
+
+.home blockquote {
+	border-top: 1px solid #C6C6C6E0;
+	border-bottom: 1px solid #C6C6C6E0;
+	padding: 1.5rem 0;
+	text-align: center;
+}
+
+.home .quote {
+	font-family: inherit;
+	font-size: 1.5rem;
+	font-weight: 500;
+}
+
+.h-benitez-img {
+	-webkit-filter: grayscale(50%) drop-shadow(5px 4px 10px gray);
+	filter: grayscale(80%) drop-shadow(5px 4px 10px gray);
+}
+
+.h-benitez-img+p {
+	margin-top: 1.2rem;
+	font-style: initial;
+	font-family: inherit;
+}
+
+.learningCenter-ph {
+	text-align: center;
+}
+
+.learningCenter-ph h3 {
+	text-align: initial;
+}
+
+
+
+/* ====================================== */
+
+.mngmnt-heading {
+	font-size: 2rem;
+	color: white;
+	padding: 10px;
+	padding-left: 20px;
+	font-weight: 600;
+}
+
+.courses.page-body,
+.dashboard.page-body {
+	padding-top: 10px;
+}
+
+.vcenter {
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+}
+
+.small-logo {
+	width: 5rem;
+	margin-right: 5px;
+}
+
+
+.round-img {
+	--img-height: 100vh;
+	border-radius: var(--img-height);
+}
+
+.responsive-img {
+	width: 100%;
+}
+
+.page-body {
+	min-height: 80vh;
+}
+
+.float-prompt {
+
+	position: absolute;
+	left: 50%;
+	top: 20px;
+	z-index: 100;
+	width: 60vw;
+}
+
+.float-prompt>* {
+	text-align: initial;
+	position: relative;
+	left: -50%;
+	display: none;
+}
+
+.alert hr {
+	margin: 0.5rem 0;
+}
+
+
+
+/* use in viewing form input error*/
+
+.invalid-feedback {
+	display: inline-block;
+}
+
+.footer {
+	-webkit-filter: drop-shadow(-5px 1px 10px gray);
+	filter: drop-shadow(-5px 1px 8px gray);
+	margin-top: 10px;
+	padding-top: 10px;
+	padding-bottom: 20px;
+	background-color: #D8EDE5FF;
+}
+
+.footer-copyright {
+	text-align: center;
+}

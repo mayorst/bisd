@@ -26,15 +26,43 @@ class Account_model extends CI_Model
     public function getUser($userid = '')
     {
         if (isset($userid)) {
-            $rs = $this->db->SELECT('*')->from('tbl_member')
-                ->WHERE('member_id', $userid)
-                ->get()->result_array();
-            if (count($rs) > 0) {
-                return $rs[0];
-            } else {
-                return false;
-            }
+            return $this->getMember('', "member_id = '" . $userid."' ");
         }
+
+    }
+
+    public function getMember($cols = "*", $where = "1=1")
+    {
+
+        $rs = $this->db->SELECT($cols)->from('tbl_member')
+            ->WHERE($where)
+            ->get()->result_array();
+        if (count($rs) > 0) {
+            return $rs[0];
+        } else {
+            return false;
+        }
+
+        // echo $this->db->last_query();
+    }
+
+    public function getTempUser($cols = '*', $where = '1=1')
+    {
+
+        $rs = $this->db->SELECT($cols)->from('tbl_temp_member')
+            ->WHERE($where)
+            ->get()->result_array();
+        if (count($rs) > 0) {
+            return $rs[0];
+        } else {
+            return false;
+        }
+
+    }
+
+    public function deleteTempMember($id)
+    {
+        return $this->db->delete('tbl_temp_member', array('temp_member_id' => $id));
     }
 
     public function isUsernameUnique($username, $usernameHolder = '')
@@ -59,7 +87,7 @@ class Account_model extends CI_Model
     public function addMember($newUser = array())
     {
         if ($newUser) {
-            return $this->db->insert('tbl_member', $newUser,TRUE);
+            return $this->db->insert('tbl_member', $newUser, true);
         } else {
             return false;
         }
@@ -72,7 +100,9 @@ class Account_model extends CI_Model
     public function addTempMember($newUser = array())
     {
         if (isset($newUser)) {
-            return $this->db->insert('tbl_temp_member', $newUser,TRUE);
+            if ($this->db->insert('tbl_temp_member', $newUser, true)) {
+                return $this->db->insert_id();
+            }
         } else {
             return false;
         }

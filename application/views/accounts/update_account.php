@@ -22,6 +22,7 @@
                         $form_data['title'] = 'Account Information';
                         $form_data['btnSubmit'] = 'update';
                         $form_data['user_to_update'] = testVar($user_to_update);
+                        $form_data['view_setting'] = array('viewOldPass');
                         $CI->load->view('accounts/templates/membership_form', $form_data);
                     ?>
 				</div>

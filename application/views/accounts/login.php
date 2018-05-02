@@ -1,6 +1,6 @@
 <div class="container page-body">
-	<div class="login-input">
-		<?php
+    <div class="login-input">
+        <?php
             echo form_open();
             echo form_fieldset();
 
@@ -17,9 +17,13 @@
             );
             form_input_wLabel($data);
         ?>
-		<div class=" align-right">
-			<button type="submit" class="btn btn-primary right-button">LOGIN</button>
-		</div>
-		<?=form_fieldset_close();form_close()?>
-	</div>
+            <div class=" align-right">
+                <button type="submit" class="btn btn-primary right-button">LOGIN</button>
+            </div>
+            <div>
+                <a href="<?=base_url('accounts/forgotPassword')?>">Forgot Password?</a>
+            </div>
+            <?=form_fieldset_close();
+form_close()?>
+    </div>
 </div>

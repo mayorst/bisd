@@ -1,0 +1,33 @@
+<div class="page-body view-account">
+	<div class="container">
+		<div>
+			<span><?=$_SESSION['user']['member_id']?></span>
+		</div>
+		<div>
+			<span><?=$_SESSION['user']['username']?></span>
+		</div>
+		<div>
+			<span><?=$_SESSION['user']['last_name']?></span>
+			<span><?=$_SESSION['user']['first_name']?></span>
+			<span><?=$_SESSION['user']['middle_name']?></span>
+		</div>
+		<div>
+			<span><?=$_SESSION['user']['birthdate']?></span>
+			<span><?=$_SESSION['user']['gender']?></span>
+		</div>
+		<div>
+			<span><?=$_SESSION['user']['street']?></span>
+			<span><?=$_SESSION['user']['barangay']?></span>
+			<span><?=$_SESSION['user']['municipality']?></span>
+			<span><?=$_SESSION['user']['province']?></span>
+		</div>
+		<div>
+			<span><?=$_SESSION['user']['contact_number']?></span>
+			<span><?=$_SESSION['user']['email']?></span>
+		</div>
+		<div>
+			<span><?=$_SESSION['user']['_position']?></span>
+			<span><?=$_SESSION['user']['_status']?></span>
+		</div>
+	</div>
+</div>

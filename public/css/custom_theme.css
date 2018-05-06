@@ -9,6 +9,14 @@
 }
 
 
+ .table-hover td {
+	font-size: 1rem;
+	vertical-align: middle;
+}
+
+ .table-hover .btn {
+	padding: 0.6rem
+}
 
 .align-center {
 	text-align: center;
@@ -53,10 +61,29 @@ form label {
 	color: #7F7F7FFF;
 }
 
-form input:not([type="submit"]) {
+/*form input:not([type="submit"]),*/
+form input[type="text"],
+form input[type="date"],
+form input[type="time"], {
 	height: 2rem;
 }
 
+/*======= File input as Button =======*/
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.upload-btn-wrapper input[type=file] {
+  height: 100%;
+  width: 100%;
+
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
 
 
 /* ============= TABLE ============= */

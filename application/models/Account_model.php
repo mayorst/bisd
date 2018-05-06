@@ -26,7 +26,7 @@ class Account_model extends CI_Model
     public function getUser($userid = '')
     {
         if (isset($userid)) {
-            return $this->getMember('', "member_id = '" . $userid."' ");
+            return $this->getMember('', "member_id = '" . $userid . "' ");
         }
 
     }
@@ -36,6 +36,7 @@ class Account_model extends CI_Model
 
         $rs = $this->db->SELECT($cols)->from('tbl_member')
             ->WHERE($where)
+            ->ORDER_BY('_status ASC, CONCAT(last_name,first_name,middle_name) ASC')
             ->get()->result_array();
         if (count($rs) > 0) {
             return $rs[0];
@@ -72,12 +73,37 @@ class Account_model extends CI_Model
             ->WHERE('username = ', "'$username'", false)
             ->WHERE('member_id !=', "'$usernameHolder'", false)
             ->get()->result_array();
-        if (count($rs) == 0) {
+
+        $temprs = $this->db->SELECT('username')
+            ->from('tbl_temp_member')
+            ->WHERE('username = ', "'$username'", false)
+            ->get()->result_array();
+
+        if (count($rs) == 0 && count($temprs) == 0) {
             return true;
         } else {
             return false;
         }
 
+    }
+
+    public function isEmailUnique($email = '', $id = '')
+    {
+        $rs = $this->db->SELECT('email')
+            ->from('tbl_member')
+            ->WHERE('email = ', "'$email'", false)
+            ->WHERE('member_id != ', "'$id'", false)
+            ->get()->result_array();
+
+        $temprs = $this->db->SELECT('email')
+            ->from('tbl_temp_member')
+            ->WHERE('email = ', "'$email'", false)
+            ->get()->result_array();
+        if (count($rs) == 0 && count($temprs) == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 /**

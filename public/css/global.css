@@ -1,3 +1,61 @@
+/* ========== EVENTS MANAGEMENT =============*/
+
+
+
+
+ .my-tbl {
+	height: 400px;
+	max-height: 400px;
+	overflow-y: auto;
+	width: 100%;
+}
+/* events form */
+.events-form .form-check-input{
+position: relative;
+margin-left: 10px;
+
+}
+.events-form .form-group.address{
+margin-top: 10px;
+margin-bottom: 10px;
+
+}
+.events-form .form-group.address .form-check.row{
+
+margin-bottom: 10px;
+
+}
+
+/* venue form */
+.img_container{
+	overflow: hidden;
+	height: 140px;
+	background-color: #E8E8E8FF;
+	margin-top: 10px;
+}
+.img_container img{
+	position: relative;
+	width: 70%;
+	/*height: 100%;*/
+	 top: 50%;
+    transform: translateY(-50%);
+}
+
+.btn-upload-venue-img{
+	position: absolute;
+	
+	top: 0;
+	right: 15px;
+}
+
+#venue-form .btn-upload-venue-img .btn{
+	width:35px;
+	height: 35px;
+	padding: 0;
+	margin: 0;
+}
+
+
 /*========== COURSE LANDING PAGE ==========*/
 
 .course-category {

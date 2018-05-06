@@ -12,7 +12,10 @@
           <a class="nav-link" href="<?php echo base_url('management'); ?>"><i class="fa fa-home" ></i> Content Mangement <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo base_url('management/course'); ?>"><i class="fa fa-home" ></i> Courses </a>
+          <a class="nav-link" href="<?php echo base_url('management/course'); ?>"><i class="fa fa-lightbulb" ></i> Courses </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?php echo base_url('events/view'); ?>"><i class="fa fa-calendar" ></i> Events </a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">

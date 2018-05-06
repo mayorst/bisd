@@ -82,4 +82,22 @@ class Template
 
     }
 
+    public static function events($page = 'view_events', $data = array())
+    {
+        $pagePath = 'events/' . $page . '.php';
+        if (!file_exists(VIEWPATH . $pagePath)) {
+            show_404();
+        }
+        if (!isset($data['config'])) {
+            $data['config'] = self::$CI->config->config;
+        }
+        self::$load->view('templates/header', $data);
+        self::$load->view('templates/mngmnt_navbar', $data);
+
+        self::$load->view('templates/prompt', $data);
+
+        self::$load->view($pagePath, $data);
+        self::$load->view('templates/mngmnt_footer', $data);
+    }
+
 }

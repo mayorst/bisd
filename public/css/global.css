@@ -1,10 +1,29 @@
 /* ========== EVENTS MANAGEMENT =============*/
 
+
+
+
  .my-tbl {
 	height: 400px;
 	max-height: 400px;
 	overflow-y: auto;
 	width: 100%;
+}
+/* events form */
+.events-form .form-check-input{
+position: relative;
+margin-left: 10px;
+
+}
+.events-form .form-group.address{
+margin-top: 10px;
+margin-bottom: 10px;
+
+}
+.events-form .form-group.address .form-check.row{
+
+margin-bottom: 10px;
+
 }
 
 /* venue form */

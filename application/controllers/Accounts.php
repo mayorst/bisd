@@ -142,7 +142,19 @@ class Accounts extends CI_Controller
         if ($this->isLoggedIn()) {
             if ($this->is_admin()) {
                 if ($_POST) {
+
+                    $this->form_validation->load_config_rule('memberInfo_all');
+                    $this->form_validation->set_rules(
+                        'email', 'Email',
+                        array(
+                            'trim', 'required',
+                            array('isEmailUnique', array($this->Account_model, 'isEmailUnique')),
+                        )
+                    );
+                    $this->form_validation->set_message('isEmailUnique', 'The Email was already used by another account. Add new Email Address.');
+
                     if ($this->form_validation->run('memberInfo_all') == false) {
+
                         Template::accounts('create_account');
                     } else {
                         $newMember = $_POST;
@@ -211,6 +223,16 @@ class Accounts extends CI_Controller
         }
     }
 
+    public function isEmailUnique($email, $id = '')
+    {
+        if ($this->Account_model->isEmailUnique($email, $id)) {
+            return true;
+        } else {
+
+            $this->form_validation->set_message('isEmailUnique', 'The Email was already used by another account. Add new Email Address.');
+            return false;
+        }
+    }
     public $user_to_update = '';
     public function update($user_id = '')
     {
@@ -218,6 +240,7 @@ class Accounts extends CI_Controller
         if ($this->isLoggedIn()) {
             if ($this->is_admin()
                 || $_SESSION['user']['member_id'] == $user_id) {
+
                 if ($_POST) {
                     $updatedInfo = $_POST;
                     unset($updatedInfo['confirm_password'], $updatedInfo['update']);
@@ -260,6 +283,16 @@ class Accounts extends CI_Controller
                         }
 
                     } else {
+                        $this->form_validation->load_config_rule('memberInfo');
+                        $this->form_validation->set_rules(
+                            'email', 'Email',
+                            array(
+                                'trim', 'required',
+                                'callback_isEmailUnique['
+                                . $user_id . ']',
+                            )
+                        );
+
                         if ($this->form_validation->run('memberInfo')) {
                             $runUpdate = true;
                         }

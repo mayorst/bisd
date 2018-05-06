@@ -11,12 +11,9 @@
                 ?>
 			</div>
 			<div class="mt-2 text-right">
-				<a class="btn btn-outline-primary" href="">Create Event</a>
+				<a class="btn btn-outline-primary" href="<?=base_url('events/create')?>">Create Event</a>
 			</div>
 		</div>
-		<?php
-            $CI = &get_instance();
-            $CI->load->view('events/templates/events_form');
-        ?>
+
 	</div>
 </div>

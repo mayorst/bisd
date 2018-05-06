@@ -69,13 +69,14 @@ function form_input_wErrorNotif($data = array(), $value = '', $extra = '')
     );
 
     $form_input_attr =
-    (isset($data['input']) and is_array($data['input'])) ? array_merge($defaults, $data['input']) : (
-        is_array($data) ? array_merge($defaults, $data) : $defaults);
+    (isset($data['input']) and is_array($data['input']))
+    ? array_merge($defaults, $data['input'])
+    : (is_array($data) ? array_merge($defaults, $data) : $defaults);
 
     echo form_input($form_input_attr, $value, $extra);
 
     if (isset($form_input_attr['name'])) {
-        echo form_inputFeedback($form_input_attr['name'],$data);
+        echo form_inputFeedback($form_input_attr['name'], $data);
     }
 }
 
@@ -85,6 +86,6 @@ function form_inputFeedback($form_input_name, $data = '')
     if (isset($data['feedbackClass'])) {
         $feedbackClass = $data['feedbackClass'];
     }
-   return form_error($form_input_name, '<div class="invalid-feedback ' . $feedbackClass . '">', '</div>');
+    return form_error($form_input_name, '<div class="invalid-feedback ' . $feedbackClass . '">', '</div>');
 
 }

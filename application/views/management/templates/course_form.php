@@ -9,8 +9,7 @@
     echo form_open();
     echo form_fieldset();
 
-    $form_title = testVar($courseToUpdate)? 'Update Course':'Create Course';
-
+    $form_title = testVar($courseToUpdate) ? 'Update Course' : 'Create Course';
 ?>
     <h3><?=$form_title?></h3>
     <?php

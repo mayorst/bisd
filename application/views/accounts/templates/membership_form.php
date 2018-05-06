@@ -54,15 +54,19 @@
                 echo form_fieldset(''); ?>
 				<div class="row">
 					<div class="col-md-5">
-						<?php form_input_wLabel(array('label' => 'birthdate', 'input' => array('type' => 'date')), (($type === pv::UPDATE) ? $userInfo['birthdate'] : ''));?>
+						<?php
+                            $d = date('Y-m-d');
+                            $date = strtotime($d . ' -18 year');
+                            $date = date('Y-m-d', $date);
+                        form_input_wLabel(array('label' => 'birthdate', 'input' => array('type' => 'date')), (($type === pv::UPDATE) ? $userInfo['birthdate'] : $date));?>
 					</div>
 					<div class="col-md-5">
 						<div class="form-group">
 							<label for="select_gender">Gender</label>
 							<?php
                                 $gender = pv::GENDER;
-                               echo form_dropdown('gender',
-                                   $gender,
+                                echo form_dropdown('gender',
+                                    $gender,
                                     strtolower(($type === pv::UPDATE) ? $userInfo['gender'] : $gender['male']),
                                 'class="form-control"  id="select_gender"');?>
 						</div>

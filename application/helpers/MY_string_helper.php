@@ -1,6 +1,6 @@
 <?php
 /**
- * gets an a string or array to be formatted
+ * gets a string or array to be formatted
  * @param  mixed $str [description]
  * @param  array $except -key/s to exclude in formatting if $str is an array
  * @param  boolean invert - if TRUE formats all the key in the $except

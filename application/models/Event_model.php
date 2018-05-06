@@ -23,6 +23,24 @@ class Event_model extends CI_Model
 
     }
 
+    public function create($newEvent)
+    {
+        if ($this->db->insert('tbl_events', $newEvent, true)) {
+            $newId = $this->db->insert_id();
+            return $newId;
+        } else {
+            return false;
+        }
+    }
+
+    public function update($id, $event)
+    {
+        if ($this->db->update('tbl_events', $event, array('event_id' => $id))) {
+            return true;
+        }
+        return false;
+    }
+
     public function getAllVenue($cols = '*', $where = '1=1')
     {
 

@@ -2,7 +2,6 @@
 
 use \public_variables as pv;
 
-
 class Management extends CI_Controller
 {
     public function __construct()

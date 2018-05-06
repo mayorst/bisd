@@ -61,7 +61,10 @@ form label {
 	color: #7F7F7FFF;
 }
 
-form input:not([type="submit"]) {
+/*form input:not([type="submit"]),*/
+form input[type="text"],
+form input[type="date"],
+form input[type="time"], {
 	height: 2rem;
 }
 

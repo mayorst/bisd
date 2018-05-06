@@ -20,3 +20,14 @@ function debug_to_console($data)
 
     echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
 }
+
+/**
+ * exit system and print a variable
+ * used in debugging
+ * @param  [type] &$var [description]
+ * @return [type]       [description]
+ */
+function prd($var = null)
+{
+    die(print_r($var));
+}

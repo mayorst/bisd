@@ -12,7 +12,7 @@
         <a class="nav-link" href="<?=base_url('courses')?>"><i class="fa fa-lightbulb"></i> Courses</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#"><i class="fa fa-calendar-alt"></i> Events</a>
+        <a class="nav-link" href="#"><i class="fa fa-calendar"></i> Events</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Training Centers</a>

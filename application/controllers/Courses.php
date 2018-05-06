@@ -1,31 +1,23 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
 
-use \public_variables as pv;
-
-
-class Management extends CI_Controller
+/**
+ * NOTES:
+ * this class is not use because courses is controlled by Management/courses. When Im done i will refractor it to this Controller....
+ *
+ */
+class Courses extends CI_Controller
 {
+
     public function __construct()
     {
         parent::__construct();
         if (!$this->session->userdata('logged_in')) {
-            redirect('home');
+            redirect('home'); // redirect if not logged in
         }
-
         $this->load->library('form_validation');
         $this->load->helper('form');
         $this->load->model('Course_model');
-
-    }
-
-    public function index()
-    {
-        redirect('management/dashboard', 'refresh');
-    }
-
-    public function dashboard()
-    {
-        Template::management();
     }
 
     public function course($action = '', $id = '')

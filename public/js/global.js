@@ -1,3 +1,14 @@
+ function previewImage(uploadedBy, viewTo) {
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(document.getElementById(uploadedBy).files[0]);
+
+        oFReader.onload = function (oFREvent) {
+            document.getElementById(viewTo).src = oFREvent.target.result;
+        };
+    };
+
+
+
 function showOneChild(childID, childrenSelector) {
 	console.log(childrenSelector + childID);
 	if ($(childrenSelector).length) {

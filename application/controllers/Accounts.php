@@ -228,21 +228,37 @@ class Accounts extends CI_Controller
 
                     $runUpdate = false;
                     if (isset($_POST['credentials_form'])) {
-                        if ($this->form_validation->run('credentials')) {
 
-                            $oldPass = $updatedInfo['old_password'];
-                            $oldUser = $this->Account_model->getUser($user_id);
+                        unset($updatedInfo['credentials_form']);
 
-                            $pass = password_verify($oldPass, testVar($oldUser['_password']));
+                        if ($this->form_validation->run('update_credentials')) {
 
-                            if ($pass) {
-                                unset($updatedInfo['credentials_form'], $updatedInfo['old_password']);
-                                $runUpdate = true;
+                            if (!empty($_POST['old_password'])) {
+                                $oldPass = $updatedInfo['old_password'];
+                                $oldUser = $this->Account_model->getUser($user_id);
+
+                                $pass = password_verify($oldPass, testVar($oldUser['_password']));
+
+                                if ($pass) {
+                                    unset($updatedInfo['old_password']);
+                                    $runUpdate = true;
+                                } else {
+                                    prompt::error('Invalid old password.');
+                                }
                             } else {
-                                prompt::error('Invalid old password.');
+                                // if  no old pass, just update username.
+                                unset($updatedInfo['old_password'], $updatedInfo['_password']);
+                                if (!empty($_POST['_password'])) {
+                                    prompt::error("Please enter your old password.");
+                                    // redirect(current_url());
+                                } else {
+                                    $runUpdate = true;
+                                }
+
                             }
 
                         }
+
                     } else {
                         if ($this->form_validation->run('memberInfo')) {
                             $runUpdate = true;
@@ -252,6 +268,7 @@ class Accounts extends CI_Controller
                         $userId = testVar($user_id, $_SESSION['user']['member_id']);
                         $updatedInfo = str_start_case($updatedInfo, array('email', 'username', '_password', 'prof_pic'));
                         $result = $this->Account_model->updateMember($userId, $updatedInfo);
+
                         if ($result) {
                             if ($user_id === $_SESSION['user']['member_id']) {
                                 $user = $this->Account_model->getUser($userId);

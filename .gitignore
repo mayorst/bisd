@@ -19,6 +19,9 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 # MY IGNORES
 #-------------------------
 
+resrc
+system
+
 NOTES.txt
 .editorconfig
 bisd.sublime-workspace
@@ -26,7 +29,7 @@ composer.json
 contributing.md
 license.txt
 readme.rst
-system
+
 
 # IDE Files
 #-------------------------

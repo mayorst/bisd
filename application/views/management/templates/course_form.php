@@ -6,12 +6,47 @@
      *
      */
 
-    echo form_open();
+    echo form_open_multipart();
     echo form_fieldset();
 
     $form_title = testVar($courseToUpdate) ? 'Update Course' : 'Create Course';
-?>
-    <h3><?=$form_title?></h3>
+    // $form_title - changes the form title, but i make constant for now
+ ?>
+    <h4>Please Fill Out the Course Information</h4>
+<div class="row">
+    <div class="col-12">
+        <label for="id_imgUpload">Course Image: </label>
+        <div id="id_imgUpload" class="text-center img_container">
+            <?php
+                $img = RESRC;
+
+                if (isset($courseToUpdate['img_path']) && !empty($courseToUpdate['img_path'])) {
+                    if (is_array($courseToUpdate['img_path']) && count($courseToUpdate['img_path']) > 0) {
+                        $img .= $courseToUpdate['img_path'][0]; // if array return the first
+                    } else {
+                        $img .= $courseToUpdate['img_path'];
+                    }
+                } else {
+                    $img = IMG_DEF;
+                }
+
+            ?>
+                <img id="img_event" src="<?=$img?>" alt="Please Add an Image">
+                <div class="upload-btn-wrapper course-add-img ">
+                    <button class="btn btn-primary"><i class="fa fa-plus"></i></button>
+                    <?php
+                        $uploadExtra = 'onchange="previewImage(\'id_uploadImg\',\'img_event\')"';
+
+                        echo form_upload(
+                            array('name' => 'img_path', 'id' => 'id_uploadImg', 'class' => 'form-control-file')
+                            , ''
+                            , $uploadExtra);
+                    ?>
+                </div>
+        </div>
+    </div>
+</div>
+
     <?php
 
         form_input_wLabel("course_name",

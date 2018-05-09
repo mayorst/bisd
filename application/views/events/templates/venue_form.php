@@ -1,10 +1,11 @@
 <?php
 
-    echo form_open_multipart('', 'id="venue-form"');
+    echo form_open_multipart('', 'id="venue-form" ');
     echo form_fieldset('', 'class="container"');
 
     $title = testVar($formUpdate['title']) ? $formUpdate['title'] : 'Create Venue';
-    echo "<h4>$title </h4>";
+    //I dont use $title for now.
+    echo "<h4>Please Fill Out the Venue Form </h4>";
 ?>
 	<div class="row">
 		<div class="col-md-6">
@@ -31,7 +32,10 @@
                         } else {
                             $img .= $formUpdate['img_path'];
                         }
+                    } else {
+                        $img = IMG_DEF;
                     }
+
                 ?>
 				<img id="img_venue" src="<?=$img?>" alt="Please Add an Image">
 				<div class="upload-btn-wrapper btn-upload-venue-img">

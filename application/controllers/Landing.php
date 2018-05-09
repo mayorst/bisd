@@ -8,6 +8,7 @@ class Landing extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Course_model');
+        $this->load->model('Event_model');
     }
 
     /**
@@ -32,7 +33,12 @@ class Landing extends CI_Controller
 
     public function home()
     {
-        template::landing('home');
+
+        $upcomEvents = $this->Event_model->getAll('', '', 5);
+
+        $data['upcomingEvents'] = $upcomEvents;
+
+        template::landing('home', $data);
     }
 
     public function courses()
@@ -40,7 +46,7 @@ class Landing extends CI_Controller
         $courses = array();
         $categs = $this->Course_model->getCategories('categ_id, categ_name');
 
-        foreach ($categs as $key =>$value) {
+        foreach ($categs as $key => $value) {
             $categID = $value['categ_id'];
             $courseOfCategory = $this->Course_model->getCourses('', "category = $categID");
             $courses = $courses + array($value['categ_name'] => $courseOfCategory);

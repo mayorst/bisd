@@ -1,5 +1,5 @@
 <div class="page-body">
-	<div class="bg-color-blue mngmnt-heading">Update Account</div>
+	<div class="mngmnt-heading">Update Account</div>
 	<div class="wrapper">
 		<nav id="sidebar">
 			<!-- Sidebar Links -->
@@ -29,8 +29,8 @@
 				<div id="credential" class="align-center hidden">
 					<?php
                         $CI = &get_instance();
-                        $form_data = NULL;
-                        $form_data['form_action'] = current_url().'#credential';
+                        $form_data = null;
+                        $form_data['form_action'] = current_url() . '#credential';
                         $form_data['title'] = "Credentials";
                         $form_data['buttons'] = array('Back' => array('class' => 'btn btn-outline-danger', 'href' => 'javascript:window.history.go(-1);'));
                         $form_data['btnSubmit'] = "update";

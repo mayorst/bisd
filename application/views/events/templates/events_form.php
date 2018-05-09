@@ -1,12 +1,49 @@
 <?php
 
-    echo form_open('', 'class="container events-form"');
+    echo form_open_multipart('', 'class="container events-form"');
     echo form_fieldset();
 
     $title = isset($formValues['name']) ? "Update Event" : "Create Event";
-?>
-<h4><?=$title?></h4>
+    // I dont use the $title for now.
+ ?>
+<h4>Please Fill Out the Event Form</h4>
 <div class="row">
+
+
+
+<div class="col-12">
+    <label for="id_imgUpload">Event Image: </label>
+    <div id="id_imgUpload" class="text-center img_container">
+        <?php
+            $img = RESRC;
+
+            if (isset($formValues['ev_img_path']) && !empty($formValues['ev_img_path'])) {
+                if (is_array($formValues['ev_img_path']) && count($formValues['ev_img_path']) > 0) {
+                    $img .= $formValues['ev_img_path'][0]; // if array return the first
+                } else {
+                    $img .= $formValues['ev_img_path'];
+                }
+            } else {
+                $img = IMG_DEF;
+            }
+
+        ?>
+        <img id="img_event" src="<?=$img?>" alt="Please Add an Image">
+        <div class="upload-btn-wrapper btn-upload-venue-img">
+            <button class="btn btn-primary"><i class="fa fa-plus"></i></button>
+            <?php
+                $uploadExtra = 'onchange="previewImage(\'id_uploadImg\',\'img_event\')"';
+
+                echo form_upload(
+                    array('name' => 'ev_img_path', 'id' => 'id_uploadImg', 'class' => 'form-control-file')
+                    , ''
+                    , $uploadExtra);
+            ?>
+        </div>
+    </div>
+</div>
+
+
 <div class="col-md-12">
 <?php
     form_input_wLabel('name', testVar($formValues['name']));
@@ -64,13 +101,14 @@
                 'name' => 'addressChoice',
                 'class' => 'form-check-input',
             );
+            $currAddrChoice = testVar($formValues['addressChoice']);
             echo '<label class=" form-check-label">';
             echo form_radio($attr, 'venue', true,
                 'onchange="showOneChild(\'#selectVenue\',\'.events-form #venue_address>div\')"');
             echo 'Seclect Venue';
             echo '</label><label class=" form-check-label">';
             echo form_radio($attr, 'custom',
-                (testVar($formValues['addressChoice']) == 'custom') ? true : false,
+                $currAddrChoice == 'custom' ? true : false,
                 'onchange="showOneChild(\'#customAddress\',\'.events-form #venue_address>div\')"');
             echo 'Custom Venue';
             echo '</label>';
@@ -111,13 +149,15 @@
         'name' => 'stat',
         'class' => 'form-check-input',
     );
+
+    $currStat = strtolower(testVar($formValues['stat']));
     echo '<label class=" form-check-label">';
     echo form_radio($attr, 'active',
-        (testVar($formValues['stat']) == 'cancelled') ? false : true);
+        ($currStat == 'cancelled') ? false : true);
     echo 'Active';
     echo '</label><label class=" form-check-label">';
     echo form_radio($attr, 'cancelled',
-        (testVar($formValues['stat']) == 'cancelled') ? true : false);
+        ($currStat == 'cancelled') ? true : false);
     echo 'Cancelled';
     echo '</label>';
 ?>
@@ -141,4 +181,15 @@
 </div>
 <?php
     echo form_fieldset_close();
-echo form_close();
+    echo form_close();
+
+    /* NOTES:  Changes the apperance of the form if needed
+    ----------------------------------------------*/
+
+    //displays the custom address in th screen
+    if ($currAddrChoice == 'custom') {
+        echo '
+            <script>
+            showOneChild(\'#customAddress\',\'.events-form #venue_address>div\');
+            </script>';
+}

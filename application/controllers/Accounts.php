@@ -183,11 +183,17 @@ class Accounts extends CI_Controller
                                 $message = 'This is to verify your account at Benitez Institute for Sustainable Development Website. Please click the link or copy and paste it to the url to verify your account. \n\n\n ' .
                                 base_url("accounts/verify/$id/" . $verificationKey);
 
-                                sendEmail($newMember['email'], $subject, $message);
+                                if (!sendEmail($newMember['email'], $subject, $message)) {
+                                    $this->Account_model->deleteTempMember($id);
+
+                                    prompt::error('An error occured while sending email. The Account was not created. ');
+                                    redirect(base_url('accounts/manage'), 'refresh');
+                                } else {
+                                    prompt::success('The Account was created. Please check ' . $newMember['email'] . ' to verify the account.');
+                                    redirect(base_url('accounts/manage'), 'refresh');
+                                }
                             }
 
-                            prompt::success('The Account was created. Please check ' . $newMember['email'] . ' to verify the account.');
-                            redirect(base_url('accounts/manage'), 'refresh');
                         } else {
                             prompt::error('Unable to create acount.Please Try again.');
                         }

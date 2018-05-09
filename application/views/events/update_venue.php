@@ -1,5 +1,5 @@
 <div class="page-body">
-	<div class="mngmnt-heading">Create Venue</div>
+	<div class="mngmnt-heading">Update Venue</div>
 	<div class="container">
 		<div class="row">
 <?php

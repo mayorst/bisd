@@ -19,6 +19,10 @@ class Events extends CI_Controller
         $this->load->model('Event_model');
     }
 
+    public function index()
+    {
+        $this->view();
+    }
     public function view()
     {
         $this->table->set_template(pv::UI_TABLE_TEMPLATE);
@@ -82,7 +86,6 @@ class Events extends CI_Controller
     {
         if ($_POST) {
             unset($_POST['submit']);
-            $newEvent = $_POST;
 
             $this->form_validation->load_config_rule('event');
 
@@ -93,27 +96,35 @@ class Events extends CI_Controller
             }
 
             if ($this->form_validation->run('event')) {
-                $newEvent['time_start'] = $newEvent['start_date'] . ' ' . $newEvent['start_time'];
-                $newEvent['time_end'] = $newEvent['end_date'] . ' ' . $newEvent['end_time'];
+                $_POST['time_start'] = $_POST['start_date'] . ' ' . $_POST['start_time'];
+                $_POST['time_end'] = $_POST['end_date'] . ' ' . $_POST['end_time'];
 
-                if (isBefore($newEvent['time_start'], $newEvent['time_end']) != 1) {
-                    prompt::error("Event Start Date must not be before End Date.");
+                if (isBefore($_POST['time_start'], $_POST['time_end']) != 1) {
+                    prompt::error("Event Start Date must be before End Date.");
                     $data['formValues'] = $_POST;
-                } else if ($_POST['addressChoice'] == 'venue' && empty($newEvent['venue'])) {
+                } else if ($_POST['addressChoice'] == 'venue' && empty($_POST['venue'])) {
                     prompt::error("You must specify the event venue.");
                     $data['formValues'] = $_POST;
                 } else {
 
-                    unset(
-                        $newEvent['addressChoice'],
-                        $newEvent['start_date'],
-                        $newEvent['start_time'],
-                        $newEvent['end_date'],
-                        $newEvent['end_time']);
+                    $imgUp = imageUploader();
+                    if ($imgUp->do_upload('ev_img_path')) {
+                        $_POST['ev_img_path'] = $imgUp->db_img_path();
+                    }
 
-                    $newEvent = str_start_case($newEvent);
+                    $whListKey = array(
+                        'event_id', 'name', 'time_start', 'time_end', 'address', 'venue', 'description', 'ev_img_path', 'stat',
+                    );
+
+                    $newEvent = whList($_POST, $whListKey);
+                    $newEvent = str_start_case($newEvent, array('ev_img_path', 'event_id'));
 
                     if ($this->Event_model->create($newEvent)) {
+                        $img_error = $imgUp->display_errors(' ', ' ');
+                        if ($img_error) {
+                            prompt::error($img_error);
+                        }
+
                         prompt::success("The Event was successfully set.");
                         redirect('events/view');
                     }
@@ -130,13 +141,12 @@ class Events extends CI_Controller
 
     public function update($id = '')
     {
-        if (empty($id)) {
-            $this->view();
+        if (!$id) {
+            redirect('events/view');
         }
 
         if ($_POST) {
             unset($_POST['submit']);
-            $newEvent = $_POST;
 
             $this->form_validation->load_config_rule('event');
 
@@ -147,27 +157,35 @@ class Events extends CI_Controller
             }
 
             if ($this->form_validation->run('event')) {
-                $newEvent['time_start'] = $newEvent['start_date'] . ' ' . $newEvent['start_time'];
-                $newEvent['time_end'] = $newEvent['end_date'] . ' ' . $newEvent['end_time'];
+                $_POST['time_start'] = $_POST['start_date'] . ' ' . $_POST['start_time'];
+                $_POST['time_end'] = $_POST['end_date'] . ' ' . $_POST['end_time'];
 
-                if (isBefore($newEvent['time_start'], $newEvent['time_end']) != 1) {
+                if (isBefore($_POST['time_start'], $_POST['time_end']) != 1) {
                     prompt::error("Event Start Date must not be before End Date.");
                     $data['formValues'] = $_POST;
-                } else if ($_POST['addressChoice'] == 'venue' && empty($newEvent['venue'])) {
+                } else if ($_POST['addressChoice'] == 'venue' && empty($_POST['venue'])) {
                     prompt::error("You must specify the event venue.");
                     $data['formValues'] = $_POST;
                 } else {
 
-                    unset(
-                        $newEvent['addressChoice'],
-                        $newEvent['start_date'],
-                        $newEvent['start_time'],
-                        $newEvent['end_date'],
-                        $newEvent['end_time']);
+                    $imgUp = imageUploader();
+                    if ($imgUp->do_upload('ev_img_path')) {
+                        $_POST['ev_img_path'] = $imgUp->db_img_path();
+                    }
 
-                    $newEvent = str_start_case($newEvent);
+                    $whListKey = array(
+                        'event_id', 'name', 'time_start', 'time_end', 'address', 'venue', 'description', 'ev_img_path', 'stat',
+                    );
+
+                    $newEvent = whList($_POST, $whListKey);
+                    $newEvent = str_start_case($newEvent, array('ev_img_path', 'event_id'));
 
                     if ($this->Event_model->update($id, $newEvent)) {
+                        $img_error = $imgUp->display_errors(' ', ' ');
+                        if ($img_error) {
+                            prompt::error($img_error);
+                        }
+
                         prompt::success("The Event was successfully set.");
                         redirect('events/view');
                     }
@@ -185,6 +203,14 @@ class Events extends CI_Controller
         $event['end_date'] = date('Y-m-d', $end_dt);
         $event['end_time'] = date('H:i', $end_dt);
         $data['formValues'] = $event;
+
+        if (!file_exists(RESRC_PATH . $event['ev_img_path'])) {
+            $data['formValues']['ev_img_path'] = '';
+        }
+
+        if (!$event['venue']) {
+            $data['formValues']['addressChoice'] = 'custom';
+        }
 
         $venues = $this->Event_model->getAllVenue('venue_id, venue_name');
         $venues = array_kvp($venues, 'venue_id', 'venue_name');
@@ -257,7 +283,7 @@ class Events extends CI_Controller
                     $venue[0]['submitStr'] = 'Update Venue';
 
                     $data['formUpdate'] = $venue[0];
-                    template::events('create_venue', $data);
+                    template::events('update_venue', $data);
                 } else {
                     prompt::error("Venue ID doesn't exist");
                     redirect('events/view_venue');

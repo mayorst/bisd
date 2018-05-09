@@ -11,37 +11,51 @@
   <div class="container">
     <!--info of BISD-->
     <article>
-      <section>
-        <h3> What is BISD? </h3>
-        <ul class="whats-bisd list-unstyled">
-          <li>
-            <p>A <strong>SYSTEM</strong> of learning developing promoting sustainabl development theories, sustainble development theories, technologies and practices.
-            </p>
-          </li>
-          <li>
-            <p><strong>BUILDS ON</strong> the wealth of learnings experiences “community gardens” of PRRM.
-            </p>
-          </li>
-          <li>
-            <p><strong>DISTINCT</strong> in its integration of:
-              <ul>
-                <li> a critical school challenging the mainstream</li>
-                <li> action-based learning linked to local rural movements </li>
-                <li> advocacy for the legitimacy of alternative/ </li>non-traditional education
-              </ul>
-            </p>
-          </li>
-          <li>
-            <p><strong>FOUNDED</strong> on the principles of:
-              <ul>
-                <li> a co-determination of the learning agenda </li>
-                <li> context-content-method framework </li>
-                <li> integration of theory and practice of sustainable development </li>
-              </ul>
-            </p>
-          </li>
-        </ul>
-      </section>
+      <div class="row">
+        <div class="col-sm-8">
+          <section>
+            <h3> What is BISD? </h3>
+            <ul class="whats-bisd list-unstyled">
+              <li>
+                <p>A <strong>SYSTEM</strong> of learning developing promoting sustainabl development theories, sustainble development theories, technologies and practices.
+                </p>
+              </li>
+              <li>
+                <p><strong>BUILDS ON</strong> the wealth of learnings experiences “community gardens” of PRRM.
+                </p>
+              </li>
+              <li>
+                <p><strong>DISTINCT</strong> in its integration of:
+                  <ul>
+                    <li> a critical school challenging the mainstream</li>
+                    <li> action-based learning linked to local rural movements </li>
+                    <li> advocacy for the legitimacy of alternative/ </li>non-traditional education
+                  </ul>
+                </p>
+              </li>
+              <li>
+                <p><strong>FOUNDED</strong> on the principles of:
+                  <ul>
+                    <li> a co-determination of the learning agenda </li>
+                    <li> context-content-method framework </li>
+                    <li> integration of theory and practice of sustainable development </li>
+                  </ul>
+                </p>
+              </li>
+            </ul>
+          </section>
+        </div>
+        <div class="col-sm-4">
+          <section class="upcoming-events">
+            <h3>Upcoming Events</h3>
+            <div class="list">
+              <?php
+                  create_upcomingEvents($upcomingEvents);
+              ?>
+            </div>
+          </section>
+        </div>
+      </div>
       <section>
         <blockquote>
           <div class="row">
@@ -53,7 +67,7 @@
             </div>
             <div class="col-md-6">
               <div class="vcenter">
-                <img class="round-img responsive-img h-benitez-img" alt="Helena-Benitez" src="<?= PATH_IMAGES.'Helena-Benitez.jpg'?>" />
+                <img class="round-img responsive-img h-benitez-img" alt="Helena-Benitez" src="<?=PATH_IMAGES . 'Helena-Benitez.jpg'?>" />
                 <p>PRRM Chair Emeritus Helena Benitez (1914-2016)</p>
               </div>
             </div>
@@ -71,9 +85,49 @@
       <section>
         <div class="learningCenter-ph">
           <h3>Local Community Learning Center and Thrust</h3>
-          <img class="responsive-img" src="<?= PATH_IMAGES.'local_community_learning_centers.jpg'?>" />
+          <img class="responsive-img" src="<?=PATH_IMAGES . 'local_community_learning_centers.jpg'?>" />
         </div>
       </section>
     </article>
   </div>
 </div>
+
+
+<?php
+    /**
+     * Element Creator
+     * -----------------------------
+     */
+    function create_upcomingEvents($upcomingEvents)
+    {
+        if (testVar($upcomingEvents)) {
+            foreach ($upcomingEvents as $key => $value) {
+
+                $img = RESRC . $value['ev_img_path'];
+                $name = $value['name'];
+
+                $unix_startTime = human_to_unix($value['time_start']);
+                $date = date('M d, Y h:i a', $unix_startTime);
+                $desc = $value['description'];
+
+            ?>
+
+<div class="card">
+  <div class="img_container">
+    <img src="<?=$img?>">
+  </div>
+  <h5><?=$name?></h5>
+  <span><?=$date?></span>
+  <p>
+    <?=$desc?>
+  </p>
+  </div>
+
+<?php
+    }
+        } else {
+            echo '<div class="text-center">NO UPCOMING EVENTS</div>';
+        }
+    }
+
+?>

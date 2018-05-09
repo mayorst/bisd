@@ -77,7 +77,17 @@
 						<?php form_input_wLabel(array('label' => 'contact_number'), (($type === pv::UPDATE) ? $userInfo['contact_number'] : ''));?>
 					</div>
 					<div class="col-md-5">
-						<?php form_input_wLabel(array('label' => 'email', 'input' => array('type' => 'email')), (($type === pv::UPDATE) ? $userInfo['email'] : ''));?>
+						<?php
+                            $attr = array(
+                                'label' => 'email',
+                                'input' => array(
+                                    'type' => 'email'));
+
+                            if (($type === pv::UPDATE)) {
+                                $attr['input']['disabled'] = '';
+                            }
+                            form_input_wLabel($attr
+                            , (($type === pv::UPDATE) ? $userInfo['email'] : ''));?>
 					</div>
 				</div>
 				<?php echo form_fieldset_close();

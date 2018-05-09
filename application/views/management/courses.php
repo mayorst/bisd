@@ -1,21 +1,21 @@
 <div class="courses page-body">
-    <div class="container align-center">
-        <div class="pb-2 align-right">
-            <a class="btn btn-outline-primary" href="<?=base_url('management/course/create')?>">Create</a>
-            <a class="btn btn-outline-primary" href="<?=base_url('management/course/update')?>">Update</a>
-        </div>
-        <?php
-
-            $CI = &get_instance();
-            if (isset($update)) {
-                if (testVar($update)) {
-                    $CI->load->view('management/update_course');
-                } else {
-                    $CI->load->view('management/create_course');
-                }
+    <?php
+        $CI = &get_instance();
+        if (isset($update)) {
+            if (testVar($update)) {
+                $CI->load->view('management/update_course');
             } else {
+                $CI->load->view('management/create_course');
+            }
+        } else {
+        ?>
 
-            ?>
+        <div class="mngmnt-heading">Course Management</div>
+        <div class="container align-center">
+            <div class="pt-2 pb-2 align-right">
+                <a class="btn btn-outline-primary" href="<?=base_url('management/course/create')?>">Create</a>
+                <a class="btn btn-outline-primary" href="<?=base_url('management/course/update')?>">Update</a>
+            </div>
             <div class="row">
                 <?php
                     if (isset($viewCourseList)) {
@@ -30,7 +30,7 @@
                     ?>
             </div>
             <?php }?>
-    </div>
+        </div>
 </div>
 <?php
     function format_course($id, $name, $description)
@@ -38,7 +38,9 @@
     ?>
     <div class="card-deck border-primary mb-3 mx-auto col-md-6">
         <div class="card p-3 text-center">
-            <div class="card-header">Course No. <?=$id?></div>
+            <div class="card-header">Course No.
+                <?=$id?>
+            </div>
             <div class="card-block">
                 <h4 class="card-title"><?=$name?></h4>
                 <div class="card-text course-desc">

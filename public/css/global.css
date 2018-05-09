@@ -1,59 +1,118 @@
+/* ========== VIEW ACCOUNT ===========*/
+
+.user-info {
+	text-align: center;
+	font-size: 1.5rem;
+}
+
+.user-info>.row {
+	width: 600px;
+	margin: 0 auto;
+	padding: 0;
+	padding-top: 2rem;
+	margin-bottom: 2rem;
+}
+
+.user-info .row>div {
+	text-align: initial;
+}
+
+.user-info label {
+	font-weight: 100;
+}
+
+.user-info .name {
+	font-weight: 600;
+	font-size: 2rem;
+}
+
+
+
+
+
 /* ========== EVENTS MANAGEMENT =============*/
 
-
-
-
- .my-tbl {
+.my-tbl {
 	height: 400px;
 	max-height: 400px;
 	overflow-y: auto;
 	width: 100%;
 }
+
+
+
+
+
+
 /* events form */
-.events-form .form-check-input{
-position: relative;
-margin-left: 10px;
 
+.events-form .form-check-input {
+	position: relative;
+	margin-left: 10px;
 }
-.events-form .form-group.address{
-margin-top: 10px;
-margin-bottom: 10px;
 
+.events-form .form-group.address {
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
-.events-form .form-group.address .form-check.row{
 
-margin-bottom: 10px;
+.events-form .form-group.address .form-check.row {
 
+	margin-bottom: 10px;
 }
+
+.events-form .img_container {
+	height: 360px;
+}
+
+
+
+
 
 /* venue form */
-.img_container{
-	overflow: hidden;
-	height: 140px;
-	background-color: #E8E8E8FF;
+
+#venue-form {
+	margin: auto;
 	margin-top: 10px;
 }
-.img_container img{
+
+.img_container {
 	position: relative;
-	width: 70%;
+	height: 150px;
+	width: 100%;
+	background-color: #E8E8E8FF;
+	margin-top: 10px;
+	overflow: hidden;
+}
+
+.img_container img {
+	position: relative;
+	max-width: 100%;
+	max-height: 100%;
+	/*width: 80%;*/
 	/*height: 100%;*/
-	 top: 50%;
-    transform: translateY(-50%);
+	top: 50%;
+	transform: translateY(-50%);
 }
 
-.btn-upload-venue-img{
+.btn-upload-venue-img {
 	position: absolute;
-	
 	top: 0;
-	right: 15px;
+	right: 0px;
 }
 
-#venue-form .btn-upload-venue-img .btn{
-	width:35px;
+
+#venue-form .btn-upload-venue-img .btn {
+	width: 35px;
 	height: 35px;
 	padding: 0;
 	margin: 0;
 }
+
+
+
+
+
 
 
 /*========== COURSE LANDING PAGE ==========*/
@@ -74,6 +133,11 @@ margin-bottom: 10px;
 
 
 
+
+
+
+
+
 /*========== COURSE MANAGEMENT==========*/
 
 div.select-course {
@@ -87,6 +151,18 @@ div.courses form .form-check label {
 	color: #262626FF;
 	min-height: 30px;
 }
+
+div.courses form .img_container {
+	height: 400px;
+	margin-top: initial;
+}
+div.courses form .course-add-img {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+
+
 
 div.select-course label input[type="radio"],
 div.select-course label input[type="checkbox"] {
@@ -130,11 +206,16 @@ div.select-course .row {
 	background-color: initial;
 }
 
-.card-deck .card-header{
+.card-deck .card-header {
 	margin-bottom: 15px;
 	text-align: left;
 	padding: 0.5rem 0.5rem;
 }
+
+
+
+
+
 
 
 
@@ -155,10 +236,15 @@ div.select-course .row {
 
 
 
+
+
+
+
+
 /* =================== MANAGEMENT ============*/
 
 .manage-account h4 {
-	margin-top: 20px;
+	padding-top: 20px;
 	margin-bottom: 15px;
 	text-align: center;
 }
@@ -187,6 +273,11 @@ div.select-course .row {
 
 
 
+
+
+
+
+
 /*================= LOGIN ======================*/
 
 .login-input {
@@ -209,6 +300,11 @@ div.select-course .row {
 
 
 
+
+
+
+
+
 /*================= HOME =================*/
 
 .home section h3 {
@@ -218,7 +314,7 @@ div.select-course .row {
 	color: white;
 }
 
-.home section {
+.home section:not(:first-child) {
 	margin-top: 3rem;
 	margin-bottom: : 2rem;
 }
@@ -227,6 +323,47 @@ ul.whats-bisd {
 	display: inline-block;
 }
 
+.home .upcoming-events h3 {
+	font-weight: 500;
+	font-size: 1.5rem;
+	padding: 0.75rem 0;
+}
+
+.upcoming-events .list {
+	height: 500px;
+	overflow-y: hidden;
+}
+
+.upcoming-events .list:hover {
+	overflow-y: auto;
+}
+
+.upcoming-events .img_container {
+	height: 200px;
+}
+
+.upcoming-events .img_container img {
+	display: block;
+	margin: 0 auto;
+}
+
+.upcoming-events .card {
+	margin-bottom: 20px;
+	font-size: 0.8rem;
+}
+.upcoming-events .card >*:not(.img_container) {
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+.upcoming-events .card h5 {
+	padding-top: 10px;
+	font-size: 1rem;
+	text-align: center;
+}
+.upcoming-events .card p {
+	text-indent: 20px;
+	text-align: justify;
+}
 
 .home blockquote {
 	border-top: 1px solid #C6C6C6E0;
@@ -262,6 +399,11 @@ ul.whats-bisd {
 
 
 
+
+
+
+
+
 /* ====================================== */
 
 .mngmnt-heading {
@@ -269,12 +411,13 @@ ul.whats-bisd {
 	color: white;
 	padding: 10px;
 	padding-left: 20px;
-	font-weight: 600;
+	font-weight: 800;
+	background-color: #2388DBFF;
+	text-align: left;
 }
 
-.courses.page-body,
-.dashboard.page-body {
-	padding-top: 10px;
+.pb-before-footer {
+	padding-bottom: 100px;
 }
 
 .vcenter {
@@ -300,7 +443,18 @@ ul.whats-bisd {
 }
 
 .page-body {
+	/*rgba(52, 183, 202, 1) 25%,*/
 	min-height: 80vh;
+
+	background: linear-gradient( to bottom,
+	rgba(52, 183, 202, 1),
+	#FFFFFFFF,
+	#FFFFFFFF,
+	white);
+}
+
+.page-body>.container {
+	background: white;
 }
 
 .float-prompt {
@@ -325,6 +479,11 @@ ul.whats-bisd {
 
 
 
+
+
+
+
+
 /* use in viewing form input error*/
 
 .invalid-feedback {
@@ -332,14 +491,19 @@ ul.whats-bisd {
 }
 
 .footer {
-	-webkit-filter: drop-shadow(-5px 1px 10px gray);
-	filter: drop-shadow(-5px 1px 8px gray);
+	/*-webkit-filter: drop-shadow(-5px 1px 10px gray);
+	filter: drop-shadow(-5px 1px 8px gray);*/
 	margin-top: 10px;
 	padding-top: 10px;
 	padding-bottom: 20px;
-	background-color: #D8EDE5FF;
+	background-color: #B2B2B2FF;
 }
 
 .footer-copyright {
-	text-align: center;
+	padding-top: 25px;
+	padding-bottom: 20px;
+	text-align: left;
+	color: white;
+	font-weight: 500;
+	font-size: 1.3rem;
 }

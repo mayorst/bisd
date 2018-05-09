@@ -8,6 +8,7 @@
  */
 function str_start_case($str = '', $except = array(), $invert = false)
 {
+    $currentArray = $str;
     if (is_array($str)) {
         foreach ($str as $key => $value) {
             if ((!$invert) == in_array($key, $except)) {
@@ -17,7 +18,8 @@ function str_start_case($str = '', $except = array(), $invert = false)
                 $str[$key] = str_start_case($value);
             }
         }
-        return $str;
+
+        return array_merge($currentArray, $str);
     }
     $str = str_replace('_', ' ', $str);
     return mb_convert_case($str, MB_CASE_TITLE, "UTF-8");

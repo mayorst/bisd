@@ -75,17 +75,40 @@ function imageUploader($dir = 'uploads/img/')
     $CI = &get_instance();
 
     $config['upload_path'] = resrc_dir($dir);
-    $config['allowed_types'] = 'gif|jpg|png';
+    $config['allowed_types'] = 'gif|jpg|jpeg|png';
     $config['encrypt_name'] = true;
     $config['max_filename'] = 200;
     $config['file_ext_tolower'] = true;
     $config['max_size'] = 4096;
-    $config['max_width'] = 2000;
-    $config['max_height'] = 1080;
+    $config['max_width'] = 10000;
+    $config['max_height'] = 10000;
 
     $CI->load->library('upload');
     $CI->upload->initialize($config, true);
     return $CI->upload;
+}
+
+/**
+ * Whitelist the keys on the inputed array
+ * @param  [type] $array   [description]
+ * @param  array  $keyList [description]
+ * @return [type]          [description]
+ */
+function whList($array, $keyList = array())
+{
+    $whiteListed = array();
+    if (!empty($keyList)) {
+        if (is_array($keyList)) {
+            foreach ($array as $key => $value) {
+                if (in_array($key, $keyList)) {
+                    $whiteListed[$key] = $value;
+                }
+            }
+        }
+    } else {
+        return $array;
+    }
+    return $whiteListed;
 }
 
 /*======= ======== ======== ========= =========*/
@@ -132,7 +155,6 @@ function increment_subfolder($path, $limit = 1000)
     if (is_dir($path)) {
         $subfolder = glob(str_path($path . '/*'), GLOB_ONLYDIR);
 
-        // print_r($subfolder);die();
         $lastDir = '1';
         if (count($subfolder) > 0) {
             foreach ($subfolder as $key => $value) {
@@ -150,7 +172,7 @@ function increment_subfolder($path, $limit = 1000)
                 $nextFolder = intval($lastDir);
                 $p1 = str_path($path . '/' . ++$nextFolder);
                 if (!file_exists($p1)) {
-                    mkdir($p1, 0777, true);
+                    createFolder_wIndex($p1);
                 }
                 return $p1;
             }
@@ -158,11 +180,111 @@ function increment_subfolder($path, $limit = 1000)
         } else {
             $subPath = str_path($path . '/1/');
             if (!file_exists($subPath)) {
-                mkdir($subPath, 0777, true);
+                createFolder_wIndex($subPath);
             }
             return $subPath;
         }
     } else {
         return false;
     }
+}
+
+/**
+ * creates a new folder if not exist with an index file.
+ * @param  string $path [description]
+ * @return [type]       [description]
+ */
+function createFolder_wIndex($path = '')
+{
+    if (!file_exists($path)) {
+        mkdir($path, 0777, true);
+    }
+    $pathParts = explode('/', $path);
+    $nextPath = '';
+    foreach ($pathParts as $key => $value) {
+        $nextPath .= $value . '/';
+        if (file_exists($nextPath . 'index.html')) {
+            continue;
+        }
+
+        create404page($nextPath);
+    }
+}
+
+function create404page($filepath = '')
+{
+    if (!empty($filepath) && is_dir($filepath)) {
+        $file404 = fopen($filepath . "/index.html", "w") or die("Unable to open file!");
+
+        $txt = '<!DOCTYPE html>
+            <html lang="en">
+            <head>
+            <meta charset="utf-8">
+            <title>404 Page Not Found</title>
+            <style type="text/css">
+
+            ::selection { background-color: #E13300; color: white; }
+            ::-moz-selection { background-color: #E13300; color: white; }
+
+            body {
+                background-color: #fff;
+                margin: 40px;
+                font: 13px/20px normal Helvetica, Arial, sans-serif;
+                color: #4F5155;
+            }
+
+            a {
+                color: #003399;
+                background-color: transparent;
+                font-weight: normal;
+            }
+
+            h1 {
+                color: #444;
+                background-color: transparent;
+                border-bottom: 1px solid #D0D0D0;
+                font-size: 19px;
+                font-weight: normal;
+                margin: 0 0 14px 0;
+                padding: 14px 15px 10px 15px;
+            }
+
+            code {
+                font-family: Consolas, Monaco, Courier New, Courier, monospace;
+                font-size: 12px;
+                background-color: #f9f9f9;
+                border: 1px solid #D0D0D0;
+                color: #002166;
+                display: block;
+                margin: 14px 0 14px 0;
+                padding: 12px 10px 12px 10px;
+            }
+
+            #container {
+                margin: 10px;
+                border: 1px solid #D0D0D0;
+                box-shadow: 0 0 8px #D0D0D0;
+            }
+
+            p {
+                margin: 12px 15px 12px 15px;
+            }
+            </style>
+            </head>
+            <body>
+                <div id="container">
+                    <h1>HTTP 404: Page not Found</h1>
+                    <div>
+                    <p>
+                        We cant find the page you are accessing.
+                    </p>
+                    </div>
+                </div>
+            </body>
+            </html>';
+
+        fwrite($file404, $txt);
+        fclose($file404);
+    }
+
 }

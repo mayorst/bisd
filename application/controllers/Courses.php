@@ -35,10 +35,28 @@ class Courses extends CI_Controller
                         $course['category'] = $categID;
                     }
 
+                    $imgUp = imageUploader();
+                    if ($imgUp->do_upload('img_path')) {
+                        $course['img_path'] = $imgUp->db_img_path();
+                    }
+
                     $prereq = $course['preReq']; // for adding pre req
                     unset($course['preReq']);
 
+                    $whListKey = array(
+                        'course_id', 'course_name', 'category', 'description', 'img_path', 'stat',
+                    );
+                    $newCourse = whList($course, $whListKey);
+
+                    prd($newCourse);
+
                     if ($id = $this->Course_model->createCourse($course)) {
+
+                        $img_error = $imgUp->display_errors(' ', ' ');
+                        if ($img_error) {
+                            prompt::error($img_error);
+                        }
+
                         $this->Course_model->createPrereq($id, $prereq);
                         prompt::success('Course was successfully created.');
                         redirect(current_url());

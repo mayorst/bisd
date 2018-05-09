@@ -1,7 +1,8 @@
 <div class="page-body">
+    <div class="mngmnt-heading">Venue List</div>
     <div class="container align-center">
         <div class="container">
-            <div class="align-right">
+            <div class="pt-2 pb-2 align-right">
                 <a class="btn btn-outline-primary" href="<?=base_url('events/create_venue')?>">Create Venues</a>
             </div>
             <div class="row">
@@ -10,6 +11,12 @@
                         foreach ($venueList as $key => $value) {
                             venue_card($value);
                         }
+                    } else {
+                        echo '<div style="
+                        margin: auto;">
+
+                            NO VENUE YET
+                            </div>';
                     }
                 ?>
             </div>

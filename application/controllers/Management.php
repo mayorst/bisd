@@ -42,10 +42,25 @@ class Management extends CI_Controller
                         $course['category'] = $categID;
                     }
 
-                    $prereq = $course['preReq']; // for adding pre req
+                    $imgUp = imageUploader();
+                    if ($imgUp->do_upload('img_path')) {
+                        $course['img_path'] = $imgUp->db_img_path();
+                    }
+
+                    $prereq = testVar($course['preReq']); // for adding pre req
                     unset($course['preReq']);
 
-                    if ($id = $this->Course_model->createCourse($course)) {
+                    $whListKey = array(
+                        'course_id', 'course_name', 'category', 'description', 'img_path', 'stat',
+                    );
+                    $newCourse = whList($course, $whListKey);
+
+                    if ($id = $this->Course_model->createCourse($newCourse)) {
+                        $img_error = $imgUp->display_errors(' ', ' ');
+                        if ($img_error) {
+                            prompt::error($img_error);
+                        }
+
                         $this->Course_model->createPrereq($id, $prereq);
                         prompt::success('Course was successfully created.');
                         redirect(current_url());
@@ -53,12 +68,26 @@ class Management extends CI_Controller
                 } else if ($action == pv::UPDATE) {
                     if (!empty($id)) {
 
-                        $prereq = $course['preReq'];
+                        $prereq = testVar($course['preReq']);
                         $this->Course_model->createPrereq($id, $prereq);
-
                         unset($course['preReq']);
 
-                        if ($this->Course_model->updateCourse($id, $course)) {
+                        $imgUp = imageUploader();
+                        if ($imgUp->do_upload('img_path')) {
+                            $course['img_path'] = $imgUp->db_img_path();
+                        }
+
+                        $whListKey = array(
+                            'course_id', 'course_name', 'category', 'description', 'img_path', 'stat',
+                        );
+                        $uptCourse = whList($course, $whListKey);
+
+                        if ($this->Course_model->updateCourse($id, $uptCourse)) {
+                            $img_error = $imgUp->display_errors(' ', ' ');
+                            if ($img_error) {
+                                prompt::error($img_error);
+                            }
+
                             prompt::success('Course was successfully updated.');
                             redirect('management/course');
                         }
@@ -111,6 +140,12 @@ class Management extends CI_Controller
                     if (count($pr) > 0) {
                         $data['requiredBy_course'] = array_kvp($pr, 0, 'req_by');
                     }
+                }
+
+                //test if image exists
+                $course = $data['courseToUpdate'];
+                if (!file_exists(RESRC_PATH . $course['img_path'])) {
+                    $data['courseToUpdate']['img_path'] = '';
                 }
             }
         }

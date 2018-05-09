@@ -8,11 +8,15 @@ class Event_model extends CI_Model
         parent::__construct();
     }
 
-    public function getAll($cols = '*', $where = '1=1')
+    public function getAll($cols = '*', $where = '1=1', $limit = '', $offset = '')
     {
+        if (!$where) {
+            $where = '1=1';
+        }
 
         $rs = $this->db->SELECT($cols)->FROM('events')
             ->WHERE($where)
+            ->limit($limit, $offset)
             ->get()->result_array();
 
         if ($rs) {
@@ -27,6 +31,7 @@ class Event_model extends CI_Model
     {
         if ($this->db->insert('tbl_events', $newEvent, true)) {
             $newId = $this->db->insert_id();
+
             return $newId;
         } else {
             return false;

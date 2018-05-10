@@ -283,6 +283,7 @@ class Events extends CI_Controller
                     $venue[0]['submitStr'] = 'Update Venue';
 
                     $data['formUpdate'] = $venue[0];
+
                     template::events('update_venue', $data);
                 } else {
                     prompt::error("Venue ID doesn't exist");

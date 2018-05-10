@@ -41,7 +41,7 @@
                     <li> integration of theory and practice of sustainable development </li>
                   </ul>
                 </p>
-              </li>
+              </li> 
             </ul>
           </section>
         </div>
@@ -103,7 +103,8 @@
         if (testVar($upcomingEvents)) {
             foreach ($upcomingEvents as $key => $value) {
 
-                $img = RESRC . $value['ev_img_path'];
+                $img = toDefault_img(RESRC_PATH. $value['ev_img_path']);
+
                 $name = $value['name'];
 
                 $unix_startTime = human_to_unix($value['time_start']);

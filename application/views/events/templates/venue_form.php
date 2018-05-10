@@ -32,9 +32,14 @@
                         } else {
                             $img .= $formUpdate['img_path'];
                         }
+                        if (!file_exists(RESRC_PATH . $formUpdate['img_path'][0])) {
+                            $img = IMG_DEF;
+                        }
                     } else {
                         $img = IMG_DEF;
                     }
+
+                    
 
                 ?>
 				<img id="img_venue" src="<?=$img?>" alt="Please Add an Image">

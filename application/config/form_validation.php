@@ -227,7 +227,7 @@ $config = array(
         array(
             'field' => 'username',
             'label' => 'Username',
-            'rules' => 'trim|required|max_length[10]',
+            'rules' => 'trim|required|max_length[50]',
             'errors' => array(
                 'required' => 'You must provide a %s.',
                 'max_length' => '%s must not be greater than 10 characters.'),

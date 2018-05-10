@@ -111,6 +111,13 @@ function whList($array, $keyList = array())
     return $whiteListed;
 }
 
+function toDefault_img($path){
+    if(!file_exists($path)){
+        return IMG_DEF;
+    }
+    return $path;
+}
+
 /*======= ======== ======== ========= =========*/
 
 function generateRandomStr($length = 1)

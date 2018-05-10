@@ -11,7 +11,8 @@ class Account_model extends CI_Model
     {
         if (isset($user)) {
             $rs = $this->db->SELECT('*')->from('tbl_member')
-                ->WHERE('username', $user['username'])
+                ->WHERE('username = \''.$user['username'].'\''.
+                    ' OR email = \''.$user['username'].'\'')
                 ->get()->result_array();
             if (count($rs) > 0) {
                 if (password_verify($user['password'], $rs[0]['_password'])) {

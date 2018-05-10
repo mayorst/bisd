@@ -6,14 +6,16 @@
 		</div>
 		<?php
 
-                foreach ($courseList as $key => $courseCateg) {
-                    format_category($key);
-                    foreach ($courseCateg as $course) {
-                        format_course($course['course_name'], $course['description']);
-                    }
+            foreach ($courseList as $key => $courseCateg) {
+                format_category($key);
+                echo '<div class="categ-courses">';
+                foreach ($courseCateg as $course) {
+                    format_course($course);
                 }
+                echo '</div>';
+            }
 
-            ?>
+        ?>
 	</div>
 </div>
 
@@ -21,22 +23,37 @@
 
 <?php
 
-    // functions for formatting html
+// functions for formatting html
 
-    function format_course($name, $description)
-    {
-    ?>
-	<div>
-		<h4><?=$name?></h4>
-		<div class="course-desc">
-			<?=newLine_to_pTag($description);?>
+	function format_course($course)
+	{
+		$src = IMG_DEF;
+		$path = RESRC_PATH.$course['img_path'];
+		if(file_exists($path) && is_file($path)){
+			$src = RESRC.$course['img_path'];
+		}
+
+?>
+		<div class="course">
+			<h3><?=$course['course_name']?></h3>
+			<hr>
+
+			<div class="course-img" 
+				style="background-image: url('<?=$src?>');" >
+				<div class="course-desc">
+					<?=newLine_to_pTag($course['description']);?>
+				</div>
+
+			</div>
 		</div>
-	</div>
-	<?php }
-        function format_category($categName)
-        {
-        ?>
-	<div class="course-category">
-		<h2><?=$categName?></h2>
-	</div>
-	<?php }?>
+<?php
+	}
+	function format_category($categName)
+	{
+?>
+		<div class="course-category">
+			<h2><?=$categName?></h2>
+		</div>
+<?php 
+	}
+?>

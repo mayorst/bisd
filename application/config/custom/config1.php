@@ -7,8 +7,8 @@ require_once "constants.php";
 $config['path_logo'] = PATH_IMAGES . "icons/bisd_logo.png";
 
 $config['path_bootstrap'] = PATH_CSS . 'bootstrap.css';
-$config['path_bootstrap_theme'] = PATH_CSS . 'bootstrap_theme_materia.css';
-$config['path_custom_theme'] = PATH_CSS . 'custom_theme.css';
+$config['path_bootstrap_theme'] = PATH_CSS . 'bootstrap_theme_litera.css';
+$config['path_custom_theme'] = PATH_CSS . 'custom_theme.css';	
 $config['path_fontAwesome'] = PATH_FONTS . 'fontawesome/css/fontawesome-all.min.css';
 $config['path_global_css'] = PATH_CSS . 'global.css';
 

@@ -1,4 +1,5 @@
-/* ========== ACCOUNT VIEW ===========*/
+/* ACCOUNT VIEW
+----------------------------------- */
 
 .user-info {
 	text-align: center;
@@ -28,7 +29,8 @@
 
 
 
-/* =========== EVENT-LANDING =============*/
+/* EVENT-LANDING 
+-------------------------------- */
 .main-event{
 	background-color: #40BE98FF;
 	height: 400px;
@@ -57,7 +59,8 @@
 
 
 
-/* ========== EVENTS =============*/
+/* EVENTS 
+----------------------------------- */
 
 .my-tbl {
 	height: 400px;
@@ -65,8 +68,6 @@
 	overflow-y: auto;
 	width: 100%;
 }
-
-
 
 
 
@@ -90,10 +91,6 @@
 .events-form .img_container {
 	height: 360px;
 }
-
-
-
-
 
 
 
@@ -139,7 +136,8 @@
 
 
 
-/*========== COURSE-LANDING ==========*/
+/* COURSE-LANDING 
+---------------------------------- */
 
 .course-category {
 	text-align: center;
@@ -228,9 +226,8 @@
 
 
 
-
-
-/*========== COURSE ==========*/
+/* COURSE 
+----------------------------------------- */
 
 div.select-course {
 	text-align: left;
@@ -319,13 +316,8 @@ div.select-course .row {
 
 
 
-
-
-
-
-
-
-/*================ MEMBERSHIP FORM ==========*/
+/* MEMBERSHIP FORM 
+---------------------------------- */
 
 .membership-form {
 	text-align: center;
@@ -342,7 +334,8 @@ div.select-course .row {
 
 
 
-/* =================== ACCOUNT MANAGEMENT ============*/
+/* ACCOUNT MANAGEMENT
+-------------------------------------- */
 
 .manage-account h4 {
 	padding-top: 20px;
@@ -381,7 +374,8 @@ div.select-course .row {
 
 
 
-/*================= ACCOUNT LOGIN ======================*/
+/* ACCOUNT LOGIN 
+------------------------------------------ */
 
 .login-input {
 	text-align: center;
@@ -410,7 +404,8 @@ div.select-course .row {
 
 
 
-/*================= HOME-LANDING =================*/
+/* HOME-LANDING 
+---------------------------------------------- */
 
 .home.page-body {
 	/*#D8EDE5FF 20%,	*/

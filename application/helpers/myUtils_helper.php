@@ -111,11 +111,17 @@ function whList($array, $keyList = array())
     return $whiteListed;
 }
 
-function toDefault_img($path){
+/**
+ * get the file relative to  the resrc path. returns the default image if the file not exist.
+ * @param  [type] $path [description]
+ * @return [type]       [description]
+ */
+function get_resc($path){
+    $path = RESRC_PATH.$path;
     if(!file_exists($path)){
         return IMG_DEF;
     }
-    return $path;
+    return str_replace(RESRC_PATH,RESRC,$path);
 }
 
 /*======= ======== ======== ========= =========*/

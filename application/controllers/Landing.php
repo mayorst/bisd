@@ -57,7 +57,10 @@ class Landing extends CI_Controller
 
     public function events()
     {
-        template::landing('events');
+
+        $data['eventList'] = $this->Event_model->getAll();
+
+        template::landing('events',$data);
     }
 
 }

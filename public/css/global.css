@@ -28,6 +28,32 @@
 
 
 
+/* =========== EVENT LANDING =============*/
+.main-event{
+	background-color: #40BE98FF;
+	height: 400px;
+}
+
+.event{
+	margin-bottom: 20px;
+}
+.event-img {
+	overflow: hidden;
+	min-height: 200px;
+}
+.event-img img{
+	position: absolute;
+	top: 50%;
+	width: 100%;
+	transform: translateY(-50%);
+}
+
+.event .date {
+	padding-top: 10px;
+	font-size: 1rem;
+	text-align: right;
+	display: block;
+}
 
 
 
@@ -39,8 +65,6 @@
 	overflow-y: auto;
 	width: 100%;
 }
-
-
 
 
 
@@ -66,6 +90,7 @@
 .events-form .img_container {
 	height: 360px;
 }
+
 
 
 
@@ -119,6 +144,7 @@
 
 
 
+
 /*========== COURSE LANDING PAGE ==========*/
 
 .course-category {
@@ -145,7 +171,10 @@
 }
 
 
+
 /* alternating courses */
+
+
 /*
 .categ-courses .course:nth-child(even) h3{
 	text-align: right;
@@ -161,6 +190,7 @@
 	rgba(255, 255, 255, 0.0));
 }
 */
+
 .course-desc {
 	width: 68%;
 	text-indent: 4rem;
@@ -172,9 +202,9 @@
 	padding-right: 5%;
 	/*padding-right: 15%;*/
 	background: linear-gradient( 90deg,
-	rgba(255, 255, 255,1),
-	rgba(255, 255, 255,.75) 20%,
-	rgba(255, 255, 255,.75) 90%,
+	rgba(255, 255, 255, 1),
+	rgba(255, 255, 255, .75) 20%,
+	rgba(255, 255, 255, .75) 90%,
 	rgba(255, 255, 255, 0.0));
 	color: #1E1E1EFF;
 }
@@ -198,6 +228,7 @@
 	background-position: center;
 	background-size: cover;
 }
+
 
 
 
@@ -273,7 +304,7 @@ div.select-course .row {
 	overflow-y: auto;
 }
 
-.courses .card .card-text p{
+.courses .card .card-text p {
 	letter-spacing: 2px;
 	font-size: 1rem;
 }
@@ -300,6 +331,7 @@ div.select-course .row {
 
 
 
+
 /*================ MEMBERSHIP FORM ==========*/
 
 .membership-form {
@@ -314,6 +346,7 @@ div.select-course .row {
 .userCredential {
 	max-width: 500px;
 }
+
 
 
 
@@ -361,6 +394,7 @@ div.select-course .row {
 
 
 
+
 /*================= LOGIN ======================*/
 
 .login-input {
@@ -389,15 +423,15 @@ div.select-course .row {
 
 
 
+
 /*================= HOME =================*/
 
 .home.page-body {
-		/*#D8EDE5FF 20%,	*/
+	/*#D8EDE5FF 20%,	*/
 	background: linear-gradient( to bottom,
-	#FFFFFFFF 20%,	
+	#FFFFFFFF 20%,
 	#FFFFFFFF 25%,
 	#FFFFFFFF);
-
 }
 
 .home section h3 {
@@ -427,6 +461,7 @@ ul.whats-bisd {
 	/*overflow-y: hidden;*/
 	overflow-y: auto;
 }
+
 
 
 /*.upcoming-events .list:hover {
@@ -494,6 +529,7 @@ ul.whats-bisd {
 .learningCenter-ph h3 {
 	text-align: initial;
 }
+
 
 
 
@@ -575,6 +611,7 @@ ul.whats-bisd {
 .alert hr {
 	margin: 0.5rem 0;
 }
+
 
 
 

@@ -103,7 +103,7 @@
         if (testVar($upcomingEvents)) {
             foreach ($upcomingEvents as $key => $value) {
 
-                $img = toDefault_img(RESRC_PATH. $value['ev_img_path']);
+                $img = get_resc($value['ev_img_path']);
 
                 $name = $value['name'];
 

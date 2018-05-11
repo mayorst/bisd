@@ -346,7 +346,7 @@ class Accounts extends CI_Controller
             // if ($this->form_validation->run('credentials')) {
             $usern = $_POST['username'];
 
-            if ($acc = $this->Account_model->getMember('', "username = '" . $usern . "' ")) {
+            if ($acc = $this->Account_model->getMember('', "username = '" . $usern . "' OR email = '".$usern."'")) {
                 $id = $acc['member_id'];
                 $pass = generateRandomStr(6);
                 $acc['_password'] = password_hash($pass, PASSWORD_DEFAULT);

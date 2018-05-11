@@ -51,7 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'Landing';
 $route['(login)'] = 'Accounts/$1'; // specific word routing, ung key ng $route is the input on the url(regex) 
-$route['(home|courses)'] = 'Landing/$1'; // specific word routing, ung key ng $route is the input on the url(regex) 
+$route['(home|courses|events)'] = 'Landing/$1'; // specific word routing, ung key ng $route is the input on the url(regex) 
 // $route['(:any)'] = 'Pages/view/$1';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

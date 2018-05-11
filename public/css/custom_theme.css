@@ -304,25 +304,25 @@ ul ul a {
 
 /* width */
 ::-webkit-scrollbar {
-    width: 4px;
+    width: 8px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #DBDBDB; 
-    border-radius: 5px; 
+    background: rgba(132, 132, 132, .5); 
+    border-radius: 9px; 
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 3px; 
+    background:  rgba(255, 255, 255, 0.8);
+    border-radius: 9px; 
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #555; 
-    border-radius: 3px; 
+    border-radius: 9px; 
 }
 
 

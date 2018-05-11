@@ -35,7 +35,7 @@
                 </div>
                 <div class="card-block">
                     <h4 class="card-title"><?=$data['venue_name']?></h4>
-                    <div class="card-text course-desc">
+                    <div class="card-text">
                         <?=newLine_to_pTag($data['venue_description']);?>
                     </div>
                 </div>

@@ -3,7 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Landing extends CI_Controller
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -54,6 +53,14 @@ class Landing extends CI_Controller
 
         $data['courseList'] = $courses;
         template::landing('courses', $data);
+    }
+
+    public function events()
+    {
+
+        $data['eventList'] = $this->Event_model->getAll();
+
+        template::landing('events',$data);
     }
 
 }

@@ -1,5 +1,5 @@
-/* ========== VIEW ACCOUNT ===========*/
-/* vanskie and mayor */
+/* ========== ACCOUNT VIEW ===========*/
+
 .user-info {
 	text-align: center;
 	font-size: 1.5rem;
@@ -28,7 +28,7 @@
 
 
 
-/* =========== EVENT LANDING =============*/
+/* =========== EVENT-LANDING =============*/
 .main-event{
 	background-color: #40BE98FF;
 	height: 400px;
@@ -57,7 +57,7 @@
 
 
 
-/* ========== EVENTS MANAGEMENT =============*/
+/* ========== EVENTS =============*/
 
 .my-tbl {
 	height: 400px;
@@ -139,13 +139,7 @@
 
 
 
-
-
-
-
-
-
-/*========== COURSE LANDING PAGE ==========*/
+/*========== COURSE-LANDING ==========*/
 
 .course-category {
 	text-align: center;
@@ -236,8 +230,7 @@
 
 
 
-
-/*========== COURSE MANAGEMENT==========*/
+/*========== COURSE ==========*/
 
 div.select-course {
 	text-align: left;
@@ -349,14 +342,7 @@ div.select-course .row {
 
 
 
-
-
-
-
-
-
-
-/* =================== MANAGEMENT ============*/
+/* =================== ACCOUNT MANAGEMENT ============*/
 
 .manage-account h4 {
 	padding-top: 20px;
@@ -395,7 +381,7 @@ div.select-course .row {
 
 
 
-/*================= LOGIN ======================*/
+/*================= ACCOUNT LOGIN ======================*/
 
 .login-input {
 	text-align: center;
@@ -424,7 +410,7 @@ div.select-course .row {
 
 
 
-/*================= HOME =================*/
+/*================= HOME-LANDING =================*/
 
 .home.page-body {
 	/*#D8EDE5FF 20%,	*/
@@ -611,14 +597,6 @@ ul.whats-bisd {
 .alert hr {
 	margin: 0.5rem 0;
 }
-
-
-
-
-
-
-
-
 
 
 /* use in viewing form input error*/

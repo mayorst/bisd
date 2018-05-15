@@ -27,6 +27,7 @@ class Management extends CI_Controller
 
         if ($imgUp->do_upload('img_path'))
         {
+            sleep(0.5);
             prompt::success("The Website Logo was Successfully Change.");
             redirect('management/dashboard', 'refresh');
         }

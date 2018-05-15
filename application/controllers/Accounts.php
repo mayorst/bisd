@@ -52,7 +52,7 @@ class Accounts extends CI_Controller
                 Template::accounts('login');
 
             } else {
-                $data = $this->security->xss_clean($_POST);
+                $data = $this->security->xss_clean($_POST);          
                 $user = $this->Account_model->checkUser($data);
 
                 if ($user) {
@@ -125,7 +125,9 @@ class Accounts extends CI_Controller
     public function check_username($username)
     {
         if ($this->isLoggedIn()) {
-            $usernameHolder = (testVar($this->user_to_update)) ? $this->user_to_update : $_SESSION['user']['member_id'];
+            $usernameHolder = (testVar($this->user_to_update)) 
+                ? $this->user_to_update : 
+                $_SESSION['user']['member_id'];
 
             if ($this->Account_model->isUsernameUnique($username, $usernameHolder)) {
                 return true;
@@ -142,7 +144,7 @@ class Accounts extends CI_Controller
         if ($this->isLoggedIn()) {
             if ($this->is_admin()) {
                 if ($_POST) {
-
+                    $_POST = $this->security->xss_clean($_POST);          
                     $this->form_validation->load_config_rule('memberInfo_all');
                     $this->form_validation->set_rules(
                         'email', 'Email',
@@ -248,7 +250,7 @@ class Accounts extends CI_Controller
                 || $_SESSION['user']['member_id'] == $user_id) {
 
                 if ($_POST) {
-                    $updatedInfo = $_POST;
+                    $updatedInfo  = $this->security->xss_clean($_POST);          ;
                     unset($updatedInfo['confirm_password'], $updatedInfo['update']);
                     //hash the password
                     if (isset($updatedInfo['_password'])) {
@@ -344,6 +346,7 @@ class Accounts extends CI_Controller
 
         if ($_POST) {
             // if ($this->form_validation->run('credentials')) {
+            $_POST  = $this->security->xss_clean($_POST);          
             $usern = $_POST['username'];
 
             if ($acc = $this->Account_model->getMember('', "username = '" . $usern . "' OR email = '".$usern."'")) {

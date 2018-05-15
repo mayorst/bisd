@@ -44,11 +44,14 @@ function showPrompts() {
 		fadeItem(this);
 	});
 }
-/*============== DASHBOARD ==============*/
+/* MANAGEMENT 
+------------------------------------- */
 
 $(document).ready(function() {
 
 
+
+// Course
 	$('#btn_selectCourse').click(function() {
 		id = $('.select-course input[name=update_courseID]:checked').val();
 		url = window.location.href;
@@ -87,15 +90,35 @@ $(document).ready(function() {
 		}
 
 	});
+
+// General
+	
+
+	// Custom Modal
+	$('.custom-modal').click(function(e){
+		if(e.target == this){
+			$('.custom-modal').hide();
+		}
+	});
+
+	$('.custModal-cancel').click(function(){
+		$('.custom-modal').hide();
+	})
+
+	
+
+	
 });
 
-/* =============== CREATE MEMBER =========== */
+/* CREATE MEMBER 
+------------------------------------- */
 function backToCredential() {
 	hideElem('#userInfo');
 	showElem('#userCredential');
 }
 
-/* ================= Sidebar ================= */
+/* Sidebar 
+------------------------------------- */
 $(document).ready(function() {
 	$('#sidebarCollapse').on('click', function() {
 		$('#sidebar').toggleClass('active');
@@ -111,7 +134,12 @@ $(document).ready(function() {
 
 });
 
-/* =============== MODAL ===================== */
+/* MODAL
+------------------------------------ */
+
+/**
+ * set up a Yes No Modal
+ */
 function modalYesNo(title, body, yHref, nHref) {
 	btnYesText = 'Yes';
 	btnNoText = 'No';
@@ -154,3 +182,5 @@ function modalYesNo(title, body, yHref, nHref) {
 
 	$(mod_YesNo).modal('show');
 }
+
+

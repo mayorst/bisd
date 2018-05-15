@@ -1,8 +1,5 @@
 <div class="event-landing page-body">
-	
 	<div class="main-event">
-		
-
 	</div>
 	<div class="container">
 <?php
@@ -12,9 +9,6 @@
 			listEvents(testVar($value));
 		}
 	}
-	
-	
-
 ?>
 	</div>
 </div>

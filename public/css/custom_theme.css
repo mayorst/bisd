@@ -8,6 +8,11 @@
 	--blue3: #7EBCEBFF;
 }
 
+.add-img{
+	position: absolute !important;
+	top: 0px;
+	right: 0px;
+}
 
  .table-hover td {
 	font-size: 1rem;
@@ -79,6 +84,24 @@ form input[type="time"], {
   left: 0;
   top: 0;
   opacity: 0;
+}
+
+/* CUSTOM MODAL
+------------------------------------ */
+.custom-modal{
+	position: fixed;
+	z-index: 99;
+	display: none;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
+	right: 0px;
+text-align: center;
+	background-color: rgba(0,0,0,0.5);
+}
+
+.custom-modal> *{
+	display: inline-block;
 }
 
 
@@ -333,6 +356,13 @@ ul ul a {
 .home .jumbotron {
 	background-color: #D8EDE5FF;
 }
+
+.navbar-brand{
+	height: 100%;
+	overflow: hidden;
+	margin-right: 5px;
+}
+
 
 .navbar-collapse .nav-item .nav-link {
 	padding: 0.5rem;

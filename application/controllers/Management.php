@@ -7,43 +7,62 @@ class Management extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        if (!$this->session->userdata('logged_in')) {
+        if (!$this->session->userdata('logged_in'))
+        {
             redirect('home');
         }
 
         $this->load->library('form_validation');
         $this->load->helper('form');
         $this->load->model('Course_model');
-
     }
 
-    public function index()
+    public function changeLogo($POST)
     {
-        redirect('management/dashboard', 'refresh');
-    }
+        $config['upload_path'] = FCPATH . 'public/images/icons/';
+        $config['file_name'] = 'bisd_logo.png';
+        $config['encrypt_name'] = false;
+        $config['overwrite'] = true;
+        $imgUp = imageUploader('', $config);
 
-    public function dashboard()
-    {
-        Template::management();
+        if ($imgUp->do_upload('img_path'))
+        {
+            prompt::success("The Website Logo was Successfully Change.");
+            redirect('management/dashboard', 'refresh');
+        }
+        else
+        {
+            $error = $imgUp->display_errors();
+            if ($error)
+            {
+                prompt::error($error);
+            }
+        }
     }
 
     public function course($action = '', $id = '')
     {
-        if ($_POST) {
+        if ($_POST)
+        {
             unset($_POST['submit']);
-            if ($this->form_validation->run('course')) {
+            if ($this->form_validation->run('course'))
+            {
                 $course = $_POST;
                 $course['course_name'] = testVar($course['course_name']);
 
-                if ($action == pv::CREATE) {
+                if ($action == pv::CREATE)
+                {
                     $categ = testVar($course['category']);
-                    if (!empty($categ) && !is_numeric($categ)) {
-                        $categID = $this->Course_model->createCategory(array('categ_name' => $categ));
+                    if (!empty($categ) && !is_numeric($categ))
+                    {
+                        $categID = $this->Course_model->createCategory(array(
+                            'categ_name' => $categ));
                         $course['category'] = $categID;
                     }
 
                     $imgUp = imageUploader();
-                    if ($imgUp->do_upload('img_path')) {
+                    if ($imgUp->do_upload('img_path'))
+                    {
                         $course['img_path'] = $imgUp->db_img_path();
                     }
 
@@ -51,13 +70,16 @@ class Management extends CI_Controller
                     unset($course['preReq']);
 
                     $whListKey = array(
-                        'course_id', 'course_name', 'category', 'description', 'img_path', 'stat',
+                        'course_id', 'course_name', 'category', 'description',
+                        'img_path', 'stat',
                     );
                     $newCourse = whList($course, $whListKey);
 
-                    if ($id = $this->Course_model->createCourse($newCourse)) {
+                    if ($id = $this->Course_model->createCourse($newCourse))
+                    {
                         $img_error = $imgUp->display_errors(' ', ' ');
-                        if ($img_error) {
+                        if ($img_error)
+                        {
                             prompt::error($img_error);
                         }
 
@@ -65,30 +87,38 @@ class Management extends CI_Controller
                         prompt::success('Course was successfully created.');
                         redirect(current_url());
                     }
-                } else if ($action == pv::UPDATE) {
-                    if (!empty($id)) {
+                }
+                else if ($action == pv::UPDATE)
+                {
+                    if (!empty($id))
+                    {
 
                         $prereq = testVar($course['preReq']);
                         $this->Course_model->createPrereq($id, $prereq);
                         unset($course['preReq']);
 
                         $imgUp = imageUploader();
-                        if ($imgUp->do_upload('img_path')) {
+                        if ($imgUp->do_upload('img_path'))
+                        {
                             $course['img_path'] = $imgUp->db_img_path();
                         }
 
                         $whListKey = array(
-                            'course_id', 'course_name', 'category', 'description', 'img_path', 'stat',
+                            'course_id', 'course_name', 'category',
+                            'description', 'img_path', 'stat',
                         );
                         $uptCourse = whList($course, $whListKey);
 
-                        if ($this->Course_model->updateCourse($id, $uptCourse)) {
+                        if ($this->Course_model->updateCourse($id, $uptCourse))
+                        {
                             $img_error = $imgUp->display_errors(' ', ' ');
-                            if ($img_error) {
+                            if ($img_error)
+                            {
                                 prompt::error($img_error);
                             }
 
-                            prompt::success('Course was successfully updated.');
+                            prompt::success('Course was successfully updated.')
+                            ;
                             redirect('management/course');
                         }
                     }
@@ -100,12 +130,15 @@ class Management extends CI_Controller
 
         $data = array();
 
-        if ($action) {
+        if ($action)
+        {
             $data['update'] = ($action == pv::UPDATE) ? true : false;
 
-            $categories = $this->Course_model->getCategories('categ_id, categ_name');
+            $categories = $this->Course_model->getCategories(
+                'categ_id, categ_name');
             $data['categ'] = array_kvp($categories, 'categ_id', 'categ_name');
-            $data['categ'] = $data['categ'] + array('new' => htmlspecialchars("<New Category>"));
+            $data['categ'] = $data['categ'] + array('new' => htmlspecialchars(
+                "<New Category>"));
 
             // used in prerequisite checkbox.
             $where = (testVar($id)) ? "course_id != $id" : '1=1';
@@ -113,38 +146,53 @@ class Management extends CI_Controller
             $courses = array_kvp($courses, 'course_id', 'course_name');
             $data['courseList'] = $courses;
 
-        } else {
+        }
+        else
+        {
             // viewCourseList for course viewing
             // creates an array of  array of courses with category name as key
             // used in course management
 
             $courses = array();
-            $categs = $this->Course_model->getCategories('categ_id, categ_name');
+            $categs = $this->Course_model->getCategories('categ_id, categ_name'
+            );
 
-            foreach ($categs as $key => $value) {
+            foreach ($categs as $key => $value)
+            {
                 $categID = $value['categ_id'];
-                $courseOfCategory = $this->Course_model->getCourses('', "category = $categID");
-                $courses = $courses + array($value['categ_name'] => $courseOfCategory);
+                $courseOfCategory = $this->Course_model->getCourses('', "
+                                                         category = $categID");
+                $courses = $courses + array($value['categ_name'] =>
+                    $courseOfCategory);
             }
 
             $data['viewCourseList'] = $courses;
         }
 
-        if (testVar($id, false)) {
+        if (testVar($id, false))
+        {
             $data['courseToUpdate'] = $this->Course_model->getCourse($id);
-            if (testVar($id)) {
-                if ($pr = $this->Course_model->getCourse_prereq("course_id", $id)) {
+            if (testVar($id))
+            {
+                if ($pr = $this->Course_model->getCourse_prereq("course_id",
+                    $id))
+                {
                     $data['coursePrereq'] = array_kvp($pr, 0, 'course_id');
                 }
-                if ($pr = $this->Course_model->getCourse_prereq("req_by", $id, 'course_id')) {
-                    if (count($pr) > 0) {
-                        $data['requiredBy_course'] = array_kvp($pr, 0, 'req_by');
+                if ($pr = $this->Course_model->getCourse_prereq("req_by", $id,
+                    'course_id'))
+                {
+                    if (count($pr) > 0)
+                    {
+                        $data['requiredBy_course'] = array_kvp($pr, 0, 'req_by'
+                        );
                     }
                 }
 
                 //test if image exists
                 $course = $data['courseToUpdate'];
-                if (!file_exists(RESRC_PATH . $course['img_path'])) {
+                if (!file_exists(RESRC_PATH . $course['img_path']))
+                {
                     $data['courseToUpdate']['img_path'] = '';
                 }
             }
@@ -152,4 +200,20 @@ class Management extends CI_Controller
         Template::management('courses', $data);
     }
 
+    public function dashboard()
+    {
+        if ($_POST)
+        {
+            if (isset($_POST['logo_form']))
+            {
+                $this->changeLogo($_POST);
+            }
+        }
+        Template::management();
+    }
+
+    public function index()
+    {
+        redirect('management/dashboard', 'refresh');
+    }
 }

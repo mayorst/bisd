@@ -1,3 +1,58 @@
+/* DASHBOARD
+----------------------------------- */
+
+.dashboard .container {
+	min-height: 80vh;
+}
+
+.dashboard .heading h1{
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.dashboard .logo {
+	position: relative;
+	display: inline-block;
+	width: 150px;
+	height: 150px;
+	max-width: 200px;
+	background-color: #CCCCCCFF;
+	overflow: hidden;
+}
+
+.dashboard .logo img {
+	width: 110%;
+}
+
+.edit-logo {
+	position: absolute;
+	right: 0px;
+	z-index: 2;
+	color: #7F7F7FFF;
+	opacity: 0.8s;
+	border: none;
+	border-radius: initial;
+	width: 20px;
+	height: 20px;
+	padding: initial;
+}
+
+.edit-logo:hover {
+	opacity: 1;
+}
+
+#id_update_logo form {
+	width: 500px;
+}
+
+#id_update_logo form .img_container {
+	height: 300px;
+}
+
+
+
+
 /* ACCOUNT VIEW
 ----------------------------------- */
 
@@ -29,21 +84,27 @@
 
 
 
+
+
+
 /* EVENT-LANDING 
 -------------------------------- */
-.main-event{
+
+.main-event {
 	background-color: #40BE98FF;
 	height: 400px;
 }
 
-.event{
+.event {
 	margin-bottom: 20px;
 }
+
 .event-img {
 	overflow: hidden;
 	min-height: 200px;
 }
-.event-img img{
+
+.event-img img {
 	position: absolute;
 	top: 50%;
 	width: 100%;
@@ -59,6 +120,9 @@
 
 
 
+
+
+
 /* EVENTS 
 ----------------------------------- */
 
@@ -68,6 +132,9 @@
 	overflow-y: auto;
 	width: 100%;
 }
+
+
+
 
 
 
@@ -91,6 +158,9 @@
 .events-form .img_container {
 	height: 360px;
 }
+
+
+
 
 
 
@@ -136,6 +206,9 @@
 
 
 
+
+
+
 /* COURSE-LANDING 
 ---------------------------------- */
 
@@ -161,6 +234,9 @@
 .course h3+hr {
 	margin-top: 0px;
 }
+
+
+
 
 
 
@@ -220,6 +296,9 @@
 	background-position: center;
 	background-size: cover;
 }
+
+
+
 
 
 
@@ -316,6 +395,9 @@ div.select-course .row {
 
 
 
+
+
+
 /* MEMBERSHIP FORM 
 ---------------------------------- */
 
@@ -331,6 +413,9 @@ div.select-course .row {
 .userCredential {
 	max-width: 500px;
 }
+
+
+
 
 
 
@@ -374,6 +459,9 @@ div.select-course .row {
 
 
 
+
+
+
 /* ACCOUNT LOGIN 
 ------------------------------------------ */
 
@@ -394,6 +482,9 @@ div.select-course .row {
 	-webkit-filter: drop-shadow(0px 0px 5px #555);
 	filter: drop-shadow(0px 0px 5px #555);
 }
+
+
+
 
 
 
@@ -442,6 +533,9 @@ ul.whats-bisd {
 	/*overflow-y: hidden;*/
 	overflow-y: auto;
 }
+
+
+
 
 
 
@@ -520,6 +614,9 @@ ul.whats-bisd {
 
 
 
+
+
+
 /* ====================================== */
 
 .mngmnt-heading {
@@ -544,8 +641,10 @@ ul.whats-bisd {
 }
 
 .small-logo {
-	width: 5rem;
+	/*width: 5rem;*/
 	margin-right: 5px;
+	max-width: 100%;
+	max-height: 100%;
 }
 
 
@@ -592,6 +691,9 @@ ul.whats-bisd {
 .alert hr {
 	margin: 0.5rem 0;
 }
+
+
+
 
 
 /* use in viewing form input error*/

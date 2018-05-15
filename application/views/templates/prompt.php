@@ -21,7 +21,7 @@
     $CI = &get_instance();
     $CI->load->helper('modal');
 
-modal_YesNo();
+	modal_YesNo();
 ?>
 
 <?php 

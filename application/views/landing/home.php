@@ -1,21 +1,21 @@
-
-
-   <div class="home page-body">
-    <div class="hero-image">
-        <img src="<?=PATH_IMAGES . 'img1.jpg'?>">
-  <div class="hero-text">
-    
-    <h1 class="display-3">Welcome to BISD!</h1>
-    <p class="lead"><font color="white">Benitez Institute for Sustainable Development</font></p>
-    <hr class="my-4">
-    <p>Learn Education for Sustainability. Start your course now!</p>
-    <p class="lead">
-      <a class="btn btn-primary btn-lg" href="<?=base_url('courses')?>" role="button"><i class="fa fa-lightbulb"></i> View Courses</a>
-    </p>
-    <br>
+<div class="home page-body">
+  <div class="hero-image" style="background-image: url('<?=PATH_IMAGES . 'img1.jpg'?>');">
+    <!--       <img src=""> -->
+    <div class="hero-text">
+      <h1 class="display-3">Welcome to BISD!</h1>
+      <p class="lead">
+        <font color="white">Benitez Institute for Sustainable Development</font>
+      </p>
+      <hr class="my-4">
+      <p>Learn Education for Sustainability. Start your course now!</p>
+      <p class="lead">
+        <a class="btn btn-primary btn-lg" href="<?=base_url('courses')?>" role="button"><i class="fa fa-lightbulb"></i> View Courses</a>
+      </p>
+      <br>
+    </div>
   </div>
-  <br><br>
-
+  <br>
+  <br>
   <div class="container">
     <!--info of BISD-->
     <article>
@@ -50,7 +50,7 @@
                     <li> integration of theory and practice of sustainable development </li>
                   </ul>
                 </p>
-              </li> 
+              </li>
             </ul>
           </section>
         </div>
@@ -59,8 +59,8 @@
             <h3>Upcoming Events</h3>
             <div class="list">
               <?php
-                  create_upcomingEvents($upcomingEvents);
-              ?>
+create_upcomingEvents($upcomingEvents);
+?>
             </div>
           </section>
         </div>
@@ -100,46 +100,45 @@
     </article>
   </div>
 </div>
-
-
 <?php
-    /**
-     * Element Creator
-     * -----------------------------
-     */
-    function create_upcomingEvents($upcomingEvents)
+/**
+ * Element Creator
+ * -----------------------------
+ */
+function create_upcomingEvents($upcomingEvents)
+{
+    if (testVar($upcomingEvents))
     {
-        if (testVar($upcomingEvents)) {
-            foreach ($upcomingEvents as $key => $value) {
+        foreach ($upcomingEvents as $key => $value)
+        {
 
-                $img = get_resc($value['ev_img_path']);
+            $img = get_resc($value['ev_img_path']);
 
-                $name = $value['name'];
+            $name = $value['name'];
 
-                $unix_startTime = human_to_unix($value['time_start']);
-                $date = date('M d, Y h:i a', $unix_startTime);
-                $desc = $value['description'];
+            $unix_startTime = human_to_unix($value['time_start']);
+            $date = date('M d, Y h:i a', $unix_startTime);
+            $desc = $value['description'];
 
             ?>
-
-<div class="card">
-  <div class="img_container">
-    <img src="<?=$img?>">
+  <div class="card">
+    <div class="img_container">
+      <img src="<?=$img?>">
+    </div>
+    <h5><?=$name?></h5>
+    <span><?=$date?></span>
+    <p>
+      <?=$desc?>
+    </p>
   </div>
-  <h5><?=$name?></h5>
-  <span><?=$date?></span>
-  <p>
-    <?=$desc?>
-  </p>
-</div>
-
-<?php
+  <?php
+}
     }
-        } else {
-            echo '<div class="text-center">NO UPCOMING EVENTS</div>';
-        }
+    else
+    {
+        echo '<div class="text-center">NO UPCOMING EVENTS</div>';
     }
+}
 
 ?>
-
-</div>
+    </div>

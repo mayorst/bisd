@@ -1,6 +1,6 @@
 
 
-  
+   <div class="home page-body">
     <div class="hero-image">
         <img src="<?=PATH_IMAGES . 'img1.jpg'?>">
   <div class="hero-text">
@@ -14,7 +14,8 @@
     </p>
     <br>
   </div>
- <div class="home page-body">
+  <br><br>
+
   <div class="container">
     <!--info of BISD-->
     <article>

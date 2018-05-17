@@ -592,9 +592,9 @@ body{
 	/*#D8EDE5FF 20%,	*/
 	background: linear-gradient( to bottom,
 	rgba(52, 183, 202, 1),
+	#ffffff,
 	#77ddaa,
-	#FFFFFFFF,
-	#77ddaa);
+	#ffffff);
 }
 
 .home section h3 {

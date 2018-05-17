@@ -15,7 +15,7 @@
     <br>
   </div>
   <br><br><br>
- 
+ <div class="home page-body">
   <div class="container">
     <!--info of BISD-->
     <article>
@@ -141,3 +141,5 @@
     }
 
 ?>
+
+</div>

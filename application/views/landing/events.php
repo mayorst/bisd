@@ -1,6 +1,17 @@
 <div class="event-landing page-body">
-	<div class="main-event">
-	</div>
+<div class="hero-image3">
+        <img src="<?=PATH_IMAGES . 'img5.jpg'?> ">
+  <div class="hero-text3">
+    
+    <h1 class="display-3">BISD EVENTS</h1>
+    <p class="lead"><font color="white">Benitez Institute for Sustainable Development</font></p>
+ 
+  </div>
+  <br><br><br>
+  
+
+  
+  </div>
 	<div class="container">
 <?php
 

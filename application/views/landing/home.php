@@ -1,14 +1,21 @@
 
-<div class="home page-body">
-  <div class="jumbotron">
+
+  
+    <div class="hero-image">
+        <img src="<?=PATH_IMAGES . 'img1.jpg'?>">
+  <div class="hero-text">
+    
     <h1 class="display-3">Welcome to BISD!</h1>
-    <p class="lead">Benitez Institute for Sustainable Development</p>
+    <p class="lead"><font color="white">Benitez Institute for Sustainable Development</font></p>
     <hr class="my-4">
     <p>Learn Education for Sustainability. Start your course now!</p>
     <p class="lead">
       <a class="btn btn-primary btn-lg" href="<?=base_url('courses')?>" role="button"><i class="fa fa-lightbulb"></i> View Courses</a>
     </p>
+    <br>
   </div>
+  <br><br><br>
+ 
   <div class="container">
     <!--info of BISD-->
     <article>
@@ -18,7 +25,8 @@
             <h3> What is BISD? </h3>
             <ul class="whats-bisd list-unstyled">
               <li>
-                <p>A <strong>SYSTEM</strong> of learning developing promoting sustainabl development theories, sustainble development theories, technologies and practices.
+                <br>
+                <p>A <strong>SYSTEM</strong> of learning developing promoting sustainable development theories, sustainble development theories, technologies and practices.
                 </p>
               </li>
               <li>

@@ -1,9 +1,20 @@
 <div class="land-courses page-body">
-	<div class="container">
-		<div>
-			<h2>BISD Courses</h2>
-			<hr>
-		</div>
+	
+<div class="hero-image2">
+        <img src="<?=PATH_IMAGES . 'img4.jpg'?> ">
+  <div class="hero-text2">
+    
+    <h1 class="display-3">BISD COURSES</h1>
+    <p class="lead"><font color="black">Benitez Institute for Sustainable Development</font></p>
+ 
+  </div>
+  <br><br><br>
+  
+
+  
+  </div>
+		
+		<div class="container">
 		<?php
 
             foreach ($courseList as $key => $courseCateg) {
@@ -54,6 +65,8 @@
 		<div class="course-category">
 			<h2><?=$categName?></h2>
 		</div>
+
+
 <?php 
 	}
 ?>

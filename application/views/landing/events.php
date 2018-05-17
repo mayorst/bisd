@@ -1,10 +1,10 @@
 <div class="event-landing page-body">
 <div class="hero-image3">
-        <img src="<?=PATH_IMAGES . 'img5.jpg'?> ">
+        <img src="<?=PATH_IMAGES . 'img7.jpg'?> ">
   <div class="hero-text3">
     
     <h1 class="display-3">BISD EVENTS</h1>
-    <p class="lead"><font color="white">Benitez Institute for Sustainable Development</font></p>
+    <p class="lead"><font color="black">Benitez Institute for Sustainable Development</font></p>
  
   </div>
   <br><br><br>

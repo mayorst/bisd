@@ -45,7 +45,9 @@ CREATE TABLE IF NOT EXISTS tbl_course(
 course_id INT(10) AUTO_INCREMENT  NOT NULL,
 course_name VARCHAR(100) NOT NULL,
 category INT(5), 
-description VARCHAR(16384), -- description maybe in a .json file so thet the db is not bulky for just a description.
+description VARCHAR(16384),
+img_path VARCHAR(300),
+stat VARCHAR(15),
 
 PRIMARY KEY(course_id),
 FOREIGN KEY(category) REFERENCES tbl_course_category(categ_id)
@@ -62,6 +64,40 @@ FOREIGN KEY(course_id) REFERENCES tbl_course(course_id),
 FOREIGN KEY(prereq_id) REFERENCES tbl_course(course_id)
 
 );
+
+
+CREATE TABLE IF NOT EXISTS tbl_venue(
+
+venue_id BIGINT(15) AUTO_INCREMENT,
+venue_name VARCHAR(30) NOT NULL,
+address VARCHAR(150) NOT NULL,
+venue_description VARCHAR(1024),
+
+PRIMARY KEY(venue_id)
+);
+
+CREATE TABLE IF NOT EXISTS tbl_venue_img(
+	venue_id BIGINT(15),
+	img_path VARCHAR(300),
+
+	PRIMARY KEY(venue_id),
+	FOREIGN KEY(venue_id) REFERENCES tbl_venue(venue_id)
+);
+
+CREATE TABLE IF NOT EXISTS tbl_events(
+	event_id BIGINT(20) AUTO_INCREMENT,
+	name VARCHAR(50) NOT NULL,
+	time_start DATETIME,
+	time_end DATETIME,
+	address VARCHAR(150) DEFAULT '',
+	venue BIGINT(15),
+	description VARCHAR(1024),
+	ev_img_path VARCHAR(300),
+	stat VARCHAR(15),
+
+	PRIMARY KEY(event_id)
+);
+
 
 
 -- ================= tempTables ===============
@@ -85,11 +121,14 @@ date_added DATETIME DEFAULT NOW(),
 _position VARCHAR(20),
 _status VARCHAR(15),
 prof_pic VARCHAR(300),
+acc_verification VARCHAR(35),
 
 PRIMARY KEY(temp_member_id)
 );
 
 -- =============== ALTERS ==========
+ALTER TABLE tbl_events AUTO_INCREMENT=1001;
+ALTER TABLE tbl_venue AUTO_INCREMENT=1001;
 ALTER TABLE tbl_course AUTO_INCREMENT=1001;
 
 ALTER TABLE tbl_course_category AUTO_INCREMENT=101;
@@ -108,7 +147,26 @@ Select cp.course_id "req_by",c.*
 from tbl_course_prereq cp
 INNER JOIN tbl_course c ON cp.prereq_id = c.course_id;
 
+CREATE VIEW IF NOT EXISTS events AS 
+SELECT  
+	ev.event_id,
+	ev.name ,
+	ev.time_start,
+	ev.time_end ,
+	IF(ev.address = '' OR ev.address = NULL , 
+	(SELECT CONCAT(venue_name,', ',address) from tbl_venue where venue_id  = ev.venue)
+	,ev.address) as 'address',
+	ev.venue ,
+	ev.description ,
+	ev.stat,
+	IF(ev.ev_img_path = '' OR ev.ev_img_path = NULL , 
+	(SELECT img_path from tbl_venue where venue_id  = ev.venue)
+	,ev.ev_img_path) as 'ev_img_path'
 
+from tbl_events ev
+LEFT JOIN tbl_venue ven ON ev.venue = ven.venue_id
+LEFT JOIN tbl_venue_img vimg ON ven.venue_id = vimg.venue_id
+ORDER BY stat ASC, time_start DESC;
 
 -- ================= INSERTS ===========
 INSERT INTO tbl_member(member_id, last_name, first_name, middle_name, street, barangay, municipality, province, birthdate, gender, contact_number, email, username,_password, _position, _status, prof_pic) 
@@ -152,3 +210,15 @@ INSERT INTO `tbl_course` (`course_id`, `course_name`, `category`, `description`)
 	(1007, 'Local Economy and Microfinance', 102, 'This course focuses on the role of local (i.e., community-level) economies in ensuring national sustainability. It examines the elements that comprise a sustainable local economy. Specific cases will also be discussed, to give participants a realistic picture of the problems involved and options available in making local economies sustainable, including the principles of micro-finance and risk transfer mechanisms.'),
 	(1008, 'Sustainable Coastal Resource Management', 102, 'This course is a community-based, holistic and integrated approach to managing coastal resources. It focuses on enhancing local capacity in developing and implementing projects to ensure the sustainability of coastal resources and livelihood for the local community. The course also equips participants with necessary knowledge, attitude and skills in mainstreaming CBCRM into current development policy and practice.'),
 	(1009, 'Sustainable Agriculture', 102, 'This course will familiarize participants with the concepts of sustainable agriculture. Participants will become familiar with the factors of sustainable agriculture (food security, cash crops for higher income, organic farming, and the preservation of biodiversity) and develop understanding on how to make a farm sustainable. General principles and specific practices such as diversified integrated farming systems (DIFS), system of rice intensification (SRI), nature farming, and permaculture will be covered.');
+
+INSERT INTO `tbl_venue` (`venue_id`, `venue_name`, `address`, `venue_description`) VALUES
+	(1001, 'Avogadro Hall', 'PRRM Mother Ignacia, Quezon City', 'Good Place for Meeting.'),
+	(1002, 'Valencia Hall', 'Bulacan State University, Malolos Bulacan', '3000 Audience Capacity.');
+
+INSERT INTO `tbl_venue_img` (`venue_id`, `img_path`) VALUES
+	(1001, 'uploads/img/1/ad31b57e1db091a4e2bccaf27436601b.jpg'),
+	(1002, 'uploads/img/1/4d249031a4c362b892f1e39ba90daa61.jpg');
+
+INSERT INTO `tbl_events` (`event_id`, `name`, `time_start`, `time_end`, `address`, `venue`, `description`, `ev_img_path`, `stat`) VALUES
+	(1001, 'Earth Day 2018', '2018-05-09 09:00:00', '2018-05-09 22:00:00', 'Philippine Arena, Bocaue, Bulacan', 0, 'Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit, Sed Do Eiusmod\r\nTempor Incididunt Ut Labore Et Dolore Magna Aliqua. Ut Enim Ad Minim Veniam,\r\nQuis Nostrud Exercitation Ullamco Laboris Nisi Ut Aliquip Ex Ea Commodo\r\nConsequat. Duis Aute Irure Dolor In Reprehenderit In Voluptate Velit Esse\r\nCillum Dolore Eu Fugiat Nulla Pariatur. Excepteur Sint Occaecat Cupidatat Non\r\nProident, Sunt In Culpa Qui Officia Deserunt Mollit Anim Id Est Laborum.', 'uploads/img/1/e294f6ddb564b9215bba5bf42ea8501c.jpg', 'Active'),
+	(1002, 'Youth Camp 2018', '2018-05-09 10:00:00', '2018-05-16 10:00:00', 'Tagaytay City, Cavite', 0, 'Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit, Sed Do Eiusmod\r\nTempor Incididunt Ut Labore Et Dolore Magna Aliqua. Ut Enim Ad Minim Veniam,\r\nQuis Nostrud Exercitation Ullamco Laboris Nisi Ut Aliquip Ex Ea Commodo\r\nConsequat. Duis Aute Irure Dolor In Reprehenderit In Voluptate Velit Esse\r\nCillum Dolore Eu Fugiat Nulla Pariatur. Excepteur Sint Occaecat Cupidatat Non\r\nProident, Sunt In Culpa Qui Officia Deserunt Mollit Anim Id Est Laborum.', 'uploads/img/1/0ac584f6571167cb76ed1c1168d3034b.jpg', 'Active');

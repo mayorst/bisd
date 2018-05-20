@@ -8,18 +8,18 @@
 	--blue3: #7EBCEBFF;
 }
 
-.add-img{
+.add-img {
 	position: absolute !important;
 	top: 0px;
 	right: 0px;
 }
 
- .table-hover td {
+.table-hover td {
 	font-size: 1rem;
 	vertical-align: middle;
 }
 
- .table-hover .btn {
+.table-hover .btn {
 	padding: 0.6rem
 }
 
@@ -62,33 +62,40 @@ form label {
 	color: #7F7F7FFF;
 }
 
+
 /*form input:not([type="submit"]),*/
+
 form input[type="text"],
 form input[type="date"],
-form input[type="time"], {
+form input[type="time"],
+{
 	height: 2rem;
 }
 
+
 /*======= File input as Button =======*/
+
 .upload-btn-wrapper {
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
 }
 
 .upload-btn-wrapper input[type=file] {
-  height: 100%;
-  width: 100%;
+	height: 100%;
+	width: 100%;
 
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
+	position: absolute;
+	left: 0;
+	top: 0;
+	opacity: 0;
 }
+
 
 /* CUSTOM MODAL
 ------------------------------------ */
-.custom-modal{
+
+.custom-modal {
 	position: fixed;
 	z-index: 99;
 	display: none;
@@ -96,13 +103,14 @@ form input[type="time"], {
 	left: 0px;
 	bottom: 0px;
 	right: 0px;
-text-align: center;
-	background-color: rgba(0,0,0,0.5);
+	text-align: center;
+	background-color: rgba(0, 0, 0, 0.5);
 }
 
-.custom-modal> *{
+.custom-modal>* {
 	display: inline-block;
 }
+
 
 
 /* ============= TABLE ============= */
@@ -122,6 +130,7 @@ text-align: center;
 .table-hover .table-secondary>td {
 	background-color: #F4F4F4;
 }
+
 
 
 
@@ -264,6 +273,7 @@ a[data-toggle="collapse"] {
 
 
 
+
 /* Side Bar Style*/
 
 a,
@@ -321,32 +331,43 @@ ul ul a {
 }
 
 
+
 /*============= =============== =========== */
+
 
 /*- Browser Scrollbar -*/
 
+
 /* width */
+
 ::-webkit-scrollbar {
-    width: 8px;
+	width: 8px;
 }
+
 
 /* Track */
+
 ::-webkit-scrollbar-track {
-    background: rgba(132, 132, 132, .5); 
-    border-radius: 9px; 
+	background: rgba(132, 132, 132, .5);
+	border-radius: 9px;
 }
+
 
 /* Handle */
+
 ::-webkit-scrollbar-thumb {
-    background:  rgba(255, 255, 255, 0.8);
-    border-radius: 9px; 
+	background: rgba(255, 255, 255, 0.8);
+	border-radius: 9px;
 }
 
+
 /* Handle on hover */
+
 ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-    border-radius: 9px; 
+	background: #555;
+	border-radius: 9px;
 }
+
 
 
 
@@ -357,7 +378,7 @@ ul ul a {
 	background-color: #D8EDE5FF;
 }
 
-.navbar-brand{
+.navbar-brand {
 	height: 100%;
 	overflow: hidden;
 	margin-right: 5px;

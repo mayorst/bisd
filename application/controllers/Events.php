@@ -86,6 +86,7 @@ class Events extends CI_Controller
     {
         if ($_POST) {
             unset($_POST['submit']);
+            $_POST = $this->security->xss_clean($_POST);
 
             $this->form_validation->load_config_rule('event');
 
@@ -147,6 +148,7 @@ class Events extends CI_Controller
 
         if ($_POST) {
             unset($_POST['submit']);
+            $_POST = $this->security->xss_clean($_POST);
 
             $this->form_validation->load_config_rule('event');
 
@@ -233,6 +235,7 @@ class Events extends CI_Controller
         if ($_POST) {
 
             unset($_POST['submit'], $_POST['img_path']);
+            $_POST = $this->security->xss_clean($_POST);
             $newVenue = $_POST;
 
             if ($this->form_validation->run('venue')) {
@@ -260,6 +263,7 @@ class Events extends CI_Controller
 
         if ($_POST) {
             unset($_POST['submit']);
+            $_POST = $this->security->xss_clean($_POST);
 
             if ($this->form_validation->run('venue')) {
 

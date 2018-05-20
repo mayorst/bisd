@@ -43,14 +43,16 @@
 	opacity: 1;
 }
 
-#id_update_logo form {
-	width: 500px;
-}
 
-#id_update_logo form .img_container {
-	height: 300px;
-}
+@media screen and (min-width: 800px) {
+	#id_update_logo form {
+		width: 500px;
+	}
 
+	#id_update_logo form .img_container {
+		height: 300px;
+	}
+}
 
 
 
@@ -83,6 +85,8 @@
 	font-weight: 600;
 	font-size: 2rem;
 }
+
+
 
 
 
@@ -127,6 +131,8 @@
 
 
 
+
+
 /* EVENTS 
 ----------------------------------- */
 
@@ -136,6 +142,8 @@
 	overflow-y: auto;
 	width: 100%;
 }
+
+
 
 
 
@@ -163,6 +171,8 @@
 .events-form .img_container {
 	height: 360px;
 }
+
+
 
 
 
@@ -216,6 +226,8 @@
 
 
 
+
+
 /* COURSE-LANDING 
 ---------------------------------- */
 
@@ -241,6 +253,8 @@
 .course h3+hr {
 	margin-top: 0px;
 }
+
+
 
 
 
@@ -304,6 +318,8 @@
 	background-position: center;
 	background-size: cover;
 }
+
+
 
 
 
@@ -408,6 +424,8 @@ div.select-course .row {
 
 
 
+
+
 /* MEMBERSHIP FORM 
 ---------------------------------- */
 
@@ -423,6 +441,8 @@ div.select-course .row {
 .userCredential {
 	max-width: 500px;
 }
+
+
 
 
 
@@ -474,6 +494,8 @@ div.select-course .row {
 
 
 
+
+
 /* ACCOUNT LOGIN 
 ------------------------------------------ */
 
@@ -508,12 +530,16 @@ div.select-course .row {
 
 
 
+
+
 /* HOME-LANDING 
 ---------------------------------------------- */
 
 body {
 	margin: 0;
 }
+
+
 
 
 /* The hero image */
@@ -528,16 +554,18 @@ body {
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	display:  inline-block; 
+	display: inline-block;
 }
+
+
 
 
 /* Place text in the middle of the image */
 
 .hero-text {
 	text-align: center;
-	position: relative ;
-	margin-top:  10%;
+	position: relative;
+	margin-top: 10%;
 	left: 50%;
 	transform: translateX(-50%);
 	color: white;
@@ -558,6 +586,8 @@ body {
 	position: relative;
 	background-color: rgba(0, 0, 0, .15);
 }
+
+
 
 
 /* Place text in the middle of the image */
@@ -586,6 +616,8 @@ body {
 	position: relative;
 	background-color: rgba(0, 0, 0, .15);
 }
+
+
 
 
 /* Place text in the middle of the image */
@@ -637,6 +669,8 @@ ul.whats-bisd {
 	/*overflow-y: hidden;*/
 	overflow-y: auto;
 }
+
+
 
 
 
@@ -702,13 +736,22 @@ ul.whats-bisd {
 	font-family: inherit;
 }
 
+.learningCenter h3 {
+	text-align: initial;
+}
+
+.learning-center p{
+	text-indent: 4rem;
+	text-align: justify;
+}
+
 .learningCenter-ph {
 	text-align: center;
 }
 
-.learningCenter-ph h3 {
-	text-align: initial;
-}
+
+
+
 
 
 
@@ -797,6 +840,8 @@ ul.whats-bisd {
 .alert hr {
 	margin: 0.5rem 0;
 }
+
+
 
 
 

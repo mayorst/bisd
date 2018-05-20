@@ -9,7 +9,7 @@ $CI->load->view('management/templates/logo_form');
 	<div class="container">
 		<div class="row">
 			<div class="col-md-2 align-center">
-				<div class="logo ">
+				<div class="logo">
 					<a class="btn btn-outline-primary edit-logo" href="#"
 						onclick="showElem('#id_update_logo')">
 
@@ -22,5 +22,10 @@ $CI->load->view('management/templates/logo_form');
 			</div>
 		</div>
 		<hr>
+		<div class="row align-center">
+			<?php
+				$CI->load->view('management/templates/public_message_form');
+			?>
+		</div>
 	</div>
 </div>

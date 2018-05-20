@@ -28,7 +28,7 @@ class Accounts extends CI_Controller
 
         $this->load->library('form_validation');
         $this->load->model('Account_model');
-
+        
         $this->load->library('table');
 
     }
@@ -52,7 +52,7 @@ class Accounts extends CI_Controller
                 Template::accounts('login');
 
             } else {
-                $data = $this->security->xss_clean($_POST);          
+                $data = $this->security->xss_clean($_POST);      
                 $user = $this->Account_model->checkUser($data);
 
                 if ($user) {

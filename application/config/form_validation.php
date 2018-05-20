@@ -10,6 +10,25 @@
 //         ),
 
 $config = array(
+    'publicMessage' => array(
+        array(
+            'field' => 'title',
+            'label' => 'Title',
+            'rules' => 'trim|required|max_length[200]',
+            'errors' => array(
+                'max_length' => '%s must not be greater than 200 characters.'),
+        ),
+        array(
+            'field' => 'from_',
+            'label' => 'Addresser',
+            'rules' => 'trim',
+        ),
+        array(
+            'field' => 'message',
+            'label' => 'Message',
+            'rules' => 'trim|required',
+        ),
+    ),
     'event' => array(
         array(
             'field' => 'name',

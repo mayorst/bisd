@@ -84,16 +84,17 @@ create_upcomingEvents($upcomingEvents);
         </blockquote>
       </section>
       <section>
-        <p>The Benitez Institute for Sustainable Development (BISD), since its establishment in 2002, has served as the main training, research and technical assistance arm of the Movement. It has a set of faculty drawn from among PRRM’s Board of Trustees, chapter members, staff and partner people’s organizations (POs), as well as from other training institutes, NGOs and POs.</p>
-        <p>In other words, it operates as a community of knowledge, rather than as a single, isolated institution. This is to ensure that it is able to draw from the widest possible source of “exemplary practices” in sustainable development for sharing through its training programs and publications.
-        </p>
-        <p>
-          A vital aspect of the BISD curriculum is the optimization of community projects implemented by the local organizations and/or advocates-practitioners. These will serve as demonstration and training sites in which learning may more effectively take place in complementation with classroom discourses.
-        </p>
+        <!-- asdsad sad-->
       </section>
-      <section>
-        <div class="learningCenter-ph">
+      <section class="learning-center">
           <h3>Local Community Learning Center and Thrust</h3>
+         <p>The Benitez Institute for Sustainable Development (BISD), since its establishment in 2002, has served as the main training, research and technical assistance arm of the Movement. It has a set of faculty drawn from among PRRM’s Board of Trustees, chapter members, staff and partner people’s organizations (POs), as well as from other training institutes, NGOs and POs.</p>
+          <p>In other words, it operates as a community of knowledge, rather than as a single, isolated institution. This is to ensure that it is able to draw from the widest possible source of “exemplary practices” in sustainable development for sharing through its training programs and publications.
+          </p>
+          <p>
+            A vital aspect of the BISD curriculum is the optimization of community projects implemented by the local organizations and/or advocates-practitioners. These will serve as demonstration and training sites in which learning may more effectively take place in complementation with classroom discourses.
+          </p>
+        <div class="learningCenter-ph">
           <img class="responsive-img" src="<?=PATH_IMAGES . 'local_community_learning_centers.jpg'?>" />
         </div>
       </section>

@@ -1,5 +1,4 @@
-<div id="id_update_logo" class="custom-modal">
-
+<div id="id_update_logo" class="custom-modal container">
 <?php 
 
 echo form_open_multipart();

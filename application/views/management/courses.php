@@ -50,7 +50,7 @@
                 <h4 class="card-title"><?=$course['course_name']?></h4>
                 <div class="course-img" style="background-image: url('<?=$src?>');">
                     <div class="card-text course-desc">
-                        <?=newLine_to_pTag($course['description']);?>
+                        <?=carraigeReturn_to_tag($course['description']);?>
                     </div>
                 </div>
             </div>

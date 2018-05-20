@@ -9,6 +9,10 @@
     <meta charset="utf-8">
     <meta http-equiv="pragma" content="no-cache" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="<?=$config['path_logo']?>">
+
+
+
     <link rel="stylesheet" type="text/css" href="<?php echo $config['path_fontAwesome']; ?>">
     <link rel="stylesheet" type="text/css" href="<?php echo $config['path_bootstrap_theme']; ?>">
     <link rel="stylesheet" type="text/css" href="<?php echo $config['path_custom_theme']; ?>">

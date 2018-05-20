@@ -43,7 +43,7 @@ function listEvents($event){
 			<div class="col-md-8">
 				<span class="date"><?=$date?></span>
 				<h5><?= $event['name']?></h5>
-				<?= newLine_to_pTag($desc)?>
+				<?= carraigeReturn_to_tag($desc)?>
 			</div>
 		</div>
 	</div>

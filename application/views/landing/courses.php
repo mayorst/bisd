@@ -52,7 +52,7 @@
 			<div class="course-img" 
 				style="background-image: url('<?=$src?>');" >
 				<div class="course-desc">
-					<?=newLine_to_pTag($course['description']);?>
+					<?=carraigeReturn_to_tag($course['description']);?>
 				</div>
 
 			</div>

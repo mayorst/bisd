@@ -15,30 +15,8 @@ class Management extends CI_Controller
         $this->load->library('form_validation');
         $this->load->helper('form');
         $this->load->model('Course_model');
-    }
+        $this->load->model('PublicMessage_model');
 
-    public function changeLogo($POST)
-    {
-        $config['upload_path'] = FCPATH . 'public/images/icons/';
-        $config['file_name'] = 'bisd_logo.png';
-        $config['encrypt_name'] = false;
-        $config['overwrite'] = true;
-        $imgUp = imageUploader('', $config);
-
-        if ($imgUp->do_upload('img_path'))
-        {
-            sleep(0.5);
-            prompt::success("The Website Logo was Successfully Change.");
-            redirect('management/dashboard', 'refresh');
-        }
-        else
-        {
-            $error = $imgUp->display_errors();
-            if ($error)
-            {
-                prompt::error($error);
-            }
-        }
     }
 
     public function course($action = '', $id = '')
@@ -46,6 +24,8 @@ class Management extends CI_Controller
         if ($_POST)
         {
             unset($_POST['submit']);
+            $_POST = $this->security->xss_clean($_POST);
+
             if ($this->form_validation->run('course'))
             {
                 $course = $_POST;
@@ -205,16 +185,67 @@ class Management extends CI_Controller
     {
         if ($_POST)
         {
+            $_POST = $this->security->xss_clean($_POST);
+
             if (isset($_POST['logo_form']))
             {
                 $this->changeLogo($_POST);
             }
+            else if (isset($_POST['publicMessage_form']))
+            {
+                $this->createMessage($_POST);
+            }
         }
+
         Template::management();
+    }
+
+    public function changeLogo($POST)
+    {
+        $config['upload_path'] = FCPATH . 'public/images/icons/';
+        $config['file_name'] = 'bisd_logo.png';
+        $config['encrypt_name'] = false;
+        $config['overwrite'] = true;
+        $imgUp = imageUploader('', $config);
+
+        if ($imgUp->do_upload('img_path'))
+        {
+            sleep(0.5);
+            prompt::success("The Website Logo was Successfully Change.");
+            redirect('management/dashboard', 'refresh');
+        }
+        else
+        {
+            $error = $imgUp->display_errors();
+            if ($error)
+            {
+                prompt::error($error);
+            }
+        }
+    }
+
+    public function createMessage($POST)
+    {
+        if ($this->form_validation->run('publicMessage'))
+        {
+            $whiteList = array('title', 'from_', 'message');
+            $POST = whList($POST, $whiteList);
+
+            if ($this->PublicMessage_model->create($POST))
+            {
+                prompt::success("You've successfully created your Message.");
+                redirect(current_url());
+            }
+            else
+            {
+                prompt::error("An error occur when saving your message. Please try again.");
+            }
+
+        }
     }
 
     public function index()
     {
         redirect('management/dashboard', 'refresh');
     }
-}
+};

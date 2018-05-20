@@ -197,7 +197,11 @@ class Management extends CI_Controller
             }
         }
 
-        Template::management();
+        $websiteMessage = $this->PublicMessage_model->getAll('', '', 1)[0];
+
+        $data['website_message'] = $websiteMessage;
+
+        Template::management('dashboard', $data);
     }
 
     public function changeLogo($POST)

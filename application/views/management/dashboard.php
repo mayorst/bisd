@@ -22,10 +22,31 @@ $CI->load->view('management/templates/logo_form');
 			</div>
 		</div>
 		<hr>
-		<div class="row align-center">
-			<?php
-				$CI->load->view('management/templates/public_message_form');
-			?>
+		<div class="website-message">
+			<div class="webmess-header row">
+			<h2 class="col-sm-10">Public Message:</h2>
+			<a class="col-sm-2 btn btn-outline-primary" href="#"><i class="fa fa-pencil-alt"></i> edit</a>
+			</div>
+			<br>
+			<?=create_WebsiteMessage($website_message)?>
 		</div>
 	</div>
 </div>
+
+
+<?php  
+function create_WebsiteMessage($publicMessage){
+  if(!empty($publicMessage)){
+    echo '<h4>'.$publicMessage['title'].'</h4>';
+    echo '<p>'.carraigeReturn_to_tag($publicMessage['from_'],'<br>',' ' ).'</p>';
+
+    $unix =human_to_unix($publicMessage['date_publish']);
+    $published = date('M d, Y' , $unix);
+    echo '<p>'.$published .'</p>';
+
+    echo '<div class="message">'.carraigeReturn_to_tag($publicMessage['message']).'</div>';
+  }
+}
+
+
+?>

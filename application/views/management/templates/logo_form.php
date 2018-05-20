@@ -1,4 +1,5 @@
-<div id="id_update_logo" class="custom-modal container">
+<div id="id_update_logo" class="custom-modal">
+    <div class="container custModal-cancel">
 <?php 
 
 echo form_open_multipart();
@@ -43,4 +44,5 @@ echo form_fieldset_close();
 echo form_close();
 ?>
 
+</div>
 </div>

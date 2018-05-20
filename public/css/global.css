@@ -54,6 +54,20 @@
 	}
 }
 
+.webmess-header{
+	background-color: var(--green);
+	padding: 0.5rem 0.5rem;
+	color: white;
+}
+.webmess-header h2{
+	display: inline;
+}
+.webmess-header a{
+	float: right;
+	color: white;
+	border: 1px solid white;
+}
+
 
 
 
@@ -736,7 +750,12 @@ ul.whats-bisd {
 	font-family: inherit;
 }
 
-.learningCenter h3 {
+.website-message .message p{
+	text-align: justify;
+}
+
+
+.learningCenter h3 {	
 	text-align: initial;
 }
 

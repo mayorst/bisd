@@ -1,17 +1,15 @@
 <div class="event-landing page-body">
-<div class="hero-image3">
-        <img src="<?=PATH_IMAGES . 'img7.jpg'?> ">
-  <div class="hero-text3">
-    
-    <h1 class="display-3">BISD EVENTS</h1>
-    <p class="lead"><font color="black">Benitez Institute for Sustainable Development</font></p>
- 
-  </div>
+<div class="hero-image" style="background-image: url('<?=PATH_IMAGES . 'img7.jpg'?>');">
+	<div class="vcenter">
+		<div class="hero-text2">
+			<h1 class="display-3">BISD EVENTS</h1>
+			<p class="lead">
+				<font color="black">Benitez Institute for Sustainable Development</font>
+			</p>
+		</div>
+	</div>
+</div>
 
-  
-
-  
-  </div>
 	<div class="container">
 <?php
 
@@ -30,6 +28,7 @@ function listEvents($event){
 	if(!$event){
 		return;
 	}
+
 	$img = get_resc($event['ev_img_path']);
 	$unixDate = human_to_unix($event['time_start']);
 	$date = date('M d, Y h:i a',$unixDate);

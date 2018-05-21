@@ -1,5 +1,5 @@
 <?php
-    defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 ?>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="<?php echo base_url('home'); ?>"><img class="small-logo" alt="logo"src="<?php echo $config['path_logo'] ?>"/>BISD</a>
@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="navbarItemList">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo base_url('management'); ?>"><i class="fa fa-home" ></i> Content Mangement <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="<?php echo base_url('management'); ?>"><i class="fa fa-home" ></i> Main <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<?php echo base_url('management/course'); ?>"><i class="fa fa-lightbulb" ></i> Courses </a>
@@ -29,7 +29,9 @@
           <div class="dropdown-menu dropdown-menu-right">
             <a class="dropdown-item" href="<?=base_url('accounts/view')?>"><i class="fa fa-eye"></i> View Account</a>
             <a class="dropdown-item" href="<?=base_url('accounts/update/' . $_SESSION['user']['member_id'])?>"><i class="fa fa-edit"></i> Edit Account</a>
-            <?php if ($_SESSION['user']['_position'] === public_variables::ACCOUNT_POSITION['admin']) {?>
+            <?php if ($_SESSION['user']['_position'] === public_variables::ACCOUNT_POSITION['admin'])
+{
+    ?>
             <a class="dropdown-item" href="<?=base_url('accounts/manage')?>"><i class="fa fa-cog"></i> Manage Accounts</a>
             <?php }?>
             <div class="dropdown-divider"></div>

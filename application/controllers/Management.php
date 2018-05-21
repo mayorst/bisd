@@ -191,10 +191,6 @@ class Management extends CI_Controller
             {
                 $this->changeLogo($_POST);
             }
-            else if (isset($_POST['publicMessage_form']))
-            {
-                $this->createMessage($_POST);
-            }
         }
 
         $websiteMessage = $this->PublicMessage_model->getAll('', '', 1)[0];
@@ -228,17 +224,46 @@ class Management extends CI_Controller
         }
     }
 
-    public function createMessage($POST)
+    public function article($action = '')
+    {
+        if (strtolower($action) == 'update')
+        {
+            $websiteMessage = $this->PublicMessage_model->getAll('', '', 1)[0];
+            $data['formValues'] = $websiteMessage;
+            Template::management('update_article', $data);
+        }
+        else
+        {
+            redirect('management/dashboard');
+        }
+        if ($_POST)
+        {
+            $_POST = $this->security->xss_clean($_POST);
+
+            if (isset($_POST['logo_form']))
+            {
+                $this->changeLogo($_POST);
+            }
+            else if (isset($_POST['publicMessage_form']))
+            {
+                $this->updateMessage($_POST);
+            }
+
+        }
+    }
+    public function updateMessage($POST)
     {
         if ($this->form_validation->run('publicMessage'))
         {
+            $id = $POST['pmess_id'];
             $whiteList = array('title', 'from_', 'message');
             $POST = whList($POST, $whiteList);
+            $POST['date_publish'] = date('Y-m-d');
 
-            if ($this->PublicMessage_model->create($POST))
+            if ($this->PublicMessage_model->update($id, $POST))
             {
-                prompt::success("You've successfully created your Message.");
-                redirect(current_url());
+                prompt::success("You've successfully update your Article.");
+                redirect('management/dashboard');
             }
             else
             {

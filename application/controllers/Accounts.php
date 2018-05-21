@@ -237,6 +237,11 @@ class Accounts extends CI_Controller
             return true;
         } else {
 
+            if(!$this->Account_model->isEmailUnique($email, $id) &&
+                $id == $_SESSION['user']['member_id']){
+                return true;
+            }
+
             $this->form_validation->set_message('isEmailUnique', 'The Email was already used by another account. Add new Email Address.');
             return false;
         }
@@ -250,7 +255,8 @@ class Accounts extends CI_Controller
                 || $_SESSION['user']['member_id'] == $user_id) {
 
                 if ($_POST) {
-                    $updatedInfo  = $this->security->xss_clean($_POST);          ;
+                    $updatedInfo  = $this->security->xss_clean($_POST);  
+                            ;
                     unset($updatedInfo['confirm_password'], $updatedInfo['update']);
                     //hash the password
                     if (isset($updatedInfo['_password'])) {

@@ -1,17 +1,18 @@
 <div class="home page-body">
   <div class="hero-image" style="background-image: url('<?=PATH_IMAGES . 'img1.jpg'?>');">
-    <!--       <img src=""> -->
-    <div class="hero-text">
-      <h1 class="display-3">Welcome to BISD!</h1>
-      <p class="lead">
-        <font color="white">Benitez Institute for Sustainable Development</font>
-      </p>
-      <hr class="my-4">
-      <p>Learn Education for Sustainability. Start your course now!</p>
-      <p class="lead">
-        <a class="btn btn-primary btn-lg" href="<?=base_url('courses')?>" role="button"><i class="fa fa-lightbulb"></i> View Courses</a>
-      </p>
-      <br>
+    <div class="vcenter">
+      <div class="hero-text">
+        <h1 class="display-3">Welcome to BISD!</h1>
+        <p class="lead">
+          <font color="white">Benitez Institute for Sustainable Development</font>
+        </p>
+        <hr class="my-4">
+        <p>Learn Education for Sustainability. Start your course now!</p>
+        <p class="lead">
+          <a class="btn btn-primary btn-lg" href="<?=base_url('courses')?>" role="button"><i class="fa fa-lightbulb"></i> View Courses</a>
+        </p>
+        <br>
+      </div>
     </div>
   </div>
   <br>

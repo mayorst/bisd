@@ -101,8 +101,17 @@ $(document).ready(function() {
 		}
 	});
 
-	$('.custModal-cancel').click(function(){
+	$('.custom-modal .container').click(function(e){
+		if(e.target == this){
+			$('.custom-modal').hide();
+		}
+	});
+
+
+	$('.custModal-cancel').click(function(e){
+		if(e.target == this){
 		$('.custom-modal').hide();
+			}
 	})
 
 	

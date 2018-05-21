@@ -6,6 +6,8 @@
 	--blue1: #3694E2FF;
 	--blue2: #5EAAE8FF;
 	--blue3: #7EBCEBFF;
+	--sidebarColor : #90D9AFFF;
+	--sidebarItem : #6BCB93FF;
 }
 
 .add-img {
@@ -43,6 +45,11 @@
 
 .hidden {
 	display: none;
+}
+
+.form-undecorated{
+margin: initial !important;
+filter: none !important;
 }
 
 form {
@@ -150,7 +157,7 @@ form input[type="time"],
 #sidebar {
 	min-width: 250px;
 	max-width: 250px;
-	background: var(--blue);
+	background: var(--sidebarColor);
 	color: #fff;
 	transition: all 0.6s cubic-bezier(0.945, 0.020, 0.270, 0.665);
 	transform-origin: center left;
@@ -286,7 +293,7 @@ a:focus {
 
 #sidebar {
 	/* don't forget to add all the previously mentioned styles here too */
-	background: var(--blue-2);
+	background: var(--sidebarColor);
 	color: #fff;
 	transition: all 0.3s;
 }
@@ -313,20 +320,20 @@ a:focus {
 }
 
 #sidebar ul li a:hover {
-	color: var(--blue3);
+	color: var(--sidebarItem);
 	background: #fff;
 }
 
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
 	color: #fff;
-	background: var(--blue-1);
+	background: var(--sidebarItem);
 }
 
 ul ul a {
 	font-size: 0.9em !important;
 	padding-left: 30px !important;
-	background: var(--blue-1);
+	background: var(--sidebarItem);
 }
 
 

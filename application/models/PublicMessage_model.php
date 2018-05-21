@@ -8,7 +8,6 @@ class PublicMessage_model extends CI_Model
         parent::__construct();
     }
 
-
     public function getAll($cols = '*', $where = '1=1', $limit = '', $offset = '')
     {
         if (!$where)

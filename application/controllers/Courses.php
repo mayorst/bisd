@@ -24,6 +24,8 @@ class Courses extends CI_Controller
     {
         if ($_POST) {
             unset($_POST['submit']);
+            $_POST = $this->security->xss_clean($_POST);
+
             if ($this->form_validation->run('course')) {
                 $course = $_POST;
                 $course['course_name'] = testVar($course['course_name']);

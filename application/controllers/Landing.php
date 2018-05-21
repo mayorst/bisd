@@ -8,6 +8,7 @@ class Landing extends CI_Controller
         parent::__construct();
         $this->load->model('Course_model');
         $this->load->model('Event_model');
+        $this->load->model('PublicMessage_model');
     }
 
     /**
@@ -34,8 +35,10 @@ class Landing extends CI_Controller
     {
 
         $upcomEvents = $this->Event_model->getAll('', '', 5);
+        $websiteMessage = $this->PublicMessage_model->getAll('', '', 1)[0];
 
         $data['upcomingEvents'] = $upcomEvents;
+        $data['website_message'] = $websiteMessage;
 
         template::landing('home', $data);
     }

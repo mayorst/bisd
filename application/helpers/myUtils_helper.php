@@ -376,5 +376,4 @@ function create404page($filepath = '')
         fwrite($file404, $txt);
         fclose($file404);
     }
-
 }

@@ -1,17 +1,12 @@
 <div class="land-courses page-body">
 	
-<div class="hero-image2">
-        <img src="<?=PATH_IMAGES . 'img4.jpg'?> ">
-  <div class="hero-text2">
-    
-    <h1 class="display-3">BISD COURSES</h1>
-    <p class="lead"><font color="black">Benitez Institute for Sustainable Development</font></p>
- 
-  </div>
-  <br><br><br>
-  
-
-  
+<div class="hero-image" style="background-image: url(<?=PATH_IMAGES . 'img4.jpg'?>);">
+     <div class="vcenter">
+		  <div class="hero-text2">
+		    <h1 class="display-3">BISD COURSES</h1>
+		    <p class="lead"><font color="black">Benitez Institute for Sustainable Development</font></p>
+		  </div>
+	</div>
   </div>
 		
 		<div class="container">
@@ -52,7 +47,7 @@
 			<div class="course-img" 
 				style="background-image: url('<?=$src?>');" >
 				<div class="course-desc">
-					<?=newLine_to_pTag($course['description']);?>
+					<?=carraigeReturn_to_tag($course['description']);?>
 				</div>
 
 			</div>

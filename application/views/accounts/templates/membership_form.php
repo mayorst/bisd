@@ -84,10 +84,11 @@
                                     'type' => 'email'));
 
                             if (($type === pv::UPDATE)) {
-                                $attr['input']['disabled'] = '';
+                                $attr['input']['readonly'] = '';
                             }
                             form_input_wLabel($attr
-                            , (($type === pv::UPDATE) ? $userInfo['email'] : ''));?>
+                            	, (($type === pv::UPDATE) ? $userInfo['email'] : '')
+                            );?>
 					</div>
 				</div>
 				<?php echo form_fieldset_close();
@@ -109,22 +110,41 @@
 						<div class="form-group">
 							<label for="select_position">Position</label>
 							<?php
-                                $positions = pv::ACCOUNT_POSITION;
+							$positions = pv::ACCOUNT_POSITION;
+
+							$readOnly = '';
+							if($userInfo['_position'] ){
+								if ($type === pv::UPDATE 
+									&&($userInfo['member_id'] === $_SESSION['user']['member_id']
+									|| $userInfo['_position'] === $positions['admin']) ){
+									$readOnly = 'readonly';
+								}
+							}
+
                                 echo form_dropdown('_position',
                                     $positions,
                                     strtolower(($type === pv::UPDATE) ? $userInfo['_position'] : $positions['member']),
-                                'class="form-control"  id="select_position"');?>
+                                'class="form-control"  id="select_position" '.$readOnly );?>
 						</div>
 						<?php if (isset($type) && $type !== pv::CREATE) {
                             ?>
 						<div class="">
 							<label for="status">Status</label>
 							<?php
+
+							$readOnly = '';
+							if($userInfo['_status'] ){
+								if($userInfo['member_id'] === $_SESSION['user']['member_id']
+									|| $userInfo['_position'] === $positions['admin']){
+									$readOnly = 'readonly';
+								}
+							}
+
                                 $status = pv::ACCOUNT_STATUS;
                                     echo form_dropdown('_status',
                                         $status,
                                         strtolower(($type === pv::UPDATE) ? $userInfo['_status'] : $status['active']),
-                                    'class="form-control"  id="status"');?>
+                                    'class="form-control"  id="status" '.$readOnly);?>
 						</div>
 						<?php }
                         echo form_fieldset_close();?>

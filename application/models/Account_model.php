@@ -100,6 +100,7 @@ class Account_model extends CI_Model
             ->from('tbl_temp_member')
             ->WHERE('email = ', "'$email'", false)
             ->get()->result_array();
+            
         if (count($rs) == 0 && count($temprs) == 0) {
             return true;
         } else {

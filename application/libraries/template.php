@@ -32,6 +32,10 @@ class Template
         if (!isset($data['config'])) {
             $data['config'] = self::$CI->config->config;
         }
+        
+        
+
+
         self::$load->view('templates/header', $data);
         self::$load->view('templates/navbar', $data);
         self::$load->view($pagePath, $data);

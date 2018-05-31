@@ -1,7 +1,7 @@
 <div class="home page-body">
-  <div class="hero-image" style="background-image: url('<?=PATH_IMAGES . 'img1.jpg'?>');">
-    <div class="vcenter">
-      <div class="hero-text">
+  <div class="hero-image vcenter-tbl-parent" >
+    <div class="bg-blur" style="background-image:url('<?=PATH_IMAGES . 'img1.jpg'?>');"></div>
+      <div class="hero-text vcenter-tbl">
         <h1 class="display-3">Welcome to BISD!</h1>
         <p class="lead">
           <font color="white">Benitez Institute for Sustainable Development</font>
@@ -13,15 +13,12 @@
         </p>
         <br>
       </div>
-    </div>
   </div>
-  <br>
-  <br>
   <div class="container">
     <!--info of BISD-->
     <article>
       <div class="row">
-        <div class="col-sm-8">
+        <div class="col-md-8">
           <section>
             <h3> What is BISD? </h3>
             <ul class="whats-bisd list-unstyled">
@@ -55,13 +52,13 @@
             </ul>
           </section>
         </div>
-        <div class="col-sm-4">
+        <div class="col-md-4">
           <section class="upcoming-events">
             <h3>Upcoming Events</h3>
             <div class="list">
               <?php
-create_upcomingEvents($upcomingEvents);
-?>
+                create_upcomingEvents($upcomingEvents);
+              ?>
             </div>
           </section>
         </div>
@@ -84,10 +81,11 @@ create_upcomingEvents($upcomingEvents);
           </div>
         </blockquote>
       </section>
-      <section class="website-message">
-        <!-- Website Message -->
-        <?=create_WebsiteMessage($website_message)?>
-      </section>
+      <section class="website-message row">
+         <div class="col-md-12">
+          <?=create_WebsiteMessage($website_message)?>
+        </div>
+      </section >
       <section class="learning-center">
         <h3>Local Community Learning Center and Thrust</h3>
         <p>The Benitez Institute for Sustainable Development (BISD), since its establishment in 2002, has served as the main training, research and technical assistance arm of the Movement. It has a set of faculty drawn from among PRRM’s Board of Trustees, chapter members, staff and partner people’s organizations (POs), as well as from other training institutes, NGOs and POs.</p>
@@ -116,6 +114,10 @@ function create_upcomingEvents($upcomingEvents)
         {
 
             $img = get_resc($value['ev_img_path']);
+            // if $img is default- means ev_img_path doesn'nt exist
+            if($img == IMG_DEF){
+              $img = get_resc($value['fallback_img_path']);
+            }
 
             $name = $value['name'];
 
@@ -126,7 +128,7 @@ function create_upcomingEvents($upcomingEvents)
             ?>
   <div class="card">
     <div class="img_container">
-      <img src="<?=$img?>">
+      <img  src="<?=$img?>">
     </div>
     <h5><?=$name?></h5>
     <span><?=$date?></span>
@@ -145,15 +147,67 @@ function create_upcomingEvents($upcomingEvents)
 
 function create_WebsiteMessage($publicMessage){
   if(!empty($publicMessage)){
-    echo '<h4>'.$publicMessage['title'].'</h4>';
-    echo '<p>'.carraigeReturn_to_tag($publicMessage['from_'],'<br>',' ' ).'</p>';
+    $top3 = (count($publicMessage) > 3) ? array_slice($publicMessage, 0, 3) : $publicMessage;
 
-    $unix =human_to_unix($publicMessage['date_publish']);
+  ?>
+  <div class="carousel-bg"></div>
+  <div id="articleCarousel" class="carousel slide " data-ride="carousel">
+    <div class="bg-img-reponsive bg-blur"  style="background-image: url('<?=PATH_IMAGES.'papyrus.jpg'?>');"></div>
+    <ol class="carousel-indicators">
+      <?php 
+        for($i = 0; $i<count($top3); $i++ ){
+          $active = ($i==0) ? 'active': '';
+          echo '<li data-target="#articleCarousel" data-slide-to="'.$i.'" class="'.$active.'"></li>';
+        }
+      ?>
+    </ol>
+    <div class="carousel-inner">
+      <?php 
+        foreach ($top3 as $key => $value) {
+          $active = ($key==0) ? 'active': '';
+          echo '<div class="carousel-item '.$active.'">';
+          articleSlide($value);  
+          echo  '</div>';
+        }
+      ?>
+    </div>
+    <a class="carousel-control-prev" href="#articleCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#articleCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+
+<?php
+  }
+
+}
+
+function articleSlide($article){
+  echo '<div class="bg-img-reponsive article-parent">';
+
+    echo '<div class="article">';
+    echo '<h4>'.$article['title'].'</h4>';
+    echo '<p>'.carraigeReturn_to_tag($article['from_'],'<br>',' ' ).'</p>';
+
+    $unix =human_to_unix($article['date_publish']);
     $published = date('M d, Y' , $unix);
     echo '<p>'.$published .'</p>';
 
-    echo '<div class="message">'.carraigeReturn_to_tag($publicMessage['message']).'</div>';
-  }
+    echo '<div class="message">'.carraigeReturn_to_tag($article['message']).'</div>';
+
+
+
+    echo '<a class="vcenter-tbl-parent" href="#">
+          <h5 class="vcenter-tbl">Read More</h5> 
+          </a>';
+    echo '</div>';
+
+
+  echo '</div>';
 }
 
 ?>

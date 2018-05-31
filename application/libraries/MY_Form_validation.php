@@ -15,7 +15,7 @@ class MY_Form_validation extends CI_Form_validation
     public function unset_rule($name = '', $group = '')
     {
         $this->load_config_rule($group);
-        if (count($this->_field_data) > 0) {
+        if ($this->has_rule($name)) {
             unset($this->_field_data[$name]);
         }
     }

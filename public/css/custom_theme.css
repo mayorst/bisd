@@ -10,6 +10,27 @@
 	--sidebarItem : #6BCB93FF;
 }
 
+.bg-img-reponsive{
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+div > div.bg-blur{
+	width:100%;
+    height:100%;
+    position: absolute;
+    z-index: -1;
+    background-position: center;
+    background-size:cover;
+    -webkit-filter: blur(3px);
+    -moz-filter: blur(3px);
+    -ms-filter: blur(3px);
+    -o-filter: blur(3px);
+    filter: blur(3px);
+}
+
+
 .add-img {
 	position: absolute !important;
 	top: 0px;
@@ -414,4 +435,16 @@ ul ul a {
 	/*filter and -webkit-filter are the same, it is need to to include for cross browser compatibility*/
 	-webkit-filter: drop-shadow(0px 0px 2px #555);
 	filter: drop-shadow(0px 0px 2px #555);
+}
+
+.dropdown:hover > .dropdown-menu {
+    display: block;
+}
+.dropdown > .dropdown-toggle:active {
+    /*Without this, clicking will make it sticky*/
+    pointer-events: none;
+}
+
+.dropdown-menu{
+	margin: initial;
 }

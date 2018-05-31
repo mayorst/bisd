@@ -46,6 +46,8 @@ course_id INT(10) AUTO_INCREMENT  NOT NULL,
 course_name VARCHAR(100) NOT NULL,
 category INT(5), 
 description TEXT,
+course_schedule TEXT,
+tuition_fee DOUBLE(8,2),
 img_path VARCHAR(300),
 stat VARCHAR(15),
 
@@ -91,6 +93,7 @@ CREATE TABLE IF NOT EXISTS tbl_events(
 	time_end DATETIME,
 	address VARCHAR(150) DEFAULT '',
 	venue BIGINT(15),
+	custom_venue BOOLEAN DEFAULT 0,
 	description TEXT,
 	ev_img_path VARCHAR(300),
 	stat VARCHAR(15),
@@ -107,6 +110,40 @@ CREATE TABLE IF NOT EXISTS tbl_public_message(
 	
 	PRIMARY KEY(pmess_id)
 );
+
+
+CREATE TABLE IF NOT EXISTS tbl_enrollee(
+	enrollee_id BIGINT(10) AUTO_INCREMENT,
+	first_name VARCHAR(30),
+	middle_name VARCHAR(20),
+	last_name VARCHAR(20),
+	birthdate DATETIME,
+	gender VARCHAR(20),
+	organization VARCHAR(200),
+	occupation VARCHAR(50),
+	phone_number VARCHAR(15),
+	email VARCHAR(50),
+	address1 VARCHAR(200),
+	address2 VARCHAR(200),
+	city VARCHAR(30),
+	state VARCHAR(30),
+	postal VARCHAR(6),
+	country VARCHAR(20),
+
+	PRIMARY KEY (enrollee_id)
+);
+
+CREATE TABLE IF NOT EXISTS 	tbl_enrollee_courses(
+	enrollee_id BIGINT(10),
+	course_id INT(10),
+
+	PRIMARY KEY (enrollee_id,course_id),
+	FOREIGN KEY (enrollee_id) REFERENCES tbl_enrollee(enrollee_id),
+	FOREIGN KEY (course_id) REFERENCES tbl_course(course_id)
+);
+
+
+
 
 
 -- ================= tempTables ===============
@@ -162,15 +199,16 @@ SELECT
 	ev.name ,
 	ev.time_start,
 	ev.time_end ,
-	IF(ev.address = '' OR ev.address = NULL , 
+	IF(ev.address = '' OR ev.address = NULL OR ev.custom_venue , 
 	(SELECT CONCAT(venue_name,', ',address) from tbl_venue where venue_id  = ev.venue)
 	,ev.address) as 'address',
 	ev.venue ,
+	ev.custom_venue,
 	ev.description ,
 	ev.stat,
-	IF(ev.ev_img_path = '' OR ev.ev_img_path = NULL , 
-	(SELECT img_path from tbl_venue where venue_id  = ev.venue)
-	,ev.ev_img_path) as 'ev_img_path'
+	ev.ev_img_path,
+	IF(ev.custom_venue, 
+	(SELECT img_path from tbl_venue where venue_id  = ev.venue),0) as 'fallback_img_path'
 
 from tbl_events ev
 LEFT JOIN tbl_venue ven ON ev.venue = ven.venue_id

@@ -16,11 +16,13 @@ class Management extends CI_Controller
         $this->load->helper('form');
         $this->load->model('Course_model');
         $this->load->model('PublicMessage_model');
-
-    }
+ }
 
     public function course($action = '', $id = '')
     {
+        $action = $this->security->xss_clean($action);
+        $id = $this->security->xss_clean($id);
+
         if ($_POST)
         {
             unset($_POST['submit']);
@@ -30,6 +32,13 @@ class Management extends CI_Controller
             {
                 $course = $_POST;
                 $course['course_name'] = testVar($course['course_name']);
+
+
+                    $whListKey = array(
+                        'course_id', 'course_name', 'category', 'description','course_schedule','tuition_fee',
+                        'img_path', 'stat',
+                    );
+
 
                 if ($action == pv::CREATE)
                 {
@@ -50,10 +59,6 @@ class Management extends CI_Controller
                     $prereq = testVar($course['preReq']); // for adding pre req
                     unset($course['preReq']);
 
-                    $whListKey = array(
-                        'course_id', 'course_name', 'category', 'description',
-                        'img_path', 'stat',
-                    );
                     $newCourse = whList($course, $whListKey);
 
                     if ($id = $this->Course_model->createCourse($newCourse))
@@ -84,10 +89,6 @@ class Management extends CI_Controller
                             $course['img_path'] = $imgUp->db_img_path();
                         }
 
-                        $whListKey = array(
-                            'course_id', 'course_name', 'category',
-                            'description', 'img_path', 'stat',
-                        );
                         $uptCourse = whList($course, $whListKey);
 
                         if ($this->Course_model->updateCourse($id, $uptCourse))
@@ -178,6 +179,7 @@ class Management extends CI_Controller
                 }
             }
         }
+        $data['page_title'] = "BISD - Manage Courses";
         Template::management('courses', $data);
     }
 
@@ -197,6 +199,7 @@ class Management extends CI_Controller
 
         $data['website_message'] = $websiteMessage;
 
+        $data['page_title'] = "BISD - Management";
         Template::management('dashboard', $data);
     }
 
@@ -226,10 +229,14 @@ class Management extends CI_Controller
 
     public function article($action = '')
     {
+        $action = $this->security->xss_clean($action);
+
         if (strtolower($action) == 'update')
         {
             $websiteMessage = $this->PublicMessage_model->getAll('', '', 1)[0];
             $data['formValues'] = $websiteMessage;
+
+            $data['page_title'] = "BISD - Update Article";
             Template::management('update_article', $data);
         }
         else

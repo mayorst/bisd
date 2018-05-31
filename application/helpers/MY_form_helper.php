@@ -14,15 +14,22 @@ function form_input_wLabel($data = '', $value = '', $extra = '')
 {
 
     $form_input_attr = array();
+    $formatLabel = false; // make the label of the input in start case and remove the '_'
 
     if (is_array($data)) {
         $label = isset($data['label']) ? $data['label'] : 'noLabel';
+        if(!isset($data['input']['name'])){
+           $formatLabel = true; 
+        }
+
+
         if (isset($data['input']) && is_array($data['input'])) {
             $form_input_attr = $data['input'];
         }
     } else {
         $label = $data;
         $data = array('label' => $data);
+        $formatLabel = true;
     }
 
     $defaults = array(
@@ -31,7 +38,9 @@ function form_input_wLabel($data = '', $value = '', $extra = '')
     $data['input'] = array_merge($defaults, $form_input_attr);
 
     echo '<div class="form-group">';
-    $label = str_start_case($label);
+
+    if($formatLabel){ $label = str_start_case($label); }
+
     $lblStr = isset($data['lblIcon']) ? $data['lblIcon'] . " $label" : $label;
     echo form_label($lblStr, $data['input']['id']);
     form_input_wErrorNotif($data, $value, $extra);

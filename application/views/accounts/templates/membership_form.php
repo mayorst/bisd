@@ -117,7 +117,7 @@
 								if ($type === pv::UPDATE 
 									&&($userInfo['member_id'] === $_SESSION['user']['member_id']
 									|| $userInfo['_position'] === $positions['admin']) ){
-									$readOnly = 'readonly';
+									$readOnly = 'disabled';
 								}
 							}
 
@@ -136,7 +136,7 @@
 							if($userInfo['_status'] ){
 								if($userInfo['member_id'] === $_SESSION['user']['member_id']
 									|| $userInfo['_position'] === $positions['admin']){
-									$readOnly = 'readonly';
+									$readOnly = 'disabled';
 								}
 							}
 

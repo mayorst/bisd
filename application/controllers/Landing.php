@@ -6,9 +6,12 @@ class Landing extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->helper('form');
+        $this->load->library('form_validation');
         $this->load->model('Course_model');
         $this->load->model('Event_model');
         $this->load->model('PublicMessage_model');
+        $this->load->model('Enrollee_model');
     }
 
     /**
@@ -35,12 +38,19 @@ class Landing extends CI_Controller
     {
 
         $upcomEvents = $this->Event_model->getAll('', '', 5);
-        $websiteMessage = $this->PublicMessage_model->getAll('', '', 1)[0];
+        $websiteMessage = $this->PublicMessage_model->getAll('', '');
 
         $data['upcomingEvents'] = $upcomEvents;
         $data['website_message'] = $websiteMessage;
 
+        $data['page_title'] = "BISD - Home";
+        $data['navbar_courseCategs'] = $this->get_courseCategs();
         template::landing('home', $data);
+    }
+
+    private function get_courseCategs()
+    {
+        return $this->Course_model->getCategories('categ_name');
     }
 
     public function courses()
@@ -48,22 +58,74 @@ class Landing extends CI_Controller
         $courses = array();
         $categs = $this->Course_model->getCategories('categ_id, categ_name');
 
-        foreach ($categs as $key => $value) {
+        foreach ($categs as $key => $value)
+        {
             $categID = $value['categ_id'];
             $courseOfCategory = $this->Course_model->getCourses('', "category = $categID");
             $courses = $courses + array($value['categ_name'] => $courseOfCategory);
         }
 
         $data['courseList'] = $courses;
+        $data['navbar_courseCategs'] = $this->get_courseCategs();
+        $data['page_title'] = "BISD - Course";
+
         template::landing('courses', $data);
+    }
+
+    public function course($courseID = '')
+    {
+
+        if ($_POST)
+        {
+            unset($_POST['submit']);
+            $whListKey = array('first_name', 'middle_name', 'last_name', 'birthdate', 'gender', 'organization', 'occupation', 'phone_number', 'email', 'address1', 'address2', 'city', 'state', 'postal', 'country');
+
+            if ($this->form_validation->run('enrollee_info'))
+            {
+                $cleanEnrollee = whList($_POST,$whListKey);
+                if($id = $this->Enrollee_model->createEnrollee($cleanEnrollee)){
+
+                    $courseApplied = $_POST['courseApplied'];
+                    foreach ($courseApplied as $key => $value) {
+                        $cols = array('enrollee_id'=>$id,'course_id'=>$value);
+                        $this->Enrollee_model->createAppliedCourse($cols);
+                    }
+
+                    prompt::success("Your request was successfully submitted.");
+                    redirect('courses');
+                }
+            }
+
+        }
+
+        $courseID = $this->security->xss_clean($courseID);
+
+        $data['course'] = $this->Course_model->getCourses('', "course_id = $courseID")[0];
+
+        $data['preRequisite'] = $this->Course_model->getCourse_prereq('', $courseID);
+
+        $courses = array();
+        $categs = $this->Course_model->getCategories('categ_id, categ_name');
+        foreach ($categs as $key => $value)
+        {
+            $categID = $value['categ_id'];
+            $courseOfCategory = $this->Course_model->getCourses('', "category = $categID");
+            $courses = $courses + array($value['categ_name'] => $courseOfCategory);
+        }
+        $data['courseList'] = $courses;
+
+        $data['page_title'] = "BISD - Course";
+        $data['navbar_courseCategs'] = $this->get_courseCategs();
+        template::landing('single_course', $data);
     }
 
     public function events()
     {
-
         $data['eventList'] = $this->Event_model->getAll();
 
-        template::landing('events',$data);
+        $data['page_title'] = "BISD - Events";
+        $data['navbar_courseCategs'] = $this->get_courseCategs();
+        template::landing('events', $data);
     }
 
 }

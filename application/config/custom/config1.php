@@ -5,6 +5,7 @@
 require_once "constants.php";
 
 $config['path_logo'] = PATH_IMAGES . "icons/bisd_logo.png";
+$config['path_prrm_logo'] = PATH_IMAGES . "icons/prrm.jpg";
 
 $config['path_bootstrap'] = PATH_CSS . 'bootstrap.css';
 $config['path_bootstrap_theme'] = PATH_CSS . 'bootstrap_theme_litera.css';

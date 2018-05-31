@@ -14,11 +14,11 @@ $form_title = testVar($courseToUpdate) ? 'Update Course' : 'Create Course';
 // $form_title - changes the form title, but i make constant for now
 ?>
     <h4>Please Fill Out the Course Information</h4>
-<div class="row">
-    <div class="col-12">
-        <label for="id_imgUpload">Course Image: </label>
-        <div id="id_imgUpload" class="text-center img_container">
-            <?php
+    <div class="row">
+        <div class="col-12 form-group">
+            <label for="id_imgUpload">Course Image: </label>
+            <div id="id_imgUpload" class="text-center img_container">
+                <?php
 $img = RESRC;
 
 if (isset($courseToUpdate['img_path']) && !empty($courseToUpdate['img_path']))
@@ -38,10 +38,10 @@ else
 }
 
 ?>
-                <img id="img_event" src="<?=$img?>" alt="Please Add an Image">
-                <div class="upload-btn-wrapper course-add-img ">
-                    <button class="btn btn-primary"><i class="fa fa-plus"></i></button>
-                    <?php
+                    <img id="img_event" src="<?=$img;?>" alt="Please Add an Image">
+                    <div class="upload-btn-wrapper course-add-img ">
+                        <button class="btn btn-primary"><i class="fa fa-plus"></i></button>
+                        <?php
 $uploadExtra = 'onchange="previewImage(\'id_uploadImg\',\'img_event\')"';
 
 echo form_upload(
@@ -49,11 +49,10 @@ echo form_upload(
     , ''
     , $uploadExtra);
 ?>
-                </div>
+                    </div>
+            </div>
         </div>
     </div>
-</div>
-
     <?php
 
 form_input_wLabel("course_name",
@@ -112,11 +111,27 @@ if (testVar($courseList))
                 </div>
             </div>
             <?php }
+echo "<div class='form-group'> ";
 echo form_label('Course Description', 'id_txtDesc');
 echo form_textarea(array('name' => 'description', 'rows' => '10', 'cols' => '1', 'class' => 'form-control', 'id' => 'id_txtDesc'), testVar($courseToUpdate['description'])
 );
 echo form_inputFeedback('description');
+echo "</div>";
 ?>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <?php
+echo form_label('Course Schedule', 'id_txtSched');
+echo form_textarea(array('name' => 'course_schedule', 'rows' => '5', 'cols' => '1', 'class' => 'form-control', 'id' => 'id_txtSched'), testVar($courseToUpdate['course_schedule']));
+echo form_inputFeedback('course_schedule');
+?>
+                </div>
+                <div class="col-md-6 form-group">
+                    <div class="vcenter">
+                       <span> <?php form_input_wLabel('tuition_fee',testVar($courseToUpdate['tuition_fee']))?> </span>
+                    </div>
+                </div>
+            </div>
             <div class="align-right">
                 <?php
 $value = testVar($update) ? 'Update Course' : 'Create Course';

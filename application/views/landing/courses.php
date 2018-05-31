@@ -1,12 +1,12 @@
 <div class="land-courses page-body">
 	
-<div class="hero-image" style="background-image: url(<?=PATH_IMAGES . 'img4.jpg'?>);">
-     <div class="vcenter">
-		  <div class="hero-text2">
+<div class="hero-image vcenter-tbl-parent" >
+     	<div class="bg-blur" style="background-image: url(<?=PATH_IMAGES . 'img4.jpg'?>);"></div>
+		  <div class="hero-text vcenter-tbl">
 		    <h1 class="display-3">BISD COURSES</h1>
-		    <p class="lead"><font color="black">Benitez Institute for Sustainable Development</font></p>
+		    <p class="lead"><font color="white">Benitez Institute for Sustainable Development</font></p>
 		  </div>
-	</div>
+	
   </div>
 		
 		<div class="container">
@@ -14,7 +14,7 @@
 
             foreach ($courseList as $key => $courseCateg) {
                 format_category($key);
-                echo '<div class="categ-courses">';
+                echo '<div class="categ-courses row">';
                 foreach ($courseCateg as $course) {
                     format_course($course);
                 }
@@ -33,35 +33,33 @@
 
 	function format_course($course)
 	{
-		$src = IMG_DEF;
-		$path = RESRC_PATH.$course['img_path'];
-		if(file_exists($path) && is_file($path)){
-			$src = RESRC.$course['img_path'];
-		}
+		$src=get_resc($course['img_path']);
 
 ?>
-		<div class="course">
-			<h3><?=$course['course_name']?></h3>
-			<hr>
-
-			<div class="course-img" 
+		<a href="<?=base_url('course/'.$course['course_id'])?>" class="course col-md-4 col-lg-3 ">
+			<div class="course-img img_container" 
 				style="background-image: url('<?=$src?>');" >
-				<div class="course-desc">
-					<?=carraigeReturn_to_tag($course['description']);?>
+				<div>
+				<!-- <div class="course-desc"> -->
+					<?php//carraigeReturn_to_tag($course['description']);?>
 				</div>
-
+				<div class="more-details">
+					click for more details
+				</div>	
 			</div>
-		</div>
+			<hr>
+			<h6 ><?=$course['course_name']?></h6>
+			<hr>
+		</a>
 <?php
 	}
 	function format_category($categName)
 	{
+		$id = str_replace(' ','',$categName)
 ?>
-		<div class="course-category">
-			<h2><?=$categName?></h2>
+		<div  class="course-category">
+			<h2 id="<?=$id?>"><?=$categName?></h2>
 		</div>
-
-
 <?php 
 	}
 ?>

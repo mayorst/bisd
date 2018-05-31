@@ -29,7 +29,6 @@ class PublicMessage_model extends CI_Model
         {
             return false;
         }
-
     }
 
     public function create($data)

@@ -82,12 +82,14 @@ class Landing extends CI_Controller
 
             if ($this->form_validation->run('enrollee_info'))
             {
-                $cleanEnrollee = whList($_POST,$whListKey);
-                if($id = $this->Enrollee_model->createEnrollee($cleanEnrollee)){
+                $cleanEnrollee = whList($_POST, $whListKey);
+                if ($id = $this->Enrollee_model->createEnrollee($cleanEnrollee))
+                {
 
                     $courseApplied = $_POST['courseApplied'];
-                    foreach ($courseApplied as $key => $value) {
-                        $cols = array('enrollee_id'=>$id,'course_id'=>$value);
+                    foreach ($courseApplied as $key => $value)
+                    {
+                        $cols = array('enrollee_id' => $id, 'course_id' => $value);
                         $this->Enrollee_model->createAppliedCourse($cols);
                     }
 
@@ -103,6 +105,15 @@ class Landing extends CI_Controller
         $data['course'] = $this->Course_model->getCourses('', "course_id = $courseID")[0];
 
         $data['preRequisite'] = $this->Course_model->getCourse_prereq('', $courseID);
+
+        // get the foundation courses used in course form prerequisite chkbox
+        if ($fcrs = $this->Course_model->getCourses("course_id", "categ_name = 'Foundation Courses' OR  categ_name = 'Foundation Course' "))
+        {
+            if (count($fcrs) > 0)
+            {
+                 $data['foundation_courses'] = array_kvp($fcrs, 0, 'course_id');
+            }
+        }
 
         $courses = array();
         $categs = $this->Course_model->getCategories('categ_id, categ_name');

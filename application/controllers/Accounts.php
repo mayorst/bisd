@@ -48,6 +48,10 @@ class Accounts extends CI_Controller
             redirect(base_url() . 'management', 'refresh');
         }
 
+        // used in the login navbar
+         $this->load->model('Course_model');
+         $data['navbar_courseCategs'] = $this->Course_model->getCategories('categ_id, categ_name');
+
         if ($_POST)
         {
 

@@ -16,7 +16,7 @@ class Management extends CI_Controller
         $this->load->helper('form');
         $this->load->model('Course_model');
         $this->load->model('PublicMessage_model');
- }
+    }
 
     public function course($action = '', $id = '')
     {
@@ -33,12 +33,10 @@ class Management extends CI_Controller
                 $course = $_POST;
                 $course['course_name'] = testVar($course['course_name']);
 
-
-                    $whListKey = array(
-                        'course_id', 'course_name', 'category', 'description','course_schedule','tuition_fee',
-                        'img_path', 'stat',
-                    );
-
+                $whListKey = array(
+                    'course_id', 'course_name', 'category', 'description', 'course_schedule', 'tuition_fee',
+                    'img_path', 'stat',
+                );
 
                 if ($action == pv::CREATE)
                 {
@@ -56,8 +54,18 @@ class Management extends CI_Controller
                         $course['img_path'] = $imgUp->db_img_path();
                     }
 
-                    $prereq = testVar($course['preReq']); // for adding pre req
-                    unset($course['preReq']);
+                    $foundation_course = strpos($categ, 'Foundation Courses');
+                    $foundation_course1 = strpos($categ, 'Foundation Course');
+                    if (($foundation_course or $foundation_course1) != false)
+                    {
+                        $prereq = array();
+                        unset($course['preReq']);
+                    }
+                    else
+                    {
+                        $prereq = testVar($course['preReq']); // for adding pre req
+                        unset($course['preReq']);
+                    }
 
                     $newCourse = whList($course, $whListKey);
 
@@ -78,10 +86,20 @@ class Management extends CI_Controller
                 {
                     if (!empty($id))
                     {
+                        $foundation_course = strpos($categ, 'Foundation Courses');
+                        $foundation_course1 = strpos($categ, 'Foundation Course');
+                        if (($foundation_course or $foundation_course1) != false)
+                        {
+                            $prereq = array();
+                        }
+                        else
+                        {
+                            $prereq = testVar($course['preReq']); // for adding pre req
 
-                        $prereq = testVar($course['preReq']);
-                        $this->Course_model->createPrereq($id, $prereq);
+                        }
                         unset($course['preReq']);
+
+                        $this->Course_model->createPrereq($id, $prereq);
 
                         $imgUp = imageUploader();
                         if ($imgUp->do_upload('img_path'))
@@ -167,6 +185,16 @@ class Management extends CI_Controller
                     if (count($pr) > 0)
                     {
                         $data['requiredBy_course'] = array_kvp($pr, 0, 'req_by'
+                        );
+                    }
+                }
+
+                // get the foundation courses used in course form prerequisite chkbox
+                if ($fcrs = $this->Course_model->getCourses("course_id", "categ_name = 'Foundation Courses' OR  categ_name = 'Foundation Course' "))
+                {
+                    if (count($fcrs) > 0)
+                    {
+                        $data['foundation_courses'] = array_kvp($fcrs, 0, 'course_id'
                         );
                     }
                 }

@@ -102,12 +102,25 @@
  ------------------------------------- */
  $(document).ready(function() {
 
- 	// Course
+ 	// Course --------
  	$('#btn_selectCourse').click(function() {
  		id = $('.select-course input[name=update_courseID]:checked').val();
  		url = window.location.href;
  		window.location.replace(url + '/' + id);
  	});
+
+ 	// remove Prerequisite if Fondation Course
+ 	function hidePrereq(categ){
+ 		var hide = categ.includes("Foundation Courses") || categ.includes("Foundation Course");
+ 		if(hide){
+ 			$('.course_form #id_div_prereq').slideUp();
+ 		}else{
+ 			$('.course_form #id_div_prereq').slideDown();
+ 		}
+ 	}
+ 	var selected = $('#id_categ').find(":selected").text();
+ 	hidePrereq(selected);
+
 
  	var newCategCtr = 1;
  	var categBefore = $('#id_categ').val();
@@ -139,7 +152,13 @@
  			categBefore = optValue;
  		}
 
+ 		var selected = this.options[this.selectedIndex].innerHTML;
+ 		hidePrereq(selected);
  	});
+
+
+ 	
+ 	
 
  	// General ---------
  	// Custom Modal

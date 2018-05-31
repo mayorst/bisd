@@ -215,6 +215,10 @@ LEFT JOIN tbl_venue ven ON ev.venue = ven.venue_id
 LEFT JOIN tbl_venue_img vimg ON ven.venue_id = vimg.venue_id
 ORDER BY stat ASC, time_start DESC;
 
+CREATE VIEW IF NOT EXISTS courses AS 
+Select * from tbl_course crs 
+INNER JOIN tbl_course_category ctg  ON crs.category = ctg.categ_id;
+
 -- ================= INSERTS ===========
 INSERT INTO tbl_member(member_id, last_name, first_name, middle_name, street, barangay, municipality, province, birthdate, gender, contact_number, email, username,_password, _position, _status, prof_pic) 
 VALUES(

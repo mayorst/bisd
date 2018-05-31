@@ -6,7 +6,7 @@
  *
  */
 
-$attr = array('class' => 'form-undecorated');
+$attr = array('class' => 'course_form form-undecorated');
 echo form_open_multipart('', $attr);
 echo form_fieldset();
 
@@ -74,6 +74,7 @@ echo form_inputFeedback($dd['name']);
 ?>
         </div>
         <?php
+echo '<div id="id_div_prereq">';
 if (testVar($courseList))
 {
     echo form_label('Pre Requisite', 'id_prereq');
@@ -101,7 +102,16 @@ if (testVar($courseList))
             'value' => "$key",
             'class' => 'form-check-input',
         );
+
         echo "<div class = 'col-md-6 form-check " . $disabled . "'> <label class='form-check-label'>";
+
+        if (testVar($foundation_courses) && in_array("$key", $foundation_courses))
+        {
+            echo form_hidden($attr['name'], $attr['value']);
+            $checked = true;
+            $disabled = 'disabled';
+        }
+
         echo form_checkbox($attr, '', $checked, $disabled);
         echo "$value</label>";
         echo "</div>";
@@ -110,7 +120,9 @@ if (testVar($courseList))
     ?>
                 </div>
             </div>
-            <?php }
+ <?php }
+echo '</div>';
+
 echo "<div class='form-group'> ";
 echo form_label('Course Description', 'id_txtDesc');
 echo form_textarea(array('name' => 'description', 'rows' => '10', 'cols' => '1', 'class' => 'form-control', 'id' => 'id_txtDesc'), testVar($courseToUpdate['description'])
@@ -128,7 +140,7 @@ echo form_inputFeedback('course_schedule');
                 </div>
                 <div class="col-md-6 form-group">
                     <div class="vcenter">
-                       <span> <?php form_input_wLabel('tuition_fee',testVar($courseToUpdate['tuition_fee']))?> </span>
+                       <span> <?php form_input_wLabel('tuition_fee', testVar($courseToUpdate['tuition_fee']))?> </span>
                     </div>
                 </div>
             </div>

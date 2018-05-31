@@ -134,7 +134,10 @@ if (testVar($courseList))
     <div  class="select-course">
         <div class="row">
             <?php
-            $checked = array_kvp($preRequisite, 0, 'course_id');
+            $a = array_kvp($preRequisite, 0, 'course_id');
+            $checked = (is_array($a)) ? $a : array();
+            $checked = array_merge($checked, testVar($foundation_courses,array()));
+            $checked = array_merge($checked, array(testVar($course['course_id'],array())));
 
 		    foreach ($courseList as $key => $value)
 		    {

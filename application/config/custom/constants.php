@@ -17,3 +17,5 @@ defined('PATH_FONTS') or define('PATH_FONTS', PATH_PUBLIC . 'fonts/');
 defined('RESRC') or define('RESRC', $config['base_url'] . 'resrc/');
 defined('RESRC_PATH') or define('RESRC_PATH', FCPATH . 'resrc/');
 defined('IMG_DEF') or define('IMG_DEF', PATH_IMAGES . 'img-def.jpg');
+defined('FILES_PATH') or define('FILES_PATH', FCPATH . 'resrc/files/');
+

@@ -10,6 +10,145 @@
 //         ),
 
 $config = array(
+    'report_filter' => array(
+        array(
+            'field' => 'sort_column',
+            'label' => 'Column to Sort',
+            'rules' => 'trim|required',
+        ),
+        array(
+            'field' => 'report_label',
+            'label' => 'Report Label',
+            'rules' => 'trim|required|max_length[50]',
+            'errors' => array(
+                'max_length' => '%s must not be greater than 50 characters.'),
+        ),
+    ),
+    'enrollee_info' => array(
+        array(
+            'field' => 'first_name',
+            'label' => 'First Name',
+            'rules' => 'trim|required|max_length[30]',
+            'errors' => array(
+                'max_length' => '%s must not be greater than 30 characters.'),
+        ),
+        array(
+            'field' => 'middle_name',
+            'label' => 'Middle Name',
+            'rules' => 'trim|max_length[20]',
+            'errors' => array(
+                'max_length' => '%s must not be greater than 20 characters.'),
+        ),
+        array(
+            'field' => 'last_name',
+            'label' => 'Last Name',
+            'rules' => 'trim|required|max_length[20]',
+            'errors' => array(
+                'max_length' => '%s must not be greater than 20 characters.'),
+        ),
+        array(
+            'field' => 'birthdate',
+            'label' => 'Birthdate',
+            'rules' => 'trim|required',
+        ),
+        array(
+            'field' => 'gender',
+            'label' => 'Gender',
+            'rules' => 'max_length[20]',
+            'errors' => array(
+                'max_length' => '%s must not be greater than 20 characters.'),
+        ),
+        array(
+            'field' => 'organization',
+            'label' => 'Organization',
+            'rules' => 'trim|max_length[200]',
+            'errors' => array(
+                'max_length' => '%s must not be greater than 200 characters.'),
+        ),
+        array(
+            'field' => 'occupation',
+            'label' => 'Occupation',
+            'rules' => 'trim|max_length[50]',
+            'errors' => array(
+                'max_length' => '%s must not be greater than 50 characters.'),
+        ),
+        array(
+            'field' => 'phone_number',
+            'label' => 'Phone Number',
+            'rules' => 'trim|required|max_length[11]',
+            'errors' => array(
+                'max_length' => '%s must not be greater than 11 characters.'),
+        ),
+        array(
+            'field' => 'email',
+            'label' => 'Email',
+            'rules' => 'trim|required|max_length[50]',
+            'errors' => array(
+                'max_length' => '%s must not be greater than 50 characters.'),
+        ),
+        array(
+            'field' => 'address1',
+            'label' => 'Address Line 1',
+            'rules' => 'trim|max_length[200]',
+            'errors' => array(
+                'max_length' => '%s must not be greater than 200 characters.'),
+        ),
+        array(
+            'field' => 'address2',
+            'label' => 'Address Line 2',
+            'rules' => 'trim|max_length[200]',
+            'errors' => array(
+                'max_length' => '%s must not be greater than 200 characters.'),
+        ),
+       
+        array(
+            'field' => 'city',
+            'label' => 'City',
+            'rules' => 'trim|max_length[30]',
+            'errors' => array(
+                'max_length' => '%s must not be greater than 30 characters.'),
+        ),
+        array(
+            'field' => 'state',
+            'label' => 'State',
+            'rules' => 'trim|max_length[30]',
+            'errors' => array(
+                'max_length' => '%s must not be greater than 30 characters.'),
+        ),
+        array(
+            'field' => 'postal',
+            'label' => 'Postal Code',
+            'rules' => 'trim|numeric|max_length[6]',
+            'errors' => array(
+                'max_length' => '%s must not be greater than 6 characters.'),
+        ),
+        array(
+            'field' => 'country',
+            'label' => 'Country',
+            'rules' => 'trim|max_length[20]',
+            'errors' => array(
+                'max_length' => '%s must not be greater than 20 characters.'),
+        ),
+    ),
+    'publicMessage' => array(
+        array(
+            'field' => 'title',
+            'label' => 'Title',
+            'rules' => 'trim|required|max_length[200]',
+            'errors' => array(
+                'max_length' => '%s must not be greater than 200 characters.'),
+        ),
+        array(
+            'field' => 'from_',
+            'label' => 'Addresser',
+            'rules' => 'trim',
+        ),
+        array(
+            'field' => 'message',
+            'label' => 'Message',
+            'rules' => 'trim|required',
+        ),
+    ),
     'event' => array(
         array(
             'field' => 'name',
@@ -90,6 +229,13 @@ $config = array(
                 'max_length' => '%s must not be greater than 99 characters.'),
         ),
         array(
+            'field' => 'course_abbr',
+            'label' => 'Course Abbreviation',
+            'rules' => 'trim|required|max_length[20]',
+            'errors' => array(
+                'max_length' => '%s must not be greater than 20 characters.'),
+        ),
+        array(
             'field' => 'category',
             'label' => 'Category',
             'rules' => 'trim|required|max_length[99]',
@@ -99,9 +245,23 @@ $config = array(
         array(
             'field' => 'description',
             'label' => 'Course Description',
-            'rules' => 'trim|required|max_length[16384]',
+            'rules' => 'trim|required|max_length[65536]',
             'errors' => array(
-                'max_length' => '%s must not be greater than 16384 characters.'),
+                'max_length' => '%s must not be greater than 65536 characters.'),
+        ),
+        array(
+            'field' => 'course_schedule',
+            'label' => 'Schedule',
+            'rules' => 'trim|max_length[65536]',
+            'errors' => array(
+                'max_length' => '%s must not be greater than 65536 characters.'),
+        ),
+        array(
+            'field' => 'tuition_fee',
+            'label' => 'Tuition Fee',
+            'rules' => 'trim|required|max_length[8]',
+            'errors' => array(
+                'max_length' => '%s must not be greater than 8 characters.'),
         ),
     ),
 

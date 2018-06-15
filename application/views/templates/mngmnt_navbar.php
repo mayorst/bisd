@@ -1,7 +1,7 @@
 <?php
-    defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 ?>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light">
     <a class="navbar-brand" href="<?php echo base_url('home'); ?>"><img class="small-logo" alt="logo"src="<?php echo $config['path_logo'] ?>"/>BISD</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarItemList" aria-controls="navbarItemList" aria-expanded="false" aria-label="Toggle navigation" style="">
       <span class="navbar-toggler-icon"></span>
@@ -9,13 +9,16 @@
     <div class="collapse navbar-collapse" id="navbarItemList">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo base_url('management'); ?>"><i class="fa fa-home" ></i> Content Mangement <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="<?php echo base_url('management'); ?>"><i class="fa fa-home" ></i> Main <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<?php echo base_url('management/course'); ?>"><i class="fa fa-lightbulb" ></i> Courses </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<?php echo base_url('events/view'); ?>"><i class="fa fa-calendar" ></i> Events </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?php echo base_url('enrollees'); ?>"><i class="fa fa-users" ></i> Enrollees </a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
@@ -29,7 +32,9 @@
           <div class="dropdown-menu dropdown-menu-right">
             <a class="dropdown-item" href="<?=base_url('accounts/view')?>"><i class="fa fa-eye"></i> View Account</a>
             <a class="dropdown-item" href="<?=base_url('accounts/update/' . $_SESSION['user']['member_id'])?>"><i class="fa fa-edit"></i> Edit Account</a>
-            <?php if ($_SESSION['user']['_position'] === public_variables::ACCOUNT_POSITION['admin']) {?>
+            <?php if ($_SESSION['user']['_position'] === public_variables::ACCOUNT_POSITION['admin'])
+{
+    ?>
             <a class="dropdown-item" href="<?=base_url('accounts/manage')?>"><i class="fa fa-cog"></i> Manage Accounts</a>
             <?php }?>
             <div class="dropdown-divider"></div>

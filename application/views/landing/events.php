@@ -1,9 +1,15 @@
 <div class="event-landing page-body">
+<div class="hero-image vcenter-tbl-parent" >
+		<div  class="bg-blur" style="background-image: url('<?=PATH_IMAGES . 'img7.jpg'?>');"></div>
+		<div class="hero-text vcenter-tbl">
+			<h1 class="display-3">BISD EVENTS</h1>
+			<p class="lead">
+				<font color="white">Benitez Institute for Sustainable Development</font>
+			</p>
+		</div>
 	
-	<div class="main-event">
-		
+</div>
 
-	</div>
 	<div class="container">
 <?php
 
@@ -12,9 +18,6 @@
 			listEvents(testVar($value));
 		}
 	}
-	
-	
-
 ?>
 	</div>
 </div>
@@ -25,7 +28,13 @@ function listEvents($event){
 	if(!$event){
 		return;
 	}
+
 	$img = get_resc($event['ev_img_path']);
+	// if $img is default- means ev_img_path doesn'nt exist
+    if($img == IMG_DEF){
+      $img = get_resc($event['fallback_img_path']);
+    }
+            
 	$unixDate = human_to_unix($event['time_start']);
 	$date = date('M d, Y h:i a',$unixDate);
 	$desc = str_replace("\r\n", '',$event['description']);
@@ -38,7 +47,7 @@ function listEvents($event){
 			<div class="col-md-8">
 				<span class="date"><?=$date?></span>
 				<h5><?= $event['name']?></h5>
-				<?= newLine_to_pTag($desc)?>
+				<?= carraigeReturn_to_tag($desc)?>
 			</div>
 		</div>
 	</div>

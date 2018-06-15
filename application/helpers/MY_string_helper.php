@@ -15,28 +15,28 @@ function str_start_case($str = '', $except = array(), $invert = false)
                 continue;
             }
             if (is_string($value)) {
-                $str[$key] = str_start_case($value);
-            }
+                $str[$key] = str_start_case($value);            }
         }
 
-        return array_merge($currentArray, $str);
+        // return array_merge($currentArray, $str);
+        return $str;
     }
     $str = str_replace('_', ' ', $str);
     return mb_convert_case($str, MB_CASE_TITLE, "UTF-8");
 }
 
 /**
- * converts string into html formatted paragraph.
- * @param  string $string_to_edit [description]
- * @return string                 [description]
+ * converts string Carriage Return into the tag specified in the argument
+ * @param  [type] $string_to_edit [description]
+ * @param  string $prefix         opening html tag
+ * @param  string $suffix         closing html tag 
+ * @return [type]                 [description]
  */
-function newLine_to_pTag($string_to_edit)
+function carraigeReturn_to_tag($string_to_edit,$prefix='<p>', $suffix='</p>')
 {
-    $string_to_edit = '<p>' . $string_to_edit . '</p>';
-    // $string_to_edit = str_replace("\r\n\r\n", '</p><p>', $string_to_edit);
-    //
-    $string_to_edit = str_replace("\r\n", '</p><p>', $string_to_edit);
-    return str_replace('<p></p>', '', $string_to_edit); // removes no value p tag
+    $string_to_edit = $prefix . $string_to_edit . $suffix;
+    $string_to_edit = str_replace("\r\n", $suffix.$prefix, $string_to_edit);
+    return str_replace($prefix.$suffix, '', $string_to_edit); // removes no value  tag
 }
 
 function str_path($str)

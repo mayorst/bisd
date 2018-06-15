@@ -23,7 +23,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
  */
+
+// used when i dont set a virual host in the apache. 'C:/windows/system32/drivers/etc/host' was also edited.
 $config['base_url'] = 'http://' . $_SERVER['SERVER_NAME'] . '/bisd/';
+
+// set the virtual host on windows before doing this.
+// $config['base_url'] = 'http://bisd.test/';
 
 /*
 |--------------------------------------------------------------------------

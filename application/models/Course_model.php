@@ -35,7 +35,7 @@ class Course_model extends CI_Model
     }
     public function getCourses($cols = '*',$where = '1=1')
     {
-        $rs = $this->db->SELECT($cols)->FROM('tbl_course')
+        $rs = $this->db->SELECT($cols)->FROM('courses')
             ->WHERE($where)->get()->result_array();
 
         if (!empty($rs)) {
@@ -109,5 +109,7 @@ class Course_model extends CI_Model
             return false;
         }
     }
+
+
 
 }

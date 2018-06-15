@@ -36,7 +36,7 @@
                 <div class="card-block">
                     <h4 class="card-title"><?=$data['venue_name']?></h4>
                     <div class="card-text">
-                        <?=newLine_to_pTag($data['venue_description']);?>
+                        <?=carraigeReturn_to_tag($data['venue_description']);?>
                     </div>
                 </div>
                 <div class="card-footer text-right">

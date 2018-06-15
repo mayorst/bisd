@@ -21,13 +21,18 @@ function testVar(&$var, $defaultVal = null)
  */
 function array_kvp($array, $columnKey, $columnValue)
 {
-    if (is_array($array)) {
+    if (is_array($array))
+    {
         $result = array();
-        foreach ($array as $indexArray) {
+        foreach ($array as $indexArray)
+        {
 
-            if (is_numeric($columnKey)) {
+            if (is_numeric($columnKey))
+            {
                 $key = $columnKey++;
-            } else {
+            }
+            else
+            {
                 $key = $indexArray[$columnKey];
             }
 
@@ -70,7 +75,7 @@ function sendEmail($to, $subject = 'Test', $message = 'Testing Email.')
  * returns and instance of the upload library
  * @return File_Uploader class
  */
-function imageUploader($dir = 'uploads/img/')
+function imageUploader($dir = 'uploads/img/', $customConfig = '')
 {
     $CI = &get_instance();
 
@@ -82,6 +87,12 @@ function imageUploader($dir = 'uploads/img/')
     $config['max_size'] = 4096;
     $config['max_width'] = 10000;
     $config['max_height'] = 10000;
+
+    if (!empty($customConfig))
+    {
+        $config = array_merge($config, $customConfig);
+    }
+    createFolder_wIndex($config['upload_path']);
 
     $CI->load->library('upload');
     $CI->upload->initialize($config, true);
@@ -97,15 +108,21 @@ function imageUploader($dir = 'uploads/img/')
 function whList($array, $keyList = array())
 {
     $whiteListed = array();
-    if (!empty($keyList)) {
-        if (is_array($keyList)) {
-            foreach ($array as $key => $value) {
-                if (in_array($key, $keyList)) {
+    if (!empty($keyList))
+    {
+        if (is_array($keyList))
+        {
+            foreach ($array as $key => $value)
+            {
+                if (in_array($key, $keyList))
+                {
                     $whiteListed[$key] = $value;
                 }
             }
         }
-    } else {
+    }
+    else
+    {
         return $array;
     }
     return $whiteListed;
@@ -116,13 +133,82 @@ function whList($array, $keyList = array())
  * @param  [type] $path [description]
  * @return [type]       [description]
  */
-function get_resc($path){
-    $path = RESRC_PATH.$path;
-    if(!file_exists($path)){
+function get_resc($path)
+{
+    $path = RESRC_PATH . $path;
+    if (!file_exists($path) || is_dir($path))
+    {
         return IMG_DEF;
     }
-    return str_replace(RESRC_PATH,RESRC,$path);
+    return str_replace(RESRC_PATH, RESRC, $path);
 }
+
+/**
+ * compress an image
+ * @param  [type] $source      [description]
+ * @param  [type] $destination [description]
+ * @param  [type] $quality     integer, 0-100
+ * @return [type]              [description]
+ */
+function img_compress($source, $destination, $quality)
+{
+
+    $info = getimagesize($source);
+
+    if ($info['mime'] == 'image/jpeg')
+    {
+        $image = imagecreatefromjpeg($source);
+    }
+    elseif ($info['mime'] == 'image/gif')
+    {
+        $image = imagecreatefromgif($source);
+    }
+    elseif ($info['mime'] == 'image/png')
+    {
+        $image = imagecreatefrompng($source);
+        imageAlphaBlending($image, true);
+        imageSaveAlpha($image, true);
+
+        $quality = (int) ($quality * 0.1);
+        imagePng($image, $destination, $quality);
+        return;
+    }
+
+    imagejpeg($image, $destination, $quality);
+
+    return $destination;
+}
+
+
+function get_local_dir($path=''){
+    if(empty($path)){
+        return '';
+    }
+    return str_replace(base_url(),FCPATH,$path);
+}
+
+function get_data_URI($image,$mime){
+    return 'data:'.(function_exists('mime_content_type')?mime_content_type($image):$mime).';base64,'.base64_encode(file_get_contents($image));
+}
+
+/**
+ * test if the input is a link. create if not. adds and http: or https: in the string
+ * @param  string $link [description]
+ * @return [type]       [description]
+ */
+function getLink($link = '#')
+    {
+        if ($link != '#')
+        {
+            $result = in_array(preg_match('#https?://#', $link), [0, false]);
+
+            if ($result)
+            {
+                $link = 'http://' . $link;
+            }
+        }
+        return $link;
+    }
 
 /*======= ======== ======== ========= =========*/
 
@@ -139,19 +225,24 @@ function generateRandomStr($length = 1)
  */
 function resrc_dir($path, $subfolderLimit = 2000)
 {
-
     $path = FCPATH . str_path('resrc/' . $path);
 
-    if (is_dir($path)) {
-        if ($p = increment_subfolder($path, $subfolderLimit)) {
+    if (is_dir($path))
+    {
+        if ($p = increment_subfolder($path, $subfolderLimit))
+        {
             return $p;
         }
-    } else {
-        if (!file_exists($path)) {
+    }
+    else
+    {
+        if (!file_exists($path))
+        {
             mkdir($path, 0777, true);
         }
 
-        if ($p = increment_subfolder($path, $subfolderLimit)) {
+        if ($p = increment_subfolder($path, $subfolderLimit))
+        {
             return $p;
         }
     }
@@ -165,12 +256,15 @@ function resrc_dir($path, $subfolderLimit = 2000)
  */
 function increment_subfolder($path, $limit = 1000)
 {
-    if (is_dir($path)) {
+    if (is_dir($path))
+    {
         $subfolder = glob(str_path($path . '/*'), GLOB_ONLYDIR);
 
         $lastDir = '1';
-        if (count($subfolder) > 0) {
-            foreach ($subfolder as $key => $value) {
+        if (count($subfolder) > 0)
+        {
+            foreach ($subfolder as $key => $value)
+            {
                 $val = str_replace($path, '', $value);
                 $subfolder[$key] = str_replace('/', '', $val);
             }
@@ -179,25 +273,34 @@ function increment_subfolder($path, $limit = 1000)
 
             $lastPath = glob(str_path($path . '/' . $lastDir . '/*'));
 
-            if (count($lastPath) < $limit) {
+            if (count($lastPath) < $limit)
+            {
                 return str_path($path . '/' . $lastDir);
-            } else {
+            }
+            else
+            {
                 $nextFolder = intval($lastDir);
                 $p1 = str_path($path . '/' . ++$nextFolder);
-                if (!file_exists($p1)) {
+                if (!file_exists($p1))
+                {
                     createFolder_wIndex($p1);
                 }
                 return $p1;
             }
 
-        } else {
+        }
+        else
+        {
             $subPath = str_path($path . '/1/');
-            if (!file_exists($subPath)) {
+            if (!file_exists($subPath))
+            {
                 createFolder_wIndex($subPath);
             }
             return $subPath;
         }
-    } else {
+    }
+    else
+    {
         return false;
     }
 }
@@ -209,14 +312,17 @@ function increment_subfolder($path, $limit = 1000)
  */
 function createFolder_wIndex($path = '')
 {
-    if (!file_exists($path)) {
+    if (!file_exists($path))
+    {
         mkdir($path, 0777, true);
     }
     $pathParts = explode('/', $path);
     $nextPath = '';
-    foreach ($pathParts as $key => $value) {
+    foreach ($pathParts as $key => $value)
+    {
         $nextPath .= $value . '/';
-        if (file_exists($nextPath . 'index.html')) {
+        if (file_exists($nextPath . 'index.html'))
+        {
             continue;
         }
 
@@ -226,7 +332,8 @@ function createFolder_wIndex($path = '')
 
 function create404page($filepath = '')
 {
-    if (!empty($filepath) && is_dir($filepath)) {
+    if (!empty($filepath) && is_dir($filepath))
+    {
         $file404 = fopen($filepath . "/index.html", "w") or die("Unable to open file!");
 
         $txt = '<!DOCTYPE html>
@@ -299,5 +406,4 @@ function create404page($filepath = '')
         fwrite($file404, $txt);
         fclose($file404);
     }
-
 }

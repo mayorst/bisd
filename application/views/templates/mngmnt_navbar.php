@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 ?>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light">
     <a class="navbar-brand" href="<?php echo base_url('home'); ?>"><img class="small-logo" alt="logo"src="<?php echo $config['path_logo'] ?>"/>BISD</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarItemList" aria-controls="navbarItemList" aria-expanded="false" aria-label="Toggle navigation" style="">
       <span class="navbar-toggler-icon"></span>
@@ -16,6 +16,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<?php echo base_url('events/view'); ?>"><i class="fa fa-calendar" ></i> Events </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?php echo base_url('enrollees'); ?>"><i class="fa fa-users" ></i> Enrollees </a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">

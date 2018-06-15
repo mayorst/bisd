@@ -22,14 +22,25 @@ $CI->load->view('management/templates/logo_form');
 			</div>
 		</div>
 		<hr>
-		<div class="website-message">
+		<article>
+		<section class="website-message">
 			<div class="webmess-header row">
-			<h2 class="col-sm-10">Article:</h2>
-			<a class="col-sm-2 btn btn-outline-primary edit-article" href="<?=base_url('management/article/update')?>"><i class="fa fa-pencil-alt"></i> edit</a>
+			<h2 class="col-sm-8 not-dboard-section">Article:</h2>
+
+			<a class="col-sm-2 btn btn-outline-primary edit-article" href="<?=base_url('management/article/create')?>"><i class="fa fa-plus"></i> Create </a>
+			<a class="col-sm-2 btn btn-outline-primary edit-article" href="<?=base_url('management/article/update/'.testVar($website_message['pmess_id']))?>"><i class="fa fa-pencil-alt"></i> Edit</a>
+			
 			</div>
 			<br>
 			<?=create_WebsiteMessage($website_message)?>
-		</div>
+		</section>
+		<section class="external-links align-center">
+			<h2>External Links</h2>
+			<?php
+				$CI->load->view('management/templates/external_links_form');
+			?>
+		</section>
+		</article>
 	</div>
 </div>
 

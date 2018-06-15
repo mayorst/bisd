@@ -152,7 +152,7 @@ function create_WebsiteMessage($publicMessage){
   ?>
   <div class="carousel-bg"></div>
   <div id="articleCarousel" class="carousel slide " data-ride="carousel">
-    <div class="bg-img-reponsive bg-blur"  style="background-image: url('<?=PATH_IMAGES.'papyrus.jpg'?>');"></div>
+    <div class="bg-img-reponsive bg-blur"  style="background-image: url('<?=PATH_IMAGES.'bg article.jpg'?>');"></div>
     <ol class="carousel-indicators">
       <?php 
         for($i = 0; $i<count($top3); $i++ ){
@@ -195,13 +195,13 @@ function articleSlide($article){
 
     $unix =human_to_unix($article['date_publish']);
     $published = date('M d, Y' , $unix);
-    echo '<p>'.$published .'</p>';
+    // echo '<p>'.$published .'</p>';
 
     echo '<div class="message">'.carraigeReturn_to_tag($article['message']).'</div>';
 
 
 
-    echo '<a class="vcenter-tbl-parent" href="#">
+    echo '<a class="vcenter-tbl-parent" href="'.$article['external_link'].'" target="blank">
           <h5 class="vcenter-tbl">Read More</h5> 
           </a>';
     echo '</div>';

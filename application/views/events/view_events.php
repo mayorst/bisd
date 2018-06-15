@@ -5,7 +5,7 @@
 			<a class="btn btn-outline-primary" href="<?=base_url('events/view_venue')?>">Venues</a>
 		</div>
 		<div>
-			<h3 class="text-center">Events</h3>
+			<h4 class="tbl-title">Events</h4>
 			<div class="my-tbl">
 				<?php
                     echo testVar($tblEvents);

@@ -32,15 +32,15 @@ class Management extends CI_Controller
             {
                 $course = $_POST;
                 $course['course_name'] = testVar($course['course_name']);
+                $categ = testVar($course['category']);
 
                 $whListKey = array(
-                    'course_id', 'course_name', 'category', 'description', 'course_schedule', 'tuition_fee',
+                    'course_id', 'course_name', 'course_abbr', 'category', 'description', 'course_schedule', 'tuition_fee',
                     'img_path', 'stat',
                 );
 
                 if ($action == pv::CREATE)
                 {
-                    $categ = testVar($course['category']);
                     if (!empty($categ) && !is_numeric($categ))
                     {
                         $categID = $this->Course_model->createCategory(array(
@@ -86,16 +86,16 @@ class Management extends CI_Controller
                 {
                     if (!empty($id))
                     {
-                        $foundation_course = strpos($categ, 'Foundation Courses');
-                        $foundation_course1 = strpos($categ, 'Foundation Course');
-                        if (($foundation_course or $foundation_course1) != false)
+                        $categ = $this->Course_model->getCategories('categ_name',"categ_id = '".$categ."'")[0]['categ_name'];
+                        $foundation_course = strpos(strtolower($categ), strtolower('Foundation'));
+
+                        if ($foundation_course === false )
                         {
-                            $prereq = array();
+                            $prereq = testVar($course['preReq']); // for adding pre req
                         }
                         else
                         {
-                            $prereq = testVar($course['preReq']); // for adding pre req
-
+                            $prereq = array();
                         }
                         unset($course['preReq']);
 
@@ -224,8 +224,11 @@ class Management extends CI_Controller
         }
 
         $websiteMessage = $this->PublicMessage_model->getAll('', '', 1)[0];
-
         $data['website_message'] = $websiteMessage;
+
+        if( $links =  read_file(pv::EXTERNAL_LINKS_JSON)){
+            $data['extLinks'] = json_decode($links,True);
+        }
 
         $data['page_title'] = "BISD - Management";
         Template::management('dashboard', $data);
@@ -255,14 +258,31 @@ class Management extends CI_Controller
         }
     }
 
-    public function article($action = '')
+    public function article($action = '',$id='')
     {
         $action = $this->security->xss_clean($action);
+        $id = $this->security->xss_clean($id);
 
-        if (strtolower($action) == 'update')
+        if (strtolower($action) == 'create')
         {
-            $websiteMessage = $this->PublicMessage_model->getAll('', '', 1)[0];
+
+            $articleList = $this->PublicMessage_model->getAll('', '', 20);
+            $data['articleList'] = $articleList;
+            $data['articleAction'] = "Create Article:";
+
+            $data['page_title'] = "BISD - Create Article";
+            Template::management('update_article', $data);
+        }
+        else if (strtolower($action) == 'update')
+        {
+
+            $where = "pmess_id = '".$id."'";
+            $websiteMessage = $this->PublicMessage_model->getAll('', $where, 1)[0];
             $data['formValues'] = $websiteMessage;
+
+            $articleList = $this->PublicMessage_model->getAll('', '', 20);
+            $data['articleList'] = $articleList;
+            $data['articleAction'] = "Update Article:";
 
             $data['page_title'] = "BISD - Update Article";
             Template::management('update_article', $data);
@@ -271,6 +291,7 @@ class Management extends CI_Controller
         {
             redirect('management/dashboard');
         }
+
         if ($_POST)
         {
             $_POST = $this->security->xss_clean($_POST);
@@ -281,23 +302,35 @@ class Management extends CI_Controller
             }
             else if (isset($_POST['publicMessage_form']))
             {
-                $this->updateMessage($_POST);
+
+                $whiteList = array('pmess_id','title', 'from_', 'message', 'external_link');
+                $_POST = whList($_POST, $whiteList);
+
+                if (strtolower($action) == 'create')
+                {
+                    $this->createMessage($_POST);
+                }
+                else if (strtolower($action) == 'update')
+                {
+                    $this->updateMessage($_POST);
+                }
             }
 
         }
     }
-    public function updateMessage($POST)
+
+    private function createMessage($POST)
     {
         if ($this->form_validation->run('publicMessage'))
         {
             $id = $POST['pmess_id'];
-            $whiteList = array('title', 'from_', 'message');
-            $POST = whList($POST, $whiteList);
+
+            $POST['external_link'] = getLink($POST['external_link']);
             $POST['date_publish'] = date('Y-m-d');
 
-            if ($this->PublicMessage_model->update($id, $POST))
+            if ($this->PublicMessage_model->create($POST))
             {
-                prompt::success("You've successfully update your Article.");
+                prompt::success("You've successfully created your Article.");
                 redirect('management/dashboard');
             }
             else
@@ -307,6 +340,51 @@ class Management extends CI_Controller
 
         }
     }
+    public function updateMessage($POST)
+    {
+        if ($this->form_validation->run('publicMessage'))
+        {
+            $id = $POST['pmess_id'];
+
+            $POST['external_link'] = getLink($POST['external_link']);
+            $POST['date_publish'] = date('Y-m-d');
+
+            if ($this->PublicMessage_model->update($id, $POST))
+            {
+                prompt::success("You've successfully updated your Article.");
+                redirect('management/dashboard');
+            }
+            else
+            {
+                prompt::error("An error occur when saving your message. Please try again.");
+            }
+
+        }
+    }
+
+   public function saveExternalLink(){
+        if($_POST){
+            $_POST = $this->security->xss_clean($_POST);
+
+            $wh_list = ['fb_link','twitter_link'];
+            $_POST = whList($_POST,$wh_list);
+
+            $_POST['fb_link'] = getLink($_POST['fb_link']);
+            $_POST['twitter_link'] = getLink($_POST['twitter_link']);
+
+            if(!is_dir(FILES_PATH)){
+                createFolder_wIndex(FILES_PATH);
+            }
+
+            if(write_file(pv::EXTERNAL_LINKS_JSON ,json_encode($_POST))){
+                prompt::success("The external Links was successfully saved.");
+            }else{
+                prompt::error("There was an error on saving the links. Try again Later.");
+            }
+
+            $this->index();
+        }
+   }
 
     public function index()
     {

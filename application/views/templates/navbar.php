@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light">
+<nav class="navbar navbar-expand-md navbar-light ">
   <a class="navbar-brand" href="<?php echo gotoURL('home'); ?>"><img class="small-logo" alt="logo"src="<?php echo $config['path_logo'] ?>"/>BISD</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarItemList" aria-controls="navbarItemList" aria-expanded="false" aria-label="Toggle navigation" style="">
     <span class="navbar-toggler-icon"></span>
@@ -43,7 +43,7 @@
       </li>
       <li class="nav-item">
         <div class="prrm-img img_container">
-        <a href="http://www.prrm.org">
+        <a href="http://www.prrm.org" target="blank">
           <img   class="" src="<?=$config['path_prrm_logo']?>">
         </a>
       </div>

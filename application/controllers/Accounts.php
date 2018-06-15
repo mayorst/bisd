@@ -484,7 +484,7 @@ class Accounts extends CI_Controller
                 $acc['_password'] = password_hash($pass, PASSWORD_DEFAULT);
 
                 $subject = "Change Password";
-                $mess = "Your account at BISD website was change. Your new password is : " . $pass;
+                $mess = "Your account password at BISD website was change. Your new password is : " . $pass;
 
                 if (sendEmail($acc['email'], $subject, $mess))
                 {

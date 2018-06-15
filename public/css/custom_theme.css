@@ -10,6 +10,7 @@
 	--sidebarItem : #6BCB93FF;
 }
 
+
 .bg-img-reponsive{
 	background-size: cover;
 	background-position: center;
@@ -432,9 +433,10 @@ ul ul a {
 	padding-bottom: 0px;
 	height: 4rem;
 	z-index: 99;
+	background-color: white;
 	/*filter and -webkit-filter are the same, it is need to to include for cross browser compatibility*/
-	-webkit-filter: drop-shadow(0px 0px 2px #555);
-	filter: drop-shadow(0px 0px 2px #555);
+	/*-webkit-filter: drop-shadow(0px 0px 2px #555);
+	filter: drop-shadow(0px 0px 2px #555);*/
 }
 
 .dropdown:hover > .dropdown-menu {
@@ -447,4 +449,14 @@ ul ul a {
 
 .dropdown-menu{
 	margin: initial;
+}
+
+
+
+h1,h2,h3,h4,h5,h6{
+	font-weight: 500;
+}
+
+html{
+ font-size: 1.1rem;
 }

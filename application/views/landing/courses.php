@@ -13,6 +13,10 @@
 		<?php
 
             foreach ($courseList as $key => $courseCateg) {
+            	if(empty($courseCateg)){
+            		continue;
+            	}
+
                 format_category($key);
                 echo '<div class="categ-courses row">';
                 foreach ($courseCateg as $course) {

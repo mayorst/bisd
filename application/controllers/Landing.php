@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+use \public_variables as pv;
+
 class Landing extends CI_Controller
 {
     public function __construct()
@@ -42,6 +44,9 @@ class Landing extends CI_Controller
 
         $data['upcomingEvents'] = $upcomEvents;
         $data['website_message'] = $websiteMessage;
+        if( $links =  read_file(pv::EXTERNAL_LINKS_JSON)){
+            $data['extLinks'] = json_decode($links,True);
+        }
 
         $data['page_title'] = "BISD - Home";
         $data['navbar_courseCategs'] = $this->get_courseCategs();
@@ -67,8 +72,11 @@ class Landing extends CI_Controller
 
         $data['courseList'] = $courses;
         $data['navbar_courseCategs'] = $this->get_courseCategs();
-        $data['page_title'] = "BISD - Course";
+        if( $links =  read_file(pv::EXTERNAL_LINKS_JSON)){
+            $data['extLinks'] = json_decode($links,True);
+        }
 
+        $data['page_title'] = "BISD - Course";
         template::landing('courses', $data);
     }
 
@@ -83,6 +91,8 @@ class Landing extends CI_Controller
             if ($this->form_validation->run('enrollee_info'))
             {
                 $cleanEnrollee = whList($_POST, $whListKey);
+                $cleanEnrollee =  str_start_case($cleanEnrollee,array('birthdate', 'gender', 'organization', 'occupation', 'phone_number', 'email'));
+
                 if ($id = $this->Enrollee_model->createEnrollee($cleanEnrollee))
                 {
 
@@ -124,6 +134,9 @@ class Landing extends CI_Controller
             $courses = $courses + array($value['categ_name'] => $courseOfCategory);
         }
         $data['courseList'] = $courses;
+        if( $links =  read_file(pv::EXTERNAL_LINKS_JSON)){
+            $data['extLinks'] = json_decode($links,True);
+        }
 
         $data['page_title'] = "BISD - Course";
         $data['navbar_courseCategs'] = $this->get_courseCategs();
@@ -132,7 +145,10 @@ class Landing extends CI_Controller
 
     public function events()
     {
-        $data['eventList'] = $this->Event_model->getAll();
+        $data['eventList'] = $this->Event_model->getAll('*','1=1',10);
+        if( $links =  read_file(pv::EXTERNAL_LINKS_JSON)){
+            $data['extLinks'] = json_decode($links,True);
+        }
 
         $data['page_title'] = "BISD - Events";
         $data['navbar_courseCategs'] = $this->get_courseCategs();

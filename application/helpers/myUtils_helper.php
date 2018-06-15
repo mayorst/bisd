@@ -179,6 +179,37 @@ function img_compress($source, $destination, $quality)
     return $destination;
 }
 
+
+function get_local_dir($path=''){
+    if(empty($path)){
+        return '';
+    }
+    return str_replace(base_url(),FCPATH,$path);
+}
+
+function get_data_URI($image,$mime){
+    return 'data:'.(function_exists('mime_content_type')?mime_content_type($image):$mime).';base64,'.base64_encode(file_get_contents($image));
+}
+
+/**
+ * test if the input is a link. create if not. adds and http: or https: in the string
+ * @param  string $link [description]
+ * @return [type]       [description]
+ */
+function getLink($link = '#')
+    {
+        if ($link != '#')
+        {
+            $result = in_array(preg_match('#https?://#', $link), [0, false]);
+
+            if ($result)
+            {
+                $link = 'http://' . $link;
+            }
+        }
+        return $link;
+    }
+
 /*======= ======== ======== ========= =========*/
 
 function generateRandomStr($length = 1)
@@ -194,7 +225,6 @@ function generateRandomStr($length = 1)
  */
 function resrc_dir($path, $subfolderLimit = 2000)
 {
-
     $path = FCPATH . str_path('resrc/' . $path);
 
     if (is_dir($path))

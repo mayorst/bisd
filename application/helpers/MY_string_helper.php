@@ -15,11 +15,11 @@ function str_start_case($str = '', $except = array(), $invert = false)
                 continue;
             }
             if (is_string($value)) {
-                $str[$key] = str_start_case($value);
-            }
+                $str[$key] = str_start_case($value);            }
         }
 
-        return array_merge($currentArray, $str);
+        // return array_merge($currentArray, $str);
+        return $str;
     }
     $str = str_replace('_', ' ', $str);
     return mb_convert_case($str, MB_CASE_TITLE, "UTF-8");

@@ -11,7 +11,7 @@
 		<div class="mngmnt-heading">Account Management</div>
 		<div class="container">
 
-			<h4>Members</h4>
+			<h4 class="tbl-title">Members</h4>
 			<div class="tbl-member">
 				<?php
                     echo testVar($tblMember);

@@ -10,6 +10,20 @@
 //         ),
 
 $config = array(
+    'report_filter' => array(
+        array(
+            'field' => 'sort_column',
+            'label' => 'Column to Sort',
+            'rules' => 'trim|required',
+        ),
+        array(
+            'field' => 'report_label',
+            'label' => 'Report Label',
+            'rules' => 'trim|required|max_length[50]',
+            'errors' => array(
+                'max_length' => '%s must not be greater than 50 characters.'),
+        ),
+    ),
     'enrollee_info' => array(
         array(
             'field' => 'first_name',
@@ -213,6 +227,13 @@ $config = array(
             'rules' => 'trim|required|max_length[99]',
             'errors' => array(
                 'max_length' => '%s must not be greater than 99 characters.'),
+        ),
+        array(
+            'field' => 'course_abbr',
+            'label' => 'Course Abbreviation',
+            'rules' => 'trim|required|max_length[20]',
+            'errors' => array(
+                'max_length' => '%s must not be greater than 20 characters.'),
         ),
         array(
             'field' => 'category',

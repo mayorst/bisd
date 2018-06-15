@@ -58,7 +58,14 @@ echo form_upload(
 form_input_wLabel("course_name",
     testVar($courseToUpdate['course_name']));
 ?>
-        <div class="form-group">
+<div class="row">
+<div class="col-md-4">
+<?php 
+$attr = ['label'=>'Abbreviation','input'=>['name'=>'course_abbr']];
+form_input_wLabel($attr,
+    testVar($courseToUpdate['course_abbr']));
+?>
+    </div> <div class="form-group col-md-8">
             <?php
 $categ = (isset($categ)) ? $categ : array();
 echo form_label('Category', 'id_categ');
@@ -73,6 +80,9 @@ echo form_dropdown($dd, $categ,
 echo form_inputFeedback($dd['name']);
 ?>
         </div>
+        </div>
+
+
         <?php
 echo '<div id="id_div_prereq">';
 if (testVar($courseList))
@@ -120,7 +130,7 @@ if (testVar($courseList))
     ?>
                 </div>
             </div>
- <?php }
+            <?php }
 echo '</div>';
 
 echo "<div class='form-group'> ";
@@ -140,7 +150,7 @@ echo form_inputFeedback('course_schedule');
                 </div>
                 <div class="col-md-6 form-group">
                     <div class="vcenter">
-                       <span> <?php form_input_wLabel('tuition_fee', testVar($courseToUpdate['tuition_fee']))?> </span>
+                        <span> <?php form_input_wLabel('tuition_fee', testVar($courseToUpdate['tuition_fee']))?> </span>
                     </div>
                 </div>
             </div>

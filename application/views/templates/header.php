@@ -21,6 +21,9 @@
     <script type="text/javascript" src="<?php echo $config['path_jquery']; ?>"></script>
     <script type="text/javascript" src="<?php echo $config['path_bootstrap_js']; ?>"></script>
     <script type="text/javascript" src="<?php echo $config['path_global_js']; ?>"></script>
+    <!-- Google Charts -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
   </head>
 
   <body>
